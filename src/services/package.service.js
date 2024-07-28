@@ -32,11 +32,12 @@ function remove(packageId) {
 function save(p) {
     console.log(p);
     if (typeof window === 'undefined' || !window.localStorage) return console.log('loading')
-    else if (p.id) {
-        return storageService.put(STORAGE_KEY, p)
-    } else {
-        return storageService.post(STORAGE_KEY, p)
-    }
+    else return storageService.post(STORAGE_KEY, p)
+    // }
+    //         else if (p.id) {
+    //         return storageService.put(STORAGE_KEY, p)
+    //     } else {
+
 }
 
 function getEmptyPackage(name = "", amount = "", type = "", color = "", size = " ", notes = "") {

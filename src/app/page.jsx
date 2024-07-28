@@ -8,7 +8,7 @@ export default function Home() {
 
   // const [filterBy, setFilterBy] = useState(packageService.getDefaultFilter());
   const [packages, setPackages] = useState(null);
-  const [openAddPackageForm, setOpenAddPackageForm] = useState(true);
+  const [openAddPackageForm, setOpenAddPackageForm] = useState(false);
 
   function toggleAddPackageForm() {
     setOpenAddPackageForm(prev => !prev);

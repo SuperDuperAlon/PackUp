@@ -49,13 +49,21 @@ const AddPackage = ({ onAddPackage, toggleAddPackageForm }) => {
                     />
                 </div>
                 <div className={styles.add_class__form_container}>
-                    <label htmlFor="quantity">כמות</label>
-                    <input type="number" id="quantity" name="amount" min="1" max="5" placeholder='1' value={packageToEdit.amount} onChange={handleChange} required />
+                    <label htmlFor="amount">כמות</label>
+                    <select id="amount" name="amount" value={packageToEdit.amount} required onChange={handleSelectChange} >
+
+                        <option value="" hidden>בחר כמות:</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </div>
                 <div className={styles.add_class__form_container}>
                     <label htmlFor="name"> בחר סוג חבילה:</label>
                     <select id="type" name="type" value={packageToEdit.type} required onChange={handleSelectChange} >
-                        <option value="בחר סוג">בחר סוג</option>
+                        <option value="" hidden>בחר סוג</option>
                         <option value="חבילה">חבילה</option>
                         <option value="שקית">שקית</option>
                         <option value="קרטון">קרטון</option>
@@ -65,7 +73,7 @@ const AddPackage = ({ onAddPackage, toggleAddPackageForm }) => {
                 <div className={styles.add_class__form_container}>
                     <label htmlFor="name">בחר גודל:</label>
                     <select id="size" name="size" value={packageToEdit.size} required onChange={handleSelectChange} >
-                        <option value="בחר גודל">בחר גודל</option>
+                        <option value="" hidden>בחר גודל</option>
                         <option value="קטן">קטן</option>
                         <option value="בינוני">בינוני</option>
                         <option value="גדול">גדול</option>
@@ -75,7 +83,7 @@ const AddPackage = ({ onAddPackage, toggleAddPackageForm }) => {
                 <div className={styles.add_class__form_container}>
                     <label for="color">בחר צבע:</label>
                     <select id="color" name="color" value={packageToEdit.color} onChange={handleSelectChange} required>
-                        <option value="בחר צבע">בחר צבע</option>
+                        <option value="" hidden>בחר צבע</option>
                         <option value="אדום">אדום</option>
                         <option value="כחול">כחול</option>
                         <option value="ירוק">ירוק</option>
