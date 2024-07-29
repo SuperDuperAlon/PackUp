@@ -2,6 +2,8 @@ body {
     direction: rtl;
 }
 
+/* #TODO: Add new sans serif font */
+
 .flex-col {
     display: flex;
     flex-direction: column;
@@ -9,9 +11,34 @@ body {
 
 td {
     padding: 0.5rem;
-    border: 1px solid black;
+}
+
+tr {
+    border-bottom: 1px solid black;
+}
+
+tbody>tr:nth-of-type(2n+1) {
+    background-color: cornsilk;
 }
 
 table {
     border: 1px solid black;
+    width: 100%;
+    border-collapse: collapse;
 }
+
+thead {}
+
+th {
+    background-color: antiquewhite;
+    padding: 0.5rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+tbody {
+    background-color: eggshell;
+    font-size: 1rem;
+}
+
+/* #TODO: Button design */

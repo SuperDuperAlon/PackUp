@@ -14,6 +14,9 @@ export default function Home() {
     setOpenAddPackageForm(prev => !prev);
   }
 
+  // TODO: Filter packages
+  // TODO: Sort packages
+
   useEffect(() => {
     async function loadPackages() {
       try {
@@ -43,6 +46,8 @@ export default function Home() {
         {openAddPackageForm &&
           <AddPackage onAddPackage={onAddPackage} toggleAddPackageForm={toggleAddPackageForm} />
         }
+        {/* TODO: spacing */}
+
         <table>
           <thead>
             <tr>
