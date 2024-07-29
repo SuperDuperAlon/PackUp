@@ -108,6 +108,7 @@ const AddPackage = ({ onAddPackage, toggleAddPackageForm }) => {
                 </div>
                 <div>
                     <button>הוסף</button>
+                    <button onClick={toggleAddPackageForm}>סגור</button>
                 </div>
             </form>
         </section >
