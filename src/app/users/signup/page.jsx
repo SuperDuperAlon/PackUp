@@ -11,11 +11,14 @@ const SignupForm = () => {
 
     const router = useRouter()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO: Add your signup logic here
-        userService.signup({ username, email, password })
-        router.push('/')
+        try {   // TODO: Add your signup logic here
+            await userService.signup({ username, email, password })
+            router.push('/')
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (
