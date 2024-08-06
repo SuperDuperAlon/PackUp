@@ -51,7 +51,12 @@ function saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    if (typeof sessionStorage !== 'undefined') {
+
+        return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    } else {
+        return null;
+    }
 }
 
 // function _createUsers() {
