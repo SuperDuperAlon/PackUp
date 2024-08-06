@@ -24,7 +24,7 @@ function query(entityType, delay = 500) {
 
 function get(entityType, entityId) {
     return query(entityType).then(entities => {
-        const entity = entities.find(entity => entity._id === entityId)
+        const entity = entities.find(entity => entity.id === entityId)
         if (!entity) throw new Error(`Get failed, cannot find entity with id: ${entityId} in: ${entityType}`)
         return entity
     })
@@ -32,7 +32,8 @@ function get(entityType, entityId) {
 
 function post(entityType, newEntity) {
     newEntity = JSON.parse(JSON.stringify(newEntity))
-    newEntity._id = _makeId()
+    newEntity.id = _makeId()
+    
     return query(entityType).then(entities => {
         entities.unshift(newEntity)
         _save(entityType, entities)
