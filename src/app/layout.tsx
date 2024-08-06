@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { userService } from "@/services/user.service";
 
 export const metadata: Metadata = {
-  title: "Shift Manager",
+  title: "Package Management App",
   description: "",
 };
 
@@ -11,6 +12,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body>{children}</body>
