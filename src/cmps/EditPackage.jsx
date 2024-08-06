@@ -10,7 +10,7 @@ const EditPackage = ({ toggleEditPackageForm }) => {
     const pathname = usePathname()
     const router = useRouter()
     const idFromPath = pathname.split('/').pop()
-    const currUser = userService.getLoggedinUser().username
+    // const currUser = userService.getLoggedinUser().username
 
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const EditPackage = ({ toggleEditPackageForm }) => {
         ev.preventDefault()
         try {
             packageToEdit.date = utilService.parseDate()
-            packageToEdit.lobbyReceiver = currUser
+            packageToEdit.lobbyReceiver = 'אלון'
             await packageService.save(packageToEdit)
             router.push('/')
         } catch (err) {
