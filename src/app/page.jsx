@@ -1,10 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-// import styles from "./page.module.css";
 import { packageService } from '../services/package.service'
 import { userService } from '@/services/user.service';
-import EmailReminder from '../cmps/EmailReminder';
+import EmailReminder from '../cmps/packages/EmailReminder';
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
 export default function Home() {
@@ -46,12 +45,7 @@ export default function Home() {
     setUser(null)
   }
 
-  function onRemovePackage(id) {
-    packageService.remove(id)
-    setPackages(prevPackages => prevPackages && prevPackages.filter(p => p.id !== id));
-  }
-
-  if (!user) return router.push('/users/signup')
+  // if (!user) return router.push('/users/signup')
   if (!packages || !packages.length) console.log('no packages')
   else return (
     <>
@@ -62,7 +56,8 @@ export default function Home() {
       )}
       <section>
         <h1>חבילות ודואר</h1>
-        <button onClick={() => router.push('/edit')}>הוסף</button>
+        <button onClick={() => router.push('packages/edit')}>הוסף</button>
+        <button onClick={() => router.push('packages/archive')}>ארכיון</button>
         {/* TODO: spacing */}
 
         <table>
@@ -77,19 +72,19 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {
-              packages.map((p) => (
+            {packages &&
+              packages.filter(p => !p.isCollected).map((p) => (
                 <tr key={p.id}>
                   <td>
-                    <button onClick={() => onRemovePackage(p.id)}>מסירה</button>
-                    <button onClick={() => router.push(`/edit/${p.id}`)}>עריכה</button>
+                    <button onClick={() => router.push(`/packages/remove/${p.id}`)}>מסירה</button>
+                    <button onClick={() => router.push(`/packages/edit/${p.id}`)}>עריכה</button>
                     <EmailReminder />
                   </td>
-                  <td>{p.date}</td>
-                  <td className='capitalize'>{p.lobbyReceiver}</td>
+                  <td>{p.dateReceived}</td>
+                  <td className='capitalize'>{p.lobbyPackReceivedBy}</td>
                   <td>{p.apartmentReceiver}</td>
-                  <td>{p.amount} - {p.type} בגודל {p.size} בצבע {p.color}</td>
-                  <td>{p.notes}</td>
+                  <td>{p.fullPackageDescription}</td>
+                  <td>{p.notesOnArrival}</td>
                 </tr>
               ))
             }

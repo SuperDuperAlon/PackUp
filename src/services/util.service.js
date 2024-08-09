@@ -1,6 +1,7 @@
 export const utilService = {
     parseDate,
-    generateId
+    generateId,
+    getFullPackageDescription
 }
 
 function generateId() {
@@ -14,6 +15,12 @@ function generateId() {
     return result;
 }
 
+function getFullPackageDescription(amount,
+    type,
+    color,
+    size) {
+    return `${amount} - ${type} בגודל ${size} בצבע ${color}`;
+}
 
 function parseDate() {
     const currentDateTime = new Date();

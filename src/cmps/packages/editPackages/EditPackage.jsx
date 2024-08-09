@@ -23,15 +23,12 @@ const EditPackage = ({ toggleEditPackageForm }) => {
             const pack = await packageService.get(idFromPath);
             setPackageToEdit(pack);
         } catch (err) {
-            console.log("Had issues in toy details", err);
+            console.log("Had issues in package details", err);
         }
     }
 
-    console.log(packageToEdit);
-
     function handleChange({ target }) {
         let { value, type, name: field } = target
-        console.log(value, type, field);
         value = type === 'number' ? +value : value
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     }
@@ -44,20 +41,20 @@ const EditPackage = ({ toggleEditPackageForm }) => {
     async function onSavePackage(ev) {
         ev.preventDefault()
         try {
-            packageToEdit.date = utilService.parseDate()
-            packageToEdit.lobbyReceiver = 'אלון'
+            packageToEdit.dateReceived = utilService.parseDate()
+            packageToEdit.lobbyPackReceivedBy = 'אלון'
+            packageToEdit.fullPackageDescription = utilService.getFullPackageDescription(packageToEdit.amount, packageToEdit.type, packageToEdit.color, packageToEdit.size)
+            packageToEdit.isCollected = false
             await packageService.save(packageToEdit)
             router.push('/')
         } catch (err) {
             console.error(err)
         }
-
     }
 
     if (!packageToEdit) return console.log('no package to edit')
     else return (
         <section className={styles.edit_class__section}>
-
             <h2>{packageToEdit.id ? "Edit this package" : "Add a new package"}</h2>
             <form className={styles.edit_class__form} onSubmit={onSavePackage}>
                 <div className={styles.edit_class__form_container}>
@@ -124,7 +121,7 @@ const EditPackage = ({ toggleEditPackageForm }) => {
                         name="notes"
                         id="notes"
                         placeholder="הערות"
-                        value={packageToEdit.notes}
+                        value={packageToEdit.notesOnArrival}
                         onChange={handleChange}
                     />
                 </div>

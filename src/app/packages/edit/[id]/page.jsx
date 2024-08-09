@@ -1,8 +1,7 @@
 'use client'
 
-import EditPackage from '@/cmps/EditPackage'
+import EditPackage from '@/cmps/packages/editPackages/EditPackage'
 import React from 'react'
-import { useState } from 'react'
 
 const EditPage = () => {
   return (

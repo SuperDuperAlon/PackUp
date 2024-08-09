@@ -38,8 +38,26 @@ function save(p) {
     else return storageService.post(STORAGE_KEY, p)
 }
 
-function getEmptyPackage(name = "", amount = "", type = "", color = "", size = " ", notes = "") {
-    return { name: "", amount: 1, type: "", color: "", size: " ", notes: "" };
+function getEmptyPackage() {
+    return {
+        lobbyPackReceivedBy: '',
+        lobbyPackGivenBy: '',
+        apartmentReceiver: '',
+        apartmentCollected: '',
+        notesOnArrival: '',
+        notesOnCollection: '',
+        amount: 1,
+        type: '',
+        color: '',
+        size: ''
+    };
+}
+
+function getFullPackageDescription(amount,
+    type,
+    color,
+    size) {
+    return `${amount} - ${type} בגודל ${size} בצבע ${color}`;
 }
 
 function getDefaultFilter() {
@@ -53,41 +71,60 @@ function _createPackages() {
             packages = [
                 {
                     id: utilService.generateId(),
-                    date: utilService.parseDate(),
-                    lobbyReceiver: 'אלון',
+                    dateReceived: utilService.parseDate(),
+                    dateCollected: null,
+                    lobbyPackReceivedBy: 'אלון',
+                    lobbyPackGivenBy: '',
                     apartmentReceiver: '1111',
-                    description: '3 - קרטון בגודל גדול בצבע צהוב',
-                    notes: '',
-                    amount: 2,
-                    type: 'קרטון',
-                    color: 'כחול',
-                    size: 'קטן'
-                },
-                {
-                    id: utilService.generateId(),
-                    date: utilService.parseDate(),
-                    lobbyReceiver: 'אלון',
-                    apartmentReceiver: '1029',
-                    description: '3 - חבילה בגודל ענק בצבע אדום',
-                    notes: 'למסור אל שותפה',
-                    amount: 3,
-                    type: 'קרטון',
-                    color: 'לבן',
-                    size: 'בינוני'
-                },
-                {
-                    id: utilService.generateId(),
-                    date: utilService.parseDate(),
-                    lobbyReceiver: 'אלון',
-                    apartmentReceiver: '1122',
-                    description: '4 - שקית בגודל גדול בצבע לבן',
-                    notes: '',
-                    amount: 3,
+                    apartmentCollected: '',
+                    notesOnArrival: '',
+                    notesOnCollection: '',
+                    amount: 1,
                     type: 'שקית',
-                    color: 'לבן',
-                    size: 'גדול'
+                    color: 'אדום',
+                    size: 'גדול',
+                    isCollected: false,
+                    isChecked: false
+                },
+                {
+                    id: utilService.generateId(),
+                    dateReceived: utilService.parseDate(),
+                    dateCollected: null,
+                    lobbyPackReceivedBy: 'אלון',
+                    lobbyPackGivenBy: '',
+                    apartmentReceiver: '1112',
+                    apartmentCollected: '',
+                    notesOnArrival: '',
+                    notesOnCollection: '',
+                    amount: 1,
+                    type: 'קרטון',
+                    color: 'ירוק',
+                    size: 'קטן',
+                    isCollected: false,
+                    isChecked: false
+                },
+                {
+                    id: utilService.generateId(),
+                    dateReceived: utilService.parseDate(),
+                    dateCollected: null,
+                    lobbyPackReceivedBy: 'אלון',
+                    lobbyPackGivenBy: '',
+                    apartmentReceiver: '1112',
+                    apartmentCollected: '',
+                    notesOnArrival: '',
+                    notesOnCollection: '',
+                    amount: 3,
+                    type: 'חבילה',
+                    color: 'כתום',
+                    size: 'בינוני',
+                    isCollected: true,
+                    isChecked: false
                 }
             ];
+
+            for (const packageObject of packages) {
+                packageObject.fullPackageDescription = getFullPackageDescription(packageObject.amount, packageObject.type, packageObject.color, packageObject.size);
+            }
         }
         storageService.saveToStorage(STORAGE_KEY, packages);
     }
