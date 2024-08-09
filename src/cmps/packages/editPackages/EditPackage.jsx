@@ -118,7 +118,7 @@ const EditPackage = ({ toggleEditPackageForm }) => {
                 <div className={styles.edit_class__form_container}>
                     <label htmlFor="name">הערות</label>
                     <input type="text"
-                        name="notes"
+                        name="notesOnArrival"
                         id="notes"
                         placeholder="הערות"
                         value={packageToEdit.notesOnArrival}
