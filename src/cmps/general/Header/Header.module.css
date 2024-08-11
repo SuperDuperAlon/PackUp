@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    background-color: antiquewhite;
+    padding: 0 1rem;
+    grid-column: -1/1;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__left, .header__right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

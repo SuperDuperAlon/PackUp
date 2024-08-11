@@ -1,5 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&display=swap');
+
 body {
     direction: rtl;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Assistant', sans-serif;
+    font-size: 1rem;
+}
+
+.index-layout {
+    display: grid;
+    grid-template-columns: 20px 1fr 20px;
+
+    >* {
+        grid-column: 2;
+    }
+
+    &.full {
+        grid-column: -1/1;
+    }
 }
 
 /* #TODO: Add new sans serif font */
@@ -33,7 +52,7 @@ th {
     background-color: antiquewhite;
     padding: 0.5rem;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 0.9em;
 }
 
 tbody {
@@ -44,5 +63,44 @@ tbody {
 .capitalize {
     text-transform: capitalize;
 }
+
+button {
+    padding: 0.35rem 1.25rem;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 0.5rem;
+    border: black 0.5px solid;
+    margin: 0 1px;
+    font-weight: bold;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.table-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* padding: 1rem; */
+    >* {
+        padding: 1rem 0;
+        gap: 0.5rem;
+        display: flex;
+        flex-direction: row;
+    }
+
+    & .baseline {
+        display: flex;
+        align-self: center;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
 
 /* #TODO: Button design */

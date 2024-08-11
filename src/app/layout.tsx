@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Header from "@/cmps/general/Header/Header";
 import "./globals.css";
 import { userService } from "@/services/user.service";
 
@@ -15,7 +16,10 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="index-layout">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
