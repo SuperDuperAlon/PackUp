@@ -1,0 +1,16 @@
+.index-layout {
+    display: grid;
+    grid-template-columns: 20px 1fr 20px;
+
+    >* {
+        grid-column: 2;
+    }
+
+    &.full {
+        grid-column: -1/1;
+    }
+}
+
+.full {
+    grid-column: -1/1;
+}

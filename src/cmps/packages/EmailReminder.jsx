@@ -1,4 +1,5 @@
 import React from 'react';
+import { CiMail } from "react-icons/ci";
 
 const EmailReminder = () => {
     const handleClick = () => {
@@ -13,7 +14,7 @@ const EmailReminder = () => {
 
     return (
         <>
-            <button onClick={handleClick}>תזכורת</button>
+            <button onClick={handleClick} className='round-btn reminder-btn'><CiMail /></button>
         </>
     );
 };

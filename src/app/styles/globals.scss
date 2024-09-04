@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&display=swap');
+
+// main
+@import './main/main_view.scss';
+@import './main/helpers.scss';
+@import './main/buttons.scss';
+@import './main/table.scss';
+
+// cmps
+@import './cmps/header.scss';
+@import './cmps/pagination.scss';
+
+//pages
+@import './pages/archive.scss';
+
+body {
+    direction: rtl;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Assistant', sans-serif;
+    font-size: 1rem;
+}

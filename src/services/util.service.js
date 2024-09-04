@@ -22,8 +22,8 @@ function getFullPackageDescription(amount,
     return `${amount} - ${type} בגודל ${size} בצבע ${color}`;
 }
 
-function parseDate() {
-    const currentDateTime = new Date();
+function parseDate(time) {
+    const currentDateTime = new Date(time);
     const options = {
         day: '2-digit',
         month: '2-digit',

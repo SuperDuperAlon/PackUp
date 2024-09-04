@@ -10,13 +10,72 @@ export const packageService = {
     remove,
     get,
     save,
+    checkPackage,
     getDefaultFilter,
+    getDefaultSort,
     getEmptyPackage,
 }
 
-async function query() {
-    if (typeof window === 'undefined' || !window.localStorage) return console.log('loading')
-    else return storageService.loadFromStorage(STORAGE_KEY)
+async function query(filterBy, sortBy) {
+    if (typeof window === 'undefined' || !window.localStorage) return
+    var packages = await storageService.query(STORAGE_KEY)
+    if (filterBy.apartmentReceiver) {
+        console.log(packages);
+        
+        packages = packages.filter(p => p.apartmentReceiver.includes(filterBy.apartmentReceiver))
+    }
+
+    if (filterBy.idArray) {
+        packages = packages.filter(obj => ids.includes(obj.id))}
+    if (sortBy.by === 'dateReceived') {
+        packages = packages.sort((a, b) => {
+            if (sortBy.asc) {
+                return a.dateReceived - b.dateReceived
+            } else {
+                return b.dateReceived - a.dateReceived
+            }
+        })
+    }
+
+    if (sortBy.by === 'apartmentReceiver') {
+        packages = packages.sort((a, b) => {
+            if (sortBy.asc) {
+                return a.apartmentReceiver.localeCompare(b.apartmentReceiver)
+            } else {
+                return b.apartmentReceiver.localeCompare(a.apartmentReceiver)
+            }
+        })
+    }
+    if (sortBy.by === 'notesOnArrival') {
+        packages = packages.sort((a, b) => {
+            if (sortBy.asc) {
+                return a.notesOnArrival.localeCompare(b.notesOnArrival)
+            } else {
+                return b.notesOnArrival.localeCompare(a.notesOnArrival)
+            }
+        })
+    }
+
+    if (sortBy.by === 'lobbyPackReceivedBy') {
+        packages = packages.sort((a, b) => {
+            if (sortBy.asc) {
+                return a.lobbyPackReceivedBy.localeCompare(b.lobbyPackReceivedBy)
+            } else {
+                return b.lobbyPackReceivedBy.localeCompare(a.lobbyPackReceivedBy)
+            }
+        })
+    }
+
+    if (sortBy.by === 'fullPackageDescription') {
+        packages = packages.sort((a, b) => {
+            if (sortBy.asc) {
+                return a.fullPackageDescription.localeCompare(b.fullPackageDescription)
+            } else {
+                return b.fullPackageDescription.localeCompare(a.fullPackageDescription)
+            }
+        })
+    }
+    return packages
 }
 
 async function get(packageId) {
@@ -25,11 +84,11 @@ async function get(packageId) {
     }
 }
 
-function remove(packageId) {
+async function remove(packageId) {
     return storageService.remove(STORAGE_KEY, packageId)
 }
 
-function save(p) {
+async function save(p) {
     console.log(p);
     if (typeof window === 'undefined' || !window.localStorage) return console.log('loading')
     else if (p.id) {
@@ -37,6 +96,13 @@ function save(p) {
     }
     else return storageService.post(STORAGE_KEY, p)
 }
+
+async function checkPackage(p) {
+    if (typeof window === 'undefined' || !window.localStorage) return console.log('loading')
+    return storageService.put(STORAGE_KEY, p)
+
+}
+
 
 function getEmptyPackage() {
     return {
@@ -61,7 +127,11 @@ function getFullPackageDescription(amount,
 }
 
 function getDefaultFilter() {
-    return { txt: "", maxPrice: "" };
+    return { apartmentReceiver: "" };
+}
+
+function getDefaultSort() {
+    return { by: '', asc: true }
 }
 
 function _createPackages() {
@@ -71,7 +141,7 @@ function _createPackages() {
             packages = [
                 {
                     id: utilService.generateId(),
-                    dateReceived: utilService.parseDate(),
+                    dateReceived: Date.now(),
                     dateCollected: null,
                     lobbyPackReceivedBy: 'אלון',
                     lobbyPackGivenBy: '',
@@ -84,11 +154,10 @@ function _createPackages() {
                     color: 'אדום',
                     size: 'גדול',
                     isCollected: false,
-                    isChecked: false
                 },
                 {
                     id: utilService.generateId(),
-                    dateReceived: utilService.parseDate(),
+                    dateReceived: Date.now(),
                     dateCollected: null,
                     lobbyPackReceivedBy: 'אלון',
                     lobbyPackGivenBy: '',
@@ -101,24 +170,22 @@ function _createPackages() {
                     color: 'ירוק',
                     size: 'קטן',
                     isCollected: false,
-                    isChecked: false
                 },
                 {
                     id: utilService.generateId(),
-                    dateReceived: utilService.parseDate(),
-                    dateCollected: null,
+                    dateReceived: Date.now(),
+                    dateCollected: Date.now(),
                     lobbyPackReceivedBy: 'אלון',
-                    lobbyPackGivenBy: '',
+                    lobbyPackGivenBy: 'אלון',
                     apartmentReceiver: '1112',
-                    apartmentCollected: '',
+                    apartmentCollected: '3333',
                     notesOnArrival: '',
-                    notesOnCollection: '',
+                    notesOnCollection: 'נמסר',
                     amount: 3,
                     type: 'חבילה',
                     color: 'כתום',
                     size: 'בינוני',
                     isCollected: true,
-                    isChecked: false
                 }
             ];
 

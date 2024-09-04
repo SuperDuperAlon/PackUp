@@ -1,0 +1,30 @@
+.capitalize {
+    text-transform: capitalize;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-end {
+    flex: end;
+}
+
+.gap {
+    display: flex;
+    gap: 1rem;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/cmps/general/Header/Header";
-import "./globals.css";
+import "./styles/globals.scss";
 import { userService } from "@/services/user.service";
 
 export const metadata: Metadata = {

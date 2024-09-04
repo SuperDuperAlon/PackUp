@@ -5,12 +5,12 @@ import { usePathname, useRouter } from 'next/navigation'
 import styles from './EditPackage.module.css'
 import { userService } from "@/services/user.service";
 
-const EditPackage = ({ toggleEditPackageForm }) => {
+const EditPackage = () => {
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const pathname = usePathname()
     const router = useRouter()
     const idFromPath = pathname.split('/').pop()
-    // const currUser = userService.getLoggedinUser().username
+    // const currUser = userService.getloggedInUser().username
 
 
     useEffect(() => {
@@ -41,8 +41,8 @@ const EditPackage = ({ toggleEditPackageForm }) => {
     async function onSavePackage(ev) {
         ev.preventDefault()
         try {
-            packageToEdit.dateReceived = utilService.parseDate()
-            packageToEdit.lobbyPackReceivedBy = 'אלון'
+            packageToEdit.dateReceived = Date.now(),
+                packageToEdit.lobbyPackReceivedBy = 'אלון'
             packageToEdit.fullPackageDescription = utilService.getFullPackageDescription(packageToEdit.amount, packageToEdit.type, packageToEdit.color, packageToEdit.size)
             packageToEdit.isCollected = false
             await packageService.save(packageToEdit)
@@ -52,12 +52,17 @@ const EditPackage = ({ toggleEditPackageForm }) => {
         }
     }
 
+    function closeForm() {
+        router.push('/')
+    }
+
     if (!packageToEdit) return console.log('no package to edit')
     else return (
         <section className={styles.edit_class__section}>
-            <h2>{packageToEdit.id ? "Edit this package" : "Add a new package"}</h2>
+
             <form className={styles.edit_class__form} onSubmit={onSavePackage}>
                 <div className={styles.edit_class__form_container}>
+                    <h4>{packageToEdit.id ? "ערוך חבילה קיימת" : "הוסף חבילה חדשה"}</h4>
                     <label htmlFor="name">דירה</label>
                     <input type="text"
                         name="apartmentReceiver"
@@ -125,9 +130,9 @@ const EditPackage = ({ toggleEditPackageForm }) => {
                         onChange={handleChange}
                     />
                 </div>
-                <div>
-                    <button>{packageToEdit.id ? "Save" : "Add"}</button>
-                    <button onClick={toggleEditPackageForm}>סגור</button>
+                <div className="flex-row">
+                    <button>{packageToEdit.id ? "שמור" : "הוסף"}</button>
+                    <button type='button' onClick={() => closeForm()}>סגור</button>
                 </div>
             </form>
         </section >

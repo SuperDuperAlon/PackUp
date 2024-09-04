@@ -1,0 +1,24 @@
+
+header {
+    background-color: #4963fd;
+}
+
+.header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+}
+
+.header__left,
+.header__right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header__logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 1rem 0;
+}

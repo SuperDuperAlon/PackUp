@@ -1,0 +1,22 @@
+.pagination-cmp {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0
+}
+
+.pagination-btn {
+    padding: 0.5rem;
+    border-radius: 50%;
+
+
+    width: 2rem;
+    height: 2rem;
+    // aspect-ratio: 1/1;
+    > {
+        aspect-ratio: 1/1;
+        // width: 1rem;
+    }
+}

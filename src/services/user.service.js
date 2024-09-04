@@ -1,14 +1,14 @@
 import { storageService } from './storage.service'
 import { utilService } from './util.service'
 
-const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
+const STORAGE_KEY_LOGGEDIN_USER = 'loggedInUser'
 const STORAGE_KEY = 'user_db'
 
 export const userService = {
     login,
     logout,
     signup,
-    getLoggedinUser,
+    getloggedInUser,
     saveLocalUser,
     getUsers,
     getById
@@ -50,7 +50,7 @@ function saveLocalUser(user) {
     return user
 }
 
-function getLoggedinUser() {
+function getloggedInUser() {
     if (typeof sessionStorage !== 'undefined') {
 
         return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))

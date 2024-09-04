@@ -1,0 +1,36 @@
+button {
+    padding: 0.35rem 1.25rem;
+    /* border-radius: 0.5rem; */
+    background-color: #ff8a6c;
+    color: black;
+    border: none;
+    border-radius: 45px;
+    margin: 0 1px;
+    font-weight: bold;
+    font-size: 0.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+        /* background-color: saturate(#ff8a6c, 0.8); */
+    }
+}
+
+.round-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff8a6c;
+    border-radius: 45px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bolder;
+    margin: 0;
+    padding: 8px;
+}
+
+.reminder-btn {
+    text-align: end;
+}
