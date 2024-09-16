@@ -37,7 +37,7 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems
         const packagesToSave = await loadPackagesToRemove()
         try {
             for (const p of packagesToSave) {
-                const packageToSave = { ...p, dateCollected: Date.now(), lobbyPackGivenBy: ' ', isCollected: true };  
+                const packageToSave = { ...p, dateCollected: Date.now(), lobbyPackGivenBy: 'אלון', isCollected: true, apartmentCollected: packageToEdit.apartmentCollected, notesOnCollection: packageToEdit.notesOnCollection };  
                 try {
                     await packageService.save(packageToSave);
                 } catch (saveError) {
