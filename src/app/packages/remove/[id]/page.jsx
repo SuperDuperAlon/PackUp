@@ -31,7 +31,6 @@ const RemovePackage = () => {
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     }
 
-
     async function onSavePackage(ev) {
         ev.preventDefault()
         try {

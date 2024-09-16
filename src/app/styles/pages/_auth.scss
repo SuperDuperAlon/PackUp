@@ -1,0 +1,25 @@
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex: 1;
+    margin: auto;
+}
+
+.auth-form {
+    // gap: 1rem;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    // flex: 1;   
+    // min-height: stretch;
+
+
+    > * {
+        display: flex;
+        flex-direction: column;
+    }
+}

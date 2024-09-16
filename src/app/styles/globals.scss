@@ -11,7 +11,11 @@
 @import './cmps/pagination.scss';
 
 //pages
+@import './pages/edit-packages.scss';
 @import './pages/archive.scss';
+@import './pages/tenant_view.scss';
+@import './pages/tenant_package_view.scss';
+@import './pages/auth.scss';
 
 body {
     direction: rtl;

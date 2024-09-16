@@ -1,0 +1,198 @@
+[
+    {
+        "id": 1,
+        "firstName": "רחל",
+        "lastName": "לוי",
+        "apartmentNumber": 1262,
+        "email": "רחל.לוי@email.com",
+        "password": "password241",
+        "isTenant": true
+    },
+    {
+        "id": 2,
+        "firstName": "איילת",
+        "lastName": "לוי",
+        "apartmentNumber": 1109,
+        "email": "איילת.לוי@mail.com",
+        "password": "password512",
+        "isTenant": true
+    },
+    {
+        "id": 3,
+        "firstName": "מיכאל",
+        "lastName": "יצחק",
+        "apartmentNumber": 1335,
+        "email": "מיכאל.יצחק@email.com",
+        "password": "password161",
+        "isTenant": true
+    },
+    {
+        "id": 4,
+        "firstName": "מיכאל",
+        "lastName": "יצחק",
+        "apartmentNumber": 1206,
+        "email": "מיכאל.יצחק@mail.com",
+        "password": "password227",
+        "isTenant": true
+    },
+    {
+        "id": 5,
+        "firstName": "ליה",
+        "lastName": "עומר",
+        "apartmentNumber": 1149,
+        "email": "ליה.עומר@email.com",
+        "password": "password210",
+        "isTenant": true
+    },
+    {
+        "id": 6,
+        "firstName": "אורן",
+        "lastName": "יצחק",
+        "apartmentNumber": 1349,
+        "email": "אורן.יצחק@mail.com",
+        "password": "password530",
+        "isTenant": true
+    },
+    {
+        "id": 7,
+        "firstName": "מיכאל",
+        "lastName": "עומר",
+        "apartmentNumber": 1317,
+        "email": "מיכאל.עומר@mail.com",
+        "password": "password634",
+        "isTenant": true
+    },
+    {
+        "id": 8,
+        "firstName": "ליה",
+        "lastName": "יצחק",
+        "apartmentNumber": 1383,
+        "email": "ליה.יצחק@mail.com",
+        "password": "password131",
+        "isTenant": true
+    },
+    {
+        "id": 9,
+        "firstName": "שרה",
+        "lastName": "שמעון",
+        "apartmentNumber": 1113,
+        "email": "שרה.שמעון@email.com",
+        "password": "password905",
+        "isTenant": true
+    },
+    {
+        "id": 10,
+        "firstName": "שרה",
+        "lastName": "ברוך",
+        "apartmentNumber": 1222,
+        "email": "שרה.ברוך@example.com",
+        "password": "password108",
+        "isTenant": true
+    },
+    {
+        "id": 11,
+        "firstName": "יוחנן",
+        "lastName": "לוי",
+        "apartmentNumber": 1332,
+        "email": "יוחנן.לוי@example.com",
+        "password": "password313",
+        "isTenant": true
+    },
+    {
+        "id": 12,
+        "firstName": "נעמי",
+        "lastName": "שמעון",
+        "apartmentNumber": 1350,
+        "email": "נעמי.שמעון@mail.com",
+        "password": "password971",
+        "isTenant": true
+    },
+    {
+        "id": 13,
+        "firstName": "מיכאל",
+        "lastName": "עומר",
+        "apartmentNumber": 1148,
+        "email": "מיכאל.עומר@mail.com",
+        "password": "password352",
+        "isTenant": true
+    },
+    {
+        "id": 14,
+        "firstName": "דוד",
+        "lastName": "עומר",
+        "apartmentNumber": 1361,
+        "email": "דוד.עומר@mail.com",
+        "password": "password271",
+        "isTenant": true
+    },
+    {
+        "id": 15,
+        "firstName": "איילת",
+        "lastName": "ניסים",
+        "apartmentNumber": 1291,
+        "email": "איילת.ניסים@email.com",
+        "password": "password228",
+        "isTenant": true
+    },
+    {
+        "id": 16,
+        "firstName": "רחל",
+        "lastName": "בנימין",
+        "apartmentNumber": 1391,
+        "email": "רחל.בנימין@email.com",
+        "password": "password514",
+        "isTenant": true
+    },
+    {
+        "id": 17,
+        "firstName": "איילת",
+        "lastName": "ברוך",
+        "apartmentNumber": 1193,
+        "email": "איילת.ברוך@mail.com",
+        "password": "password222",
+        "isTenant": true
+    },
+    {
+        "id": 18,
+        "firstName": "דוד",
+        "lastName": "גרשון",
+        "apartmentNumber": 1361,
+        "email": "דוד.גרשון@example.com",
+        "password": "password551",
+        "isTenant": true
+    },
+    {
+        "id": 19,
+        "firstName": "ליה",
+        "lastName": "ניסים",
+        "apartmentNumber": 1242,
+        "email": "ליה.ניסים@mail.com",
+        "password": "password199",
+        "isTenant": true
+    },
+    {
+        "id": 20,
+        "firstName": "מרק",
+        "lastName": "ברוך",
+        "apartmentNumber": 1262,
+        "email": "מרק.ברוך@example.com",
+        "password": "password868",
+        "isTenant": true
+    },
+    {
+        "id": 21,
+        "firstNameEN": "alon",
+        "lastNameEN": "mlievski",
+        "firstNameHE": "אלון",
+        "lastName": "מליאבסקי",
+        "apartmentNumber": 1113,
+        "email": "alon.mlievski@example.com",
+        "password": "password905",
+        "isTenant": true,
+        "packages": [
+            1,
+            2
+        ],
+        "profileImage": "image.png"
+    }
+]

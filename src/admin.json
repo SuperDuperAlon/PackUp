@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "firstName": "אורן",
+        "lastName": "כהן",
+        "email": "אורן.כהן@example.com",
+        "phone": "0520448674",
+        "password": "password282",
+        "isAdmin": true
+    },
+    {
+        "id": 2,
+        "firstName": "אורן",
+        "lastName": "ניסים",
+        "email": "אורן.ניסים@example.com",
+        "phone": "0579586644",
+        "password": "password715",
+        "isAdmin": true
+    },
+    {
+        "id": 3,
+        "firstName": "נעמי",
+        "lastName": "כהן",
+        "email": "נעמי.כהן@example.com",
+        "phone": "0587682085",
+        "password": "password878",
+        "isAdmin": true
+    }
+]

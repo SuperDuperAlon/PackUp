@@ -1,0 +1,47 @@
+.tenant_view {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.tenant__profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+
+    & .tenant__name {
+        display: flex;
+        font-size: 1.75rem;
+        max-width: 50%;
+        font-weight: bold;
+        align-items: center;
+    }
+
+    & img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+}
+
+.tenant__boxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    gap: 1rem;
+
+    >* {
+        border: 1px solid black;
+        border-radius: 12px;
+        padding: 1rem;
+        width: 66%;
+        display: grid;
+        place-items: center;
+    }
+
+    & .tenant__boxes__icon {
+        font-size: 2rem;
+    }
+}

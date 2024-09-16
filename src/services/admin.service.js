@@ -1,61 +1,59 @@
 import { storageService } from './storage.service'
 import { utilService } from './util.service'
-import users from '@/users.json'
 
-const STORAGE_KEY_LOGGEDIN_USER = 'loggedInUser'
-const STORAGE_KEY = 'user_db'
+const STORAGE_KEY_LOGGEDIN_ADMIN = 'loggedInAdmin'
+const STORAGE_KEY = 'admin_db'
 
-export const userService = {
+export const adminService = {
     login,
     logout,
     signup,
-    getloggedInUser,
-    saveLocalUser,
-    getUsers,
+    getloggedInAdmin,
+    saveLocalAdmin,
+    getAdmins,
     getById
 }
 
-function getUsers() {
+function getAdmins() {
     return storageService.query(STORAGE_KEY)
 }
 
-async function getById(userId) {
-    const user = await storageService.get(STORAGE_KEY, userId)
-    return user
+async function getById(adminId) {
+    const admin = await storageService.get('admin', adminId)
+    return admin
 }
 
-
-async function login(userCred) {
+async function login(adminCred) {
     try {
-        const users = await storageService.query(STORAGE_KEY)
-        const user = users.find(user => user.username === userCred.username && user.password === userCred.password)
-        if (user) {
-            return saveLocalUser(user)
+        const admins = await storageService.query(STORAGE_KEY)
+        const admin = admins.find(admin => admin.admin_name === adminCred.admin_name && admin.password === adminCred.password)
+        if (admin) {
+            return saveLocalAdmin(admin)
         }
     } catch (err) {
         console.log(err)
     }
 }
 
-async function signup(userCred) {
-    const user = await storageService.post(STORAGE_KEY, userCred)
-    return saveLocalUser(user)
+async function signup(adminCred) {
+    const admin = await storageService.post(STORAGE_KEY, adminCred)
+    return saveLocalAdmin(admin)
 }
 
 async function logout() {
-    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_ADMIN)
 }
 
-function saveLocalUser(user) {
-    user = { id: user.id, username: user.username }
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
-    return user
+function saveLocalAdmin(admin) {
+    admin = { id: admin.id, admin_name: admin.admin_name }
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_ADMIN, JSON.stringify(admin))
+    return admin
 }
 
-function getloggedInUser() {
+function getloggedInAdmin() {
     if (typeof sessionStorage !== 'undefined') {
 
-        return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+        return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_ADMIN))
     } else {
         return null;
     }
@@ -79,42 +77,23 @@ function generateRandomTenants() {
     const lastNames = ["כהן", "לוי", "אברהם", "בנימין", "שמעון", "יצחק", "עומר", "ניסים", "גרשון", "ברוך"];
     const tenants = [];
 
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 3; i++) {
         const firstName = getRandomItem(firstNames);
         const lastName = getRandomItem(lastNames);
-        const apartmentNumber = getRandomInt(1001, 1399);
         const email = generateRandomEmail(firstName, lastName);
         const password = `password${getRandomInt(100, 999)}`;
-
+        const phone = '05'+ getRandomInt(10000000, 99999999);
 
         tenants.push({
             id: i,
             firstName: firstName,
             lastName: lastName,
-            apartmentNumber: apartmentNumber,
             email: email,
+            phone: phone,
             password: password,
-            isTenant: true
+            isAdmin: true
         });
-
-
     }
-    tenants.push({
-        id: 21,
-        firstNameEN: "alon",
-        lastNameEN: "mlievski",
-        firstNameHE: "אלון",
-        lastName: "מליאבסקי",
-        apartmentNumber: 1113,
-        email: "alon.mlievski@example.com",
-        password: "password905",
-        isTenant: true,
-        packages: [
-            1,
-            2
-        ],
-        profileImage: "image.png"
-    })
     return tenants;
 }
 
