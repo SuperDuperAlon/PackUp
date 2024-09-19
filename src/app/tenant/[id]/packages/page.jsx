@@ -37,8 +37,9 @@ const UserPackages = () => {
   }, [filterBy, sortBy])
 
   console.log(packages)
+  console.log(currUser)
 
-  if (!packages || !packages.length) console.log('no packages')
+  if (!packages && !currUser) console.log('no packages')
   else return (
     <>
       <section className='tenant_packages_view'>
@@ -47,28 +48,30 @@ const UserPackages = () => {
             שלום
           </div>
           <div>
-            {currUser?.firstNameHE} {currUser?.lastName}
+            {currUser.firstName} {currUser.lastName}
           </div>
           <div>
-            {currUser?.apartmentNumber}
+            {currUser.apartmentNumber}
           </div>
         </div>
         <div>
 
         </div>
+
+
         <div>
-          {packages.map(p => <div key={p.id} className='tenant_packages_view__package'>
+
+          {packages.filter(p => p.apartmentReceiver === currUser.id).map(p => <div key={p.id} className='tenant_packages_view__package'>
             <div className='tenant_packages_view__package__info'>
               <div>
-                {p.apartmentReceiver}
-                - אלון מליאבסקי
+                {p.fullPackageDescription}
               </div>
               <div>
                 {utilService.parseDate(p.dateReceived)}
               </div>
             </div>
             <div>
-              {p.fullPackageDescription}
+
             </div>
           </div>)}
         </div>

@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { userService } from "@/services/user.service";
 
 const EditPackage = () => {
+    const [users, setUsers] = useState([])
+    const [selectedUser, setSelectedUser] = useState(null)
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const pathname = usePathname()
     const router = useRouter()
@@ -13,18 +15,38 @@ const EditPackage = () => {
 
 
     useEffect(() => {
+        loadUsers()
+    }, [])
+
+    async function loadUsers() {
+        try {
+            const users = await userService.getUsers();
+            setUsers(users)
+        } catch (err) {
+            console.log("Had issues in users", err);
+        }
+    }
+
+
+
+    useEffect(() => {
         if (!idFromPath) return;
         loadPackage();
-    }, []);
+    }, [users]);
 
     async function loadPackage() {
         try {
             const pack = await packageService.get(idFromPath);
             setPackageToEdit(pack);
+            setSelectedUser(users.find(u => pack.apartmentReceiver === u.id))
         } catch (err) {
             console.log("Had issues in package details", err);
         }
     }
+
+    console.log(users);
+
+    console.log(selectedUser);
 
     function handleChange({ target }) {
         let { value, type, name: field } = target
@@ -37,13 +59,29 @@ const EditPackage = () => {
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     };
 
+    const handleUserChange = (e) => {
+        const selectedValue = e.target.value;
+
+        // Find the user object based on the selected value
+        const user = users.find(user =>
+            selectedValue.includes(user.apartmentNumber) &&
+            selectedValue.includes(user.firstName) &&
+            selectedValue.includes(user.lastName)
+        );
+
+        // Set the selectedUser to the full user object
+        setSelectedUser(user || null); // Set to null if no match is found
+    };
+
     async function onSavePackage(ev) {
         ev.preventDefault()
+        if (!selectedUser.id) return
         try {
             packageToEdit.dateReceived = Date.now(),
                 packageToEdit.lobbyPackReceivedBy = 'אלון'
             packageToEdit.fullPackageDescription = utilService.getFullPackageDescription(packageToEdit.amount, packageToEdit.type, packageToEdit.color, packageToEdit.size)
             packageToEdit.isCollected = false
+            packageToEdit.apartmentReceiver = selectedUser.id
             await packageService.save(packageToEdit)
             router.push('/')
         } catch (err) {
@@ -55,21 +93,22 @@ const EditPackage = () => {
         router.push('/')
     }
 
-    if (!packageToEdit) return console.log('no package to edit')
+    if (!packageToEdit && !users) return console.log('no package to edit')
     else return (
         <section className='edit_class__section'>
             <form className='edit_class__form' onSubmit={onSavePackage}>
                 <div className='edit_class__form_container'>
-                    <h4>{packageToEdit.id ? "ערוך חבילה קיימת" : "הוסף חבילה חדשה"}</h4>
                     <label htmlFor="name">דירה</label>
-                    <input type="text"
-                        name="apartmentReceiver"
+                    <input list="tenants"
                         id="name"
-                        placeholder=""
-                        value={packageToEdit.apartmentReceiver}
-                        onChange={handleChange}
-                        required
-                    />
+                        name="apartmentReceiver"
+                        value={selectedUser ? `${selectedUser.apartmentNumber} - ${selectedUser.firstName} ${selectedUser.lastName}` : ''}
+                        onChange={handleUserChange} />
+                    <datalist id="tenants">
+                        {
+                            users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
+                        }
+                    </datalist>
                 </div>
                 <div className="edit_class__form_to_row">
 

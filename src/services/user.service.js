@@ -103,25 +103,21 @@ function generateRandomTenants() {
         id: 21,
         firstNameEN: "alon",
         lastNameEN: "mlievski",
-        firstNameHE: "אלון",
+        firstName: "אלון",
         lastName: "מליאבסקי",
-        apartmentNumber: 1113,
+        apartmentNumber: 9999,
         email: "alon.mlievski@example.com",
         password: "password905",
         isTenant: true,
-        packages: [
-            1,
-            2
-        ],
         profileImage: "image.png"
     })
     return tenants;
 }
 
 const tenants = generateRandomTenants();
-console.log(tenants)
+// console.log(tenants)/
 const jsonTenants = JSON.stringify(tenants);
-console.log(jsonTenants)
+// console.log(jsonTenants)
 
 _createPackages()
 

@@ -1,12 +1,14 @@
 'use client'
 import { packageService } from '@/services/package.service'
 import { utilService } from '@/services/util.service'
+import { userService } from '@/services/user.service'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const RemovePackage = () => {
 
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
+    const [selectedUser, setSelectedUser] = useState(null)
     const pathname = usePathname()
     const router = useRouter()
     const idFromPath = pathname.split('/').pop()
@@ -15,6 +17,19 @@ const RemovePackage = () => {
         if (!idFromPath) return;
         loadPackage();
     }, []);
+
+    async function loadUsers() {
+        try {
+            const users = await userService.getUsers();
+            setUsers(users)
+        } catch (err) {
+            console.log("Had issues in users", err);
+        }
+    }
+
+    useEffect(() => {
+        loadUsers()
+    }, [])
 
     async function loadPackage() {
         try {
@@ -31,12 +46,27 @@ const RemovePackage = () => {
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     }
 
+    const handleUserChange = (e) => {
+        const selectedValue = e.target.value;
+
+        // Find the user object based on the selected value
+        const user = users.find(user => 
+            selectedValue.includes(user.apartmentNumber) && 
+            selectedValue.includes(user.firstName) && 
+            selectedValue.includes(user.lastName)
+        );
+
+        // Set the selectedUser to the full user object
+        setSelectedUser(user || null); // Set to null if no match is found
+    };
+
     async function onSavePackage(ev) {
         ev.preventDefault()
         try {
             packageToEdit.dateCollected = utilService.parseDate()
             packageToEdit.lobbyPackGivenBy = 'אלון'
             packageToEdit.isCollected = true
+            packageToEdit.apartmentCollected
             await packageService.save(packageToEdit)
             router.push('/')
         } catch (err) {
@@ -49,14 +79,16 @@ const RemovePackage = () => {
             <form onSubmit={onSavePackage}>
                 <div>
                     <label htmlFor="name">דירה</label>
-                    <input type="text"
-                        name="apartmentCollected"
+                    <input list="tenants"
                         id="name"
-                        placeholder=""
-                        value={packageToEdit.apartmentCollected}
-                        onChange={handleChange}
-                        required
-                    />
+                        name="apartmentCollected"
+                        value={selectedUser ? `${selectedUser.apartmentNumber} - ${selectedUser.firstName} ${selectedUser.lastName}` : ''}
+                        onChange={handleUserChange} />
+                    <datalist id="tenants">
+                        {
+                            users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
+                        }
+                    </datalist>
                 </div>
                 <div>
                     <label htmlFor="name">הערות</label>

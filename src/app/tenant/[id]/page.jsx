@@ -33,7 +33,7 @@ const TenantView = () => {
         <>
             <section className='tenant_view'>
                 <div className='tenant__profile'>
-                    <div className='tenant__name'>{currUser?.firstNameHE} {currUser?.lastName}</div>
+                    <div className='tenant__name'>{currUser?.firstName} {currUser?.lastName}</div>
                     <Image src={avatar} className='tenant__profile__img' alt="profile" />
                 </div>
                 <div className='tenant__boxes'>

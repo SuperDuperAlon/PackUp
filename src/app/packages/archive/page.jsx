@@ -1,5 +1,6 @@
 'use client'
 import { packageService } from '@/services/package.service';
+import { userService } from '@/services/user.service';
 import { utilService } from '@/services/util.service';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -8,6 +9,7 @@ const PackageArchive = () => {
     const [filterBy, setFilterBy] = useState(packageService.getDefaultFilter());
     const [sortBy, setSortBy] = useState(packageService.getDefaultSort());
     const [packages, setPackages] = useState(null);
+    const [users, setUsers] = useState(null);
     const router = useRouter()
 
     useEffect(() => {
@@ -20,7 +22,21 @@ const PackageArchive = () => {
             }
         }
         loadPackages()
-    }, [filterBy, sortBy, packages])
+    }, [filterBy, sortBy])
+
+    useEffect(() => {
+        loadUsers()
+    }, [])
+
+    async function loadUsers() {
+        try {
+            const users = await userService.getUsers();
+            setUsers(users)
+            // return users
+        } catch (err) {
+            console.log("Had issues in users", err);
+        }
+    }
 
     async function onUndoRemovePackage(id) {
         const packageToUndo = packages.find(p => p.id === id)
@@ -33,7 +49,15 @@ const PackageArchive = () => {
         catch (err) { console.error(err) }
     }
 
-    if (!packages || !packages.length) console.log('no packages')
+    function getUserNameByID(id) {
+        console.log(id)
+        const user = users.find(u => u.id === id)
+        if (!user) return 'No user found'
+        else return `${user.apartmentNumber} - ${user.firstName} ${user.lastName}`
+    }
+console.log(users);
+
+    if (!packages && !users) console.log('no packages')
     else return (
         <section className='archive-section'>
             <div className='flex-row justify-between'>
@@ -64,12 +88,12 @@ const PackageArchive = () => {
                                 <td><button onClick={() => onUndoRemovePackage(p.id)}>החזר</button></td>
                                 <td>{utilService.parseDate(p.dateReceived)}</td>
                                 <td className='capitalize'>{p.lobbyPackReceivedBy}</td>
-                                <td>{p.apartmentReceiver}</td>
+                                <td>{getUserNameByID(p.apartmentReceiver)}</td>
                                 <td>{p.fullPackageDescription}</td>
                                 <td>{p.notesOnArrival}</td>
                                 <td>{utilService.parseDate(p.dateCollected)}</td>
                                 <td>{p.lobbyPackGivenBy}</td>
-                                <td>{p.apartmentCollected}</td>
+                                <td>{getUserNameByID(p.apartmentCollected)}</td>
                                 <td>{p.notesOnCollection}</td>
                             </tr>
                         ))}
