@@ -38,15 +38,15 @@ const EditPackage = () => {
         try {
             const pack = await packageService.get(idFromPath);
             setPackageToEdit(pack);
-            setSelectedUser(users.find(u => pack.apartmentReceiver === u.id))
+            setSelectedUser(users.find(u => pack.receivingTenantId === u.id))
         } catch (err) {
             console.log("Had issues in package details", err);
         }
     }
+console.log(packageToEdit);
+console.log(selectedUser);
 
-    console.log(users);
 
-    console.log(selectedUser);
 
     function handleChange({ target }) {
         let { value, type, name: field } = target
@@ -78,10 +78,14 @@ const EditPackage = () => {
         if (!selectedUser.id) return
         try {
             packageToEdit.dateReceived = Date.now(),
-                packageToEdit.lobbyPackReceivedBy = 'אלון'
+            packageToEdit.lobbyPackReceivedBy = 'אלון'
             packageToEdit.fullPackageDescription = utilService.getFullPackageDescription(packageToEdit.amount, packageToEdit.type, packageToEdit.color, packageToEdit.size)
             packageToEdit.isCollected = false
-            packageToEdit.apartmentReceiver = selectedUser.id
+            packageToEdit.receivingTenantApt = selectedUser.apartmentNumber
+            packageToEdit.receivingTenantFname = selectedUser.firstName
+            packageToEdit.receivingTenantLname = selectedUser.lastName
+            packageToEdit.receivingTenantId = selectedUser.id
+            packageToEdit.receivingTenantFullTenantDesc = selectedUser.apartmentNumber + ' - ' + selectedUser.firstName + ' ' + selectedUser.lastName
             await packageService.save(packageToEdit)
             router.push('/')
         } catch (err) {

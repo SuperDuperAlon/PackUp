@@ -43,19 +43,17 @@ const PackageArchive = () => {
         console.log(packageToUndo);
 
         try {
-            const p = { ...packageToUndo, dateCollected: null, lobbyPackGivenBy: null, isCollected: false }
+            const p = {
+                ...packageToUndo, dateCollected: null, lobbyPackGivenBy: null, isCollected: false,
+                collectingTenantApt: null, collectingTenantFname: null, collectingTenantFullTenantDesc: null, collectingTenantId: null, collectingTenantLname: null
+            }
+            setPackages(prev => prev.filter(p => p.id !== id))
             await packageService.save(p)
         }
         catch (err) { console.error(err) }
     }
 
-    function getUserNameByID(id) {
-        console.log(id)
-        const user = users.find(u => u.id === id)
-        if (!user) return 'No user found'
-        else return `${user.apartmentNumber} - ${user.firstName} ${user.lastName}`
-    }
-console.log(users);
+    console.log(users);
 
     if (!packages && !users) console.log('no packages')
     else return (
@@ -88,12 +86,12 @@ console.log(users);
                                 <td><button onClick={() => onUndoRemovePackage(p.id)}>החזר</button></td>
                                 <td>{utilService.parseDate(p.dateReceived)}</td>
                                 <td className='capitalize'>{p.lobbyPackReceivedBy}</td>
-                                <td>{getUserNameByID(p.apartmentReceiver)}</td>
+                                <td>{p.receivingTenantFullTenantDesc}</td>
                                 <td>{p.fullPackageDescription}</td>
                                 <td>{p.notesOnArrival}</td>
                                 <td>{utilService.parseDate(p.dateCollected)}</td>
                                 <td>{p.lobbyPackGivenBy}</td>
-                                <td>{getUserNameByID(p.apartmentCollected)}</td>
+                                <td>{p.collectingTenantFullTenantDesc}</td>
                                 <td>{p.notesOnCollection}</td>
                             </tr>
                         ))}

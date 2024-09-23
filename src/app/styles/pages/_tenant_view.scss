@@ -11,10 +11,25 @@
     justify-content: space-between;
     padding: 1rem;
 
+    & .tenant__profile__info {
+        display: flex;
+        flex-direction: column;
+        margin: auto 0;
+        min-width: 60%;
+
+        >:first-child {
+            font-style: italic;
+        }
+
+        >:last-child {
+            font-weight: bold;
+        }
+    }
+
     & .tenant__name {
         display: flex;
+        flex-direction: row;
         font-size: 1.75rem;
-        max-width: 50%;
         font-weight: bold;
         align-items: center;
     }

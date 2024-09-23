@@ -61,20 +61,10 @@ export default function PackageView() {
         try {
             const users = await userService.getUsers();
             setUsers(users)
-            // return users
         } catch (err) {
             console.log("Had issues in users", err);
         }
     }
-
-    function getUserNameByID(id) {
-        console.log(id)
-        if (!users) return
-        const user = users.find(u => u.id === id)
-        if (!user) return 'No user found'
-        else return `${user.apartmentNumber} - ${user.firstName} ${user.lastName}`
-    }
-
 
     function handlePageNumberChange(num) {
         if (num < 1 || num > numOfPages) return
@@ -101,7 +91,7 @@ export default function PackageView() {
 
     function filterPackages(e) {
         setCurrPage(1)
-        setFilterBy(prevFilterBy => ({ ...prevFilterBy, apartmentReceiver: e.target.value }));
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, receivingTenantFullTenantDesc: e.target.value }));
     }
 
     function handleSortChange(by) {
@@ -118,10 +108,7 @@ export default function PackageView() {
     function onMultipleRemoval() {
         if (selectedItems.length === 0) return
         setShowRemovePackages(!showRemovePackages)
-
     }
-
-    console.log(users)
 
     // if (!user) return router.push('/users/signup')
     if (!packages && !users) console.log('no packages')
@@ -180,7 +167,7 @@ export default function PackageView() {
                                     <td>
                                         <button className='round-btn' onClick={() => router.push(`/packages/edit/${p.id}`)}><CiEdit /></button>
                                     </td>
-                                    <td>{getUserNameByID(p.apartmentReceiver)}</td>
+                                    <td>{p.receivingTenantFullTenantDesc}</td>
                                     <td>{p.fullPackageDescription}</td>
                                     <td>{utilService.parseDate(p.dateReceived)}</td>
                                     <td className='capitalize'>{p.lobbyPackReceivedBy}</td>

@@ -68,7 +68,14 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems
         const packagesToSave = await loadPackagesToRemove()
         try {
             for (const p of packagesToSave) {
-                const packageToSave = { ...p, dateCollected: Date.now(), lobbyPackGivenBy: 'אלון', isCollected: true, apartmentCollected: selectedUser.id, notesOnCollection: packageToEdit.notesOnCollection };
+                const packageToSave = {
+                    ...p, dateCollected: Date.now(), lobbyPackGivenBy: 'אלון', isCollected: true, notesOnCollection: packageToEdit.notesOnCollection,
+                    collectingTenantApt: selectedUser.apartmentNumber,
+                    collectingTenantFname: selectedUser.firstName,
+                    collectingTenantLname: selectedUser.lastName,
+                    collectingTenantId: selectedUser.id,
+                    collectingTenantFullTenantDesc: selectedUser.apartmentNumber + ' - ' + selectedUser.firstName + ' ' + selectedUser.lastName
+                };
                 try {
                     await packageService.save(packageToSave);
                 } catch (saveError) {

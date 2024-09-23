@@ -3,7 +3,7 @@ import { utilService } from './util.service';
 
 
 const STORAGE_KEY = "packagesDB";
-_createPackages();
+// _createPackages();
 
 export const packageService = {
     query,
@@ -19,14 +19,17 @@ export const packageService = {
 async function query(filterBy, sortBy) {
     if (typeof window === 'undefined' || !window.localStorage) return
     var packages = await storageService.query(STORAGE_KEY)
-    if (filterBy.apartmentReceiver) {
+    if (filterBy.receivingTenantFullTenantDesc) {
         console.log(packages);
+        console.log(filterBy.receivingTenantFullTenantDesc);
         
-        packages = packages.filter(p => p.apartmentReceiver.includes(filterBy.apartmentReceiver))
+
+        packages = packages.filter(p => p.receivingTenantFullTenantDesc &&p.receivingTenantFullTenantDesc.includes(filterBy.receivingTenantFullTenantDesc))
     }
 
     if (filterBy.idArray) {
-        packages = packages.filter(obj => ids.includes(obj.id))}
+        packages = packages.filter(obj => ids.includes(obj.id))
+    }
     if (sortBy.by === 'dateReceived') {
         packages = packages.sort((a, b) => {
             if (sortBy.asc) {
@@ -106,12 +109,6 @@ async function checkPackage(p) {
 
 function getEmptyPackage() {
     return {
-        lobbyPackReceivedBy: '',
-        lobbyPackGivenBy: '',
-        apartmentReceiver: '',
-        apartmentCollected: '',
-        notesOnArrival: '',
-        notesOnCollection: '',
         amount: 1,
         type: '',
         color: '',
@@ -127,7 +124,7 @@ function getFullPackageDescription(amount,
 }
 
 function getDefaultFilter() {
-    return { apartmentReceiver: "" };
+    return { receivingTenantFullTenantDesc: "" };
 }
 
 function getDefaultSort() {
@@ -145,8 +142,6 @@ function _createPackages() {
                     dateCollected: null,
                     lobbyPackReceivedBy: 'אלון',
                     lobbyPackGivenBy: '',
-                    apartmentReceiver: '1111',
-                    apartmentCollected: '',
                     notesOnArrival: '',
                     notesOnCollection: '',
                     amount: 1,

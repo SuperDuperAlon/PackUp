@@ -66,7 +66,10 @@ const RemovePackage = () => {
             packageToEdit.dateCollected = utilService.parseDate()
             packageToEdit.lobbyPackGivenBy = 'אלון'
             packageToEdit.isCollected = true
-            packageToEdit.apartmentCollected
+            packageToEdit.collectingTenantApt = selectedUser.apartmentNumber
+            packageToEdit.collectingTenantFname = selectedUser.firstName
+            packageToEdit.collectingTenantLname = selectedUser.lastName
+            packageToEdit.collectingTenantId = selectedUser.id
             await packageService.save(packageToEdit)
             router.push('/')
         } catch (err) {

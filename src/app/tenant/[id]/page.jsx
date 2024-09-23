@@ -24,16 +24,15 @@ const TenantView = () => {
         loadUser(currUserId)
     }, [currUserId])
 
-
-
-    console.log(currUser);
-
-
     return (
         <>
             <section className='tenant_view'>
                 <div className='tenant__profile'>
-                    <div className='tenant__name'>{currUser?.firstName} {currUser?.lastName}</div>
+                    <div className='tenant__profile__info'>
+                        <div>שלום</div>
+                        <div className='tenant__name'>{currUser?.firstName} {currUser?.lastName}</div>
+                        <div>{currUser?.apartmentNumber}</div>
+                    </div>
                     <Image src={avatar} className='tenant__profile__img' alt="profile" />
                 </div>
                 <div className='tenant__boxes'>

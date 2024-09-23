@@ -55,19 +55,18 @@ const UserPackages = () => {
           </div>
         </div>
         <div>
-
-        </div>
-
-
-        <div>
-
-          {packages.filter(p => p.apartmentReceiver === currUser.id).map(p => <div key={p.id} className='tenant_packages_view__package'>
+          {packages.filter(p => p.receivingTenantId === currUser.id).map(p => <div key={p.id} className='tenant_packages_view__package'>
             <div className='tenant_packages_view__package__info'>
               <div>
-                {p.fullPackageDescription}
+                <div>
+                  {utilService.parseDate(p.dateReceived)}
+                </div>
+                <div>
+                  {p.fullPackageDescription}
+                </div>
               </div>
-              <div>
-                {utilService.parseDate(p.dateReceived)}
+              <div className={`tenant_packages_view__package__info__status ${p.isCollected ? 'old' : 'new'}`}>
+                חדש
               </div>
             </div>
             <div>
