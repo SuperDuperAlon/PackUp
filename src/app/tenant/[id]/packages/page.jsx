@@ -36,14 +36,11 @@ const UserPackages = () => {
     loadPackages()
   }, [filterBy, sortBy])
 
-  console.log(packages)
-  console.log(currUser)
-
   if (!packages && !currUser) console.log('no packages')
   else return (
     <>
       <section className='tenant_packages_view'>
-        <div className='tenant_packages_view__title'>
+        {/* <div className='tenant_packages_view__title'>
           <div>
             שלום
           </div>
@@ -53,24 +50,38 @@ const UserPackages = () => {
           <div>
             {currUser.apartmentNumber}
           </div>
-        </div>
-        <div>
-          {packages.filter(p => p.receivingTenantId === currUser.id).map(p => <div key={p.id} className='tenant_packages_view__package'>
+        </div> */}
+        <div className='tenant_packages_view__packages'>
+          <div className='tenant_packages_view__title'>חבילות חדשות</div>
+          {packages && packages.filter(p => p.isCollected === false && p.receivingTenantId === currUser.id).map(p => <div key={p.id} className='tenant_packages_view__package'>
             <div className='tenant_packages_view__package__info'>
-              <div>
-                <div>
-                  {utilService.parseDate(p.dateReceived)}
-                </div>
-                <div>
-                  {p.fullPackageDescription}
-                </div>
+              <div className='tenant_packages__date'>
+                {utilService.parseDate(p.dateReceived)}
               </div>
-              <div className={`tenant_packages_view__package__info__status ${p.isCollected ? 'old' : 'new'}`}>
-                חדש
+              <div className='tenant_packages__desc'>
+                {p.fullPackageDescription}
               </div>
             </div>
-            <div>
-
+          </div>)}
+        </div>
+        <div className='tenant_packages_view__packages'>
+          <div className='tenant_packages_view__title'>חבילות שנאספו</div>
+          {packages && packages.filter(p => p.isCollected && p.receivingTenantId === currUser.id).map(p => <div key={p.id} className='tenant_packages_view__package'>
+            <div className='tenant_packages_view__package__info'>
+              <div className='tenant_packages__date'>
+                {utilService.parseDate(p.dateReceived)}
+              </div>
+              <div className='tenant_packages__desc'>
+                {p.fullPackageDescription}
+              </div>
+              <div className='tenant_packages__collection'>
+                נאסף על ידי - {p.collectingTenantFullTenantDesc}
+              </div>
+              {p.notesOnCollection &&
+                <div className='tenant_packages__collection_notes'>
+                  {p.notesOnCollection}
+                </div>
+              }
             </div>
           </div>)}
         </div>

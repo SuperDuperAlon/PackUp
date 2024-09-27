@@ -105,8 +105,8 @@ console.log(selectedUser);
                     <label htmlFor="name">דירה</label>
                     <input list="tenants"
                         id="name"
-                        name="apartmentReceiver"
-                        value={selectedUser ? `${selectedUser.apartmentNumber} - ${selectedUser.firstName} ${selectedUser.lastName}` : ''}
+                        name="receivingTenantFullTenantDesc"
+                        value={packageToEdit.receivingTenantFullTenantDesc}
                         onChange={handleUserChange} />
                     <datalist id="tenants">
                         {

@@ -112,7 +112,10 @@ function getEmptyPackage() {
         amount: 1,
         type: '',
         color: '',
-        size: ''
+        size: '',
+        notesOnCollection: null,
+        receivingTenantFullTenantDesc: null
+        
     };
 }
 

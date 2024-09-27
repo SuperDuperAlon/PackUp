@@ -91,6 +91,8 @@ export default function PackageView() {
 
     function filterPackages(e) {
         setCurrPage(1)
+        console.log(e);
+        
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, receivingTenantFullTenantDesc: e.target.value }));
     }
 

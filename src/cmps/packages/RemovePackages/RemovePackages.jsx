@@ -59,6 +59,10 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems
     function handleChange({ target }) {
         let { value, type, name: field } = target
         value = type === 'number' ? +value : value
+        console.log(value);
+        console.log(type);
+        console.log(field);
+
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     }
 
@@ -70,11 +74,7 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems
             for (const p of packagesToSave) {
                 const packageToSave = {
                     ...p, dateCollected: Date.now(), lobbyPackGivenBy: 'אלון', isCollected: true, notesOnCollection: packageToEdit.notesOnCollection,
-                    collectingTenantApt: selectedUser.apartmentNumber,
-                    collectingTenantFname: selectedUser.firstName,
-                    collectingTenantLname: selectedUser.lastName,
-                    collectingTenantId: selectedUser.id,
-                    collectingTenantFullTenantDesc: selectedUser.apartmentNumber + ' - ' + selectedUser.firstName + ' ' + selectedUser.lastName
+                    collectingTenantFullTenantDesc: packageToEdit.collectingTenantFullTenantDesc
                 };
                 try {
                     await packageService.save(packageToSave);
@@ -96,11 +96,11 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems
                     <form onSubmit={onSavePackage}>
                         <div>
                             <label htmlFor="name">דירה</label>
-                            <input list="tenants"
+                            <input type="text" list="tenants"
                                 id="name"
-                                name="apartmentReceiver"
-                                value={selectedUser ? `${selectedUser.apartmentNumber} - ${selectedUser.firstName} ${selectedUser.lastName}` : ''}
-                                onChange={handleUserChange} />
+                                name="collectingTenantFullTenantDesc"
+                                value={packageToEdit.receivingTenantFullTenantDesc}
+                                onChange={handleChange} />
                             <datalist id="tenants">
                                 {
                                     users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
