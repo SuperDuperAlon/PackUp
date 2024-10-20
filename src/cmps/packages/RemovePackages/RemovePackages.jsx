@@ -14,7 +14,7 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems
     async function loadPackagesToRemove() {
         const packagesById = []
         for (const item of selectedItems) {
-            const pack = await packages.find(pack => pack.id === item && pack.isCollected === false)
+            const pack = await packages.find(pack => pack._id === item && pack.isCollected === false)
             packagesById.push(pack)
         }
         return packagesById
@@ -83,7 +83,7 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems
                 }
             }
 
-            setPackages(packages.filter(p => !selectedItems.includes(p.id)))
+            setPackages(packages.filter(p => !selectedItems.includes(p._id)))
             setShowRemovePackages(false)
         } catch (err) {
             console.error(err)

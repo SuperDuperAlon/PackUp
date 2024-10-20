@@ -43,11 +43,8 @@ const EditPackage = () => {
             console.log("Had issues in package details", err);
         }
     }
-console.log(packageToEdit);
-console.log(selectedUser);
 
-
-
+    // console.log(packageToEdit)
     function handleChange({ target }) {
         let { value, type, name: field } = target
         value = type === 'number' ? +value : value
@@ -175,7 +172,7 @@ console.log(selectedUser);
                     />
                 </div>
                 <div className="flex-row">
-                    <button>{packageToEdit.id ? "שמור" : "הוסף"}</button>
+                    <button>{packageToEdit._id ? "שמור" : "הוסף"}</button>
                     <button type='button' onClick={() => closeForm()}>סגור</button>
                 </div>
             </form>

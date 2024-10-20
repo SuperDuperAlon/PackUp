@@ -25,23 +25,66 @@ async function getById(adminId) {
 
 async function login(adminCred) {
     try {
-        const admins = await storageService.query(STORAGE_KEY)
-        const admin = admins.find(admin => admin.admin_name === adminCred.admin_name && admin.password === adminCred.password)
-        if (admin) {
-            return saveLocalAdmin(admin)
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(adminCred),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error during login: ${response.status} ${response.statusText}`);
         }
-    } catch (err) {
-        console.log(err)
+
+        console.log(response);
+        
+        const data = await response.json();
+        console.log('data', data);
+
+        return data.token;
+    } catch (error) {
+        console.error('Error during login:', error);
+        throw error;
     }
 }
 
 async function signup(adminCred) {
-    const admin = await storageService.post(STORAGE_KEY, adminCred)
-    return saveLocalAdmin(admin)
+    try {
+        const response = await fetch('/api/auth/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(adminCred),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Something went wrong');
+        }
+
+        // Return the token or other success response
+        return data.token;
+    } catch (error) {
+        console.error('Error during sign-up:', error);
+        throw error;
+    }
 }
 
 async function logout() {
-    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_ADMIN)
+    try {
+        const response = await fetch('/api/auth/logout', {
+            method: 'POST',
+        })
+        if (!response.ok) {
+            throw new Error('Failed to logout')
+        }
+    } catch (error) {
+        console.error('Error during logout:', error)
+    }
+    // sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_ADMIN)
 }
 
 function saveLocalAdmin(admin) {
@@ -82,7 +125,7 @@ function generateRandomTenants() {
         const lastName = getRandomItem(lastNames);
         const email = generateRandomEmail(firstName, lastName);
         const password = `password${getRandomInt(100, 999)}`;
-        const phone = '05'+ getRandomInt(10000000, 99999999);
+        const phone = '05' + getRandomInt(10000000, 99999999);
 
         tenants.push({
             id: i,

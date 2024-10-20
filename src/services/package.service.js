@@ -1,7 +1,8 @@
+// import { log } from 'console';
 import { storageService } from './storage.service';
 import { utilService } from './util.service';
 
-
+const API_URL = '/api/packages';
 const STORAGE_KEY = "packagesDB";
 // _createPackages();
 
@@ -16,76 +17,110 @@ export const packageService = {
     getEmptyPackage,
 }
 
-async function query(filterBy, sortBy) {
-    if (typeof window === 'undefined' || !window.localStorage) return
-    var packages = await storageService.query(STORAGE_KEY)
-    if (filterBy.receivingTenantFullTenantDesc) {
-        console.log(packages);
-        console.log(filterBy.receivingTenantFullTenantDesc);
-        
+async function query(filterBy) {
+    try {
+        const response = await fetch(API_URL + '?receivingTenantFullTenantDesc=' + filterBy.receivingTenantFullTenantDesc, {
+            method: 'GET',
+        });
 
-        packages = packages.filter(p => p.receivingTenantFullTenantDesc &&p.receivingTenantFullTenantDesc.includes(filterBy.receivingTenantFullTenantDesc))
-    }
+        if (!response.ok) {
+            throw new Error('Failed to fetch packages');
+        }
 
-    if (filterBy.idArray) {
-        packages = packages.filter(obj => ids.includes(obj.id))
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching packages:', error);
+        throw error;
     }
-    if (sortBy.by === 'dateReceived') {
-        packages = packages.sort((a, b) => {
-            if (sortBy.asc) {
-                return a.dateReceived - b.dateReceived
-            } else {
-                return b.dateReceived - a.dateReceived
-            }
-        })
-    }
-
-    if (sortBy.by === 'apartmentReceiver') {
-        packages = packages.sort((a, b) => {
-            if (sortBy.asc) {
-                return a.apartmentReceiver.localeCompare(b.apartmentReceiver)
-            } else {
-                return b.apartmentReceiver.localeCompare(a.apartmentReceiver)
-            }
-        })
-    }
-    if (sortBy.by === 'notesOnArrival') {
-        packages = packages.sort((a, b) => {
-            if (sortBy.asc) {
-                return a.notesOnArrival.localeCompare(b.notesOnArrival)
-            } else {
-                return b.notesOnArrival.localeCompare(a.notesOnArrival)
-            }
-        })
-    }
-
-    if (sortBy.by === 'lobbyPackReceivedBy') {
-        packages = packages.sort((a, b) => {
-            if (sortBy.asc) {
-                return a.lobbyPackReceivedBy.localeCompare(b.lobbyPackReceivedBy)
-            } else {
-                return b.lobbyPackReceivedBy.localeCompare(a.lobbyPackReceivedBy)
-            }
-        })
-    }
-
-    if (sortBy.by === 'fullPackageDescription') {
-        packages = packages.sort((a, b) => {
-            if (sortBy.asc) {
-                return a.fullPackageDescription.localeCompare(b.fullPackageDescription)
-            } else {
-                return b.fullPackageDescription.localeCompare(a.fullPackageDescription)
-            }
-        })
-    }
-    return packages
 }
 
+// async function query(filterBy, sortBy) {
+//     if (typeof window === 'undefined' || !window.localStorage) return
+//     var packages = await storageService.query(STORAGE_KEY)
+//     if (filterBy.receivingTenantFullTenantDesc) {
+//         packages = packages.filter(p => p.receivingTenantFullTenantDesc && p.receivingTenantFullTenantDesc.includes(filterBy.receivingTenantFullTenantDesc))
+//     }
+
+//     if (filterBy.idArray) {
+//         packages = packages.filter(obj => ids.includes(obj.id))
+//     }
+//     if (sortBy.by === 'dateReceived') {
+//         packages = packages.sort((a, b) => {
+//             if (sortBy.asc) {
+//                 return a.dateReceived - b.dateReceived
+//             } else {
+//                 return b.dateReceived - a.dateReceived
+//             }
+//         })
+//     }
+
+//     if (sortBy.by === 'apartmentReceiver') {
+//         packages = packages.sort((a, b) => {
+//             if (sortBy.asc) {
+//                 return a.apartmentReceiver.localeCompare(b.apartmentReceiver)
+//             } else {
+//                 return b.apartmentReceiver.localeCompare(a.apartmentReceiver)
+//             }
+//         })
+//     }
+//     if (sortBy.by === 'notesOnArrival') {
+//         packages = packages.sort((a, b) => {
+//             if (sortBy.asc) {
+//                 return a.notesOnArrival.localeCompare(b.notesOnArrival)
+//             } else {
+//                 return b.notesOnArrival.localeCompare(a.notesOnArrival)
+//             }
+//         })
+//     }
+
+//     if (sortBy.by === 'lobbyPackReceivedBy') {
+//         packages = packages.sort((a, b) => {
+//             if (sortBy.asc) {
+//                 return a.lobbyPackReceivedBy.localeCompare(b.lobbyPackReceivedBy)
+//             } else {
+//                 return b.lobbyPackReceivedBy.localeCompare(a.lobbyPackReceivedBy)
+//             }
+//         })
+//     }
+
+//     if (sortBy.by === 'fullPackageDescription') {
+//         packages = packages.sort((a, b) => {
+//             if (sortBy.asc) {
+//                 return a.fullPackageDescription.localeCompare(b.fullPackageDescription)
+//             } else {
+//                 return b.fullPackageDescription.localeCompare(a.fullPackageDescription)
+//             }
+//         })
+//     }
+//     return packages
+// }
+
+// async function get(packageId) {
+//     if (typeof window !== 'undefined') {
+//         return storageService.get(STORAGE_KEY, packageId)
+//     }
+// }
 async function get(packageId) {
-    if (typeof window !== 'undefined') {
-        return storageService.get(STORAGE_KEY, packageId)
+    try {
+        const response = await fetch(API_URL + '/' + packageId, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch the package');
+        }
+
+        const data = await response.json();
+        return data.data;
+    } catch (error) {
+        console.error('Error fetching the package:', error);
+        throw error;
     }
 }
+
+
+// TODO: remove
 
 async function remove(packageId) {
     return storageService.remove(STORAGE_KEY, packageId)
@@ -93,13 +128,57 @@ async function remove(packageId) {
 
 async function save(p) {
     console.log(p);
-    if (typeof window === 'undefined' || !window.localStorage) return console.log('loading')
-    else if (p.id) {
-        return storageService.put(STORAGE_KEY, p)
+    try {
+        let response;
+        if (p._id) {
+
+
+            // Update an existing record (PUT request)
+            response = await fetch(API_URL + '/' + p._id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(p)
+            });
+        } else {
+            // Create a new record (POST request)
+            response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(p)
+            });
+        }
+
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error('Error saving data:', error);
     }
-    else return storageService.post(STORAGE_KEY, p)
 }
 
+// async function save(p) {
+//     console.log(p);
+//     if (typeof window === 'undefined' || !window.localStorage) {
+//         return console.log('loading');
+//     }
+
+//     try {
+//         if (p.id) {
+//             return await storageService.put(STORAGE_KEY, p);
+//         } else {
+//             return await storageService.post(STORAGE_KEY, p);
+//         }
+//     } catch (error) {
+//         console.error('Error saving data:', error);
+//     }
+// }
+
+
+// TODO: API - check package
 async function checkPackage(p) {
     if (typeof window === 'undefined' || !window.localStorage) return console.log('loading')
     return storageService.put(STORAGE_KEY, p)
@@ -113,9 +192,9 @@ function getEmptyPackage() {
         type: '',
         color: '',
         size: '',
-        notesOnCollection: null,
+        notesOnArrival: '',
         receivingTenantFullTenantDesc: null
-        
+
     };
 }
 
@@ -126,8 +205,9 @@ function getFullPackageDescription(amount,
     return `${amount} - ${type} בגודל ${size} בצבע ${color}`;
 }
 
+
 function getDefaultFilter() {
-    return { receivingTenantFullTenantDesc: "" };
+    return { receivingTenantFullTenantDesc: "", isCollected: null };
 }
 
 function getDefaultSort() {

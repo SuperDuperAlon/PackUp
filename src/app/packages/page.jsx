@@ -30,7 +30,7 @@ export default function PackageView() {
     useEffect(() => {
         async function loadPackages() {
             try {
-                const data = await packageService.query(filterBy, sortBy)
+                const data = await packageService.query(filterBy)
                 if (data) {
                     setPackages(data.filter(p => !p.isCollected))
                     setNumOfPages(Math.ceil(data.filter(p => !p.isCollected).length / packagesPerPage))
@@ -85,14 +85,14 @@ export default function PackageView() {
         if (selectedItems.length === filteredPackages.length) {
             setSelectedItems([]);
         } else {
-            setSelectedItems(filteredPackages.map(p => p.id));
+            setSelectedItems(filteredPackages.map(p => p._id));
         }
     };
 
     function filterPackages(e) {
         setCurrPage(1)
         console.log(e);
-        
+
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, receivingTenantFullTenantDesc: e.target.value }));
     }
 
@@ -124,9 +124,9 @@ export default function PackageView() {
                         <button onClick={() => onMultipleRemoval()}>מחק</button>
                         <button onClick={() => handleSelectAllChange()}>בחר בכל</button>
                         <input type="text" onChange={(e) => filterPackages(e)} />
-                        <div className='baseline'>יש {packages.length} חבילות</div>
+                        <div className='baseline'>יש {packages ? packages.length : 0} חבילות</div>
                     </div>
-                    {
+                    {packages &&
                         packages.length > packagesPerPage &&
                         <Pagination handlePageNumberChange={handlePageNumberChange} numOfPages={numOfPages} currPage={currPage} />
                     }
@@ -157,17 +157,17 @@ export default function PackageView() {
                     <tbody>
                         {packages &&
                             packages.slice((currPage - 1) * packagesPerPage, currPage * packagesPerPage).map((p) => (
-                                <tr key={p.id}>
+                                <tr key={p._id}>
                                     <td><input type="checkbox"
-                                        value={p.id}
+                                        value={p._id}
                                         onChange={handleCheckboxChange}
-                                        checked={selectedItems.includes(p.id)}
+                                        checked={selectedItems.includes(p._id)}
                                     /></td>
                                     <td>
-                                        <button onClick={() => onSingleRemoval(p.id)}>מסירה</button>
+                                        <button onClick={() => onSingleRemoval(p._id)}>מסירה</button>
                                     </td>
                                     <td>
-                                        <button className='round-btn' onClick={() => router.push(`/packages/edit/${p.id}`)}><CiEdit /></button>
+                                        <button className='round-btn' onClick={() => router.push(`/packages/edit/${p._id}`)}><CiEdit /></button>
                                     </td>
                                     <td>{p.receivingTenantFullTenantDesc}</td>
                                     <td>{p.fullPackageDescription}</td>

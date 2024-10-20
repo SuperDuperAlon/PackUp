@@ -180,19 +180,12 @@
         "isTenant": true
     },
     {
-        "id": 21,
-        "firstNameEN": "alon",
-        "lastNameEN": "mlievski",
-        "firstNameHE": "אלון",
+        "firstName": "אלון",
         "lastName": "מליאבסקי",
-        "apartmentNumber": 1113,
+        "apartmentNumber": 1999,
         "email": "alon.mlievski@example.com",
-        "password": "password905",
+        "password": "alon123",
         "isTenant": true,
-        "packages": [
-            1,
-            2
-        ],
-        "profileImage": "image.png"
+        "profileImage": ""
     }
 ]

@@ -1,10 +1,7 @@
-import React from 'react'
-import PakcageView from '@/app/packages/page'
-
-const Home = () => {
+export default function Home() {
   return (
-    <PakcageView />
+    <div>
+      <h1>Home</h1>
+    </div>
   )
 }
-
-export default Home

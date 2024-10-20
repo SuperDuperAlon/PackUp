@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Header from "@/cmps/general/Header/Header";
 import "./styles/globals.scss";
-import { userService } from "@/services/user.service";
+import { Suspense } from "react";
+import Loader from "@/cmps/general/Loader/Loader";
+import { UserProvider } from "@/context/UserContext";
 
 export const metadata: Metadata = {
   title: "Package Management App",
@@ -17,8 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="index-layout">
-        <Header />
-        {children}
+        <UserProvider>
+          <Suspense fallback={<Loader />}>
+            <Header />
+            {children}
+          </Suspense >
+        </UserProvider >
       </body>
     </html>
   );

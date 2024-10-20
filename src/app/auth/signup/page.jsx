@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { userService } from '@/services/user.service';
 import { useRouter } from 'next/navigation';
+import { adminService } from '@/services/admin.service';
 
 const SignupForm = () => {
     const [username, setUsername] = useState('');
@@ -14,8 +15,8 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {   // TODO: Add your signup logic here
-            await userService.signup({ username, email, password })
-            router.push('/')
+            await adminService.signup({ username, email, password })
+            // router.push('/')
         } catch (err) {
             console.error(err);
         }

@@ -38,8 +38,27 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
-    const user = await storageService.post(STORAGE_KEY, userCred)
-    return saveLocalUser(user)
+    try {
+        const response = await fetch('/api/auth/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userCred),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Something went wrong');
+        }
+
+        // Return the token or other success response
+        return data.token;
+    } catch (error) {
+        console.error('Error during sign-up:', error);
+        throw error;
+    }
 }
 
 async function logout() {

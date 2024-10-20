@@ -15,8 +15,8 @@ const PackageArchive = () => {
     useEffect(() => {
         async function loadPackages() {
             try {
-                const data = await packageService.query(filterBy, sortBy)
-                if (data) setPackages(data)
+                const data = await packageService.query(filterBy)
+                if (data) setPackages(data.filter(p => p.isCollected))
             } catch (error) {
                 console.error('Error loading flowers:', error)
             }
@@ -38,6 +38,8 @@ const PackageArchive = () => {
         }
     }
 
+    console.log(packages);
+    
     async function onUndoRemovePackage(id) {
         const packageToUndo = packages.find(p => p.id === id)
         console.log(packageToUndo);
@@ -53,15 +55,16 @@ const PackageArchive = () => {
         catch (err) { console.error(err) }
     }
 
-    console.log(users);
+    // console.log(users);
 
-    if (!packages && !users) console.log('no packages')
-    else return (
+    // if (!packages && !users) console.log('no packages')
+    // else 
+    return (
         <section className='archive-section'>
             <div className='flex-row justify-between'>
                 <div>ארכיון חבילות ודואר</div>
                 {/* TODO: spacing */}
-                <button type='button' onClick={() => router.push('/')}>חזור</button>
+                <button type='button' onClick={() => router.push('/packages')}>חזור</button>
             </div>
             <table>
                 <thead>
@@ -79,10 +82,10 @@ const PackageArchive = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {packages
+                    {packages && packages
                         .filter(p => p.isCollected)
                         .map((p) => (
-                            <tr key={p.id}>
+                            <tr key={p._id}>
                                 <td><button onClick={() => onUndoRemovePackage(p.id)}>החזר</button></td>
                                 <td>{utilService.parseDate(p.dateReceived)}</td>
                                 <td className='capitalize'>{p.lobbyPackReceivedBy}</td>

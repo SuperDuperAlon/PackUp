@@ -3,18 +3,19 @@
 import React, { useState } from 'react';
 import { userService } from '@/services/user.service'
 import { useRouter } from 'next/navigation';
+import { adminService } from '@/services/admin.service';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const user = await userService.login({ username, password })
+            const user = await adminService.login({ email, password })
             if (user) {
-                router.push('/')
+                router.push('/packages')
             } else {
                 router.push('/users/signup')
             }
@@ -28,9 +29,9 @@ const Login = () => {
             <form onSubmit={handleSubmit} className='edit_class__form'>
                 <div className='edit_class__form_container'>
                     <label>
-                        שם משתמש
+                        כתובת מייל
                     </label>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className='edit_class__form_container'>
                     <label>
@@ -39,7 +40,7 @@ const Login = () => {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
 
-                <button type="submit">Login</button>
+                <button type="submit">התחבר</button>
             </form>
         </div>
     );
