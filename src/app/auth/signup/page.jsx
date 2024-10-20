@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react';
-import { userService } from '@/services/user.service';
 import { useRouter } from 'next/navigation';
 import { adminService } from '@/services/admin.service';
 
@@ -14,9 +13,9 @@ const SignupForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {   // TODO: Add your signup logic here
+        try {
             await adminService.signup({ username, email, password })
-            // router.push('/')
+            router.push('/packages')
         } catch (err) {
             console.error(err);
         }
@@ -29,7 +28,7 @@ const SignupForm = () => {
             <div className='edit_class__section'>
                 <form onSubmit={handleSubmit} className='edit_class__form'>
                     <div className='edit_class__form_container'>
-                        <label htmlFor="username">שם משתמש                        </label>
+                        <label htmlFor="username">שם משתמש</label>
                         <input
                             type="text"
                             id="username"
@@ -61,7 +60,7 @@ const SignupForm = () => {
                     </div>
                     <div className='edit_class__form_submit_row'>
                         <input type="submit" value="Sign Up" />
-                        <button onClick={() => router.push('/users/login')}>חשבון קיים?</button>
+                        <button onClick={() => router.push('/auth/login')}>חשבון קיים?</button>
                     </div>
                 </form>
 

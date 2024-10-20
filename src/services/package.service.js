@@ -1,4 +1,3 @@
-// import { log } from 'console';
 import { storageService } from './storage.service';
 import { utilService } from './util.service';
 
@@ -17,6 +16,7 @@ export const packageService = {
     getEmptyPackage,
 }
 
+// TODO: add sorting
 async function query(filterBy) {
     try {
         const response = await fetch(API_URL + '?receivingTenantFullTenantDesc=' + filterBy.receivingTenantFullTenantDesc, {
@@ -127,13 +127,9 @@ async function remove(packageId) {
 }
 
 async function save(p) {
-    console.log(p);
     try {
         let response;
         if (p._id) {
-
-
-            // Update an existing record (PUT request)
             response = await fetch(API_URL + '/' + p._id, {
                 method: 'PUT',
                 headers: {
@@ -142,7 +138,6 @@ async function save(p) {
                 body: JSON.stringify(p)
             });
         } else {
-            // Create a new record (POST request)
             response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
@@ -160,31 +155,12 @@ async function save(p) {
     }
 }
 
-// async function save(p) {
-//     console.log(p);
-//     if (typeof window === 'undefined' || !window.localStorage) {
-//         return console.log('loading');
-//     }
-
-//     try {
-//         if (p.id) {
-//             return await storageService.put(STORAGE_KEY, p);
-//         } else {
-//             return await storageService.post(STORAGE_KEY, p);
-//         }
-//     } catch (error) {
-//         console.error('Error saving data:', error);
-//     }
-// }
-
-
 // TODO: API - check package
 async function checkPackage(p) {
     if (typeof window === 'undefined' || !window.localStorage) return console.log('loading')
     return storageService.put(STORAGE_KEY, p)
 
 }
-
 
 function getEmptyPackage() {
     return {
@@ -214,63 +190,63 @@ function getDefaultSort() {
     return { by: '', asc: true }
 }
 
-function _createPackages() {
-    if (typeof window !== 'undefined') {
-        let packages = storageService.loadFromStorage(STORAGE_KEY);
-        if (!packages || !packages.length) {
-            packages = [
-                {
-                    id: utilService.generateId(),
-                    dateReceived: Date.now(),
-                    dateCollected: null,
-                    lobbyPackReceivedBy: 'אלון',
-                    lobbyPackGivenBy: '',
-                    notesOnArrival: '',
-                    notesOnCollection: '',
-                    amount: 1,
-                    type: 'שקית',
-                    color: 'אדום',
-                    size: 'גדול',
-                    isCollected: false,
-                },
-                {
-                    id: utilService.generateId(),
-                    dateReceived: Date.now(),
-                    dateCollected: null,
-                    lobbyPackReceivedBy: 'אלון',
-                    lobbyPackGivenBy: '',
-                    apartmentReceiver: '1112',
-                    apartmentCollected: '',
-                    notesOnArrival: '',
-                    notesOnCollection: '',
-                    amount: 1,
-                    type: 'קרטון',
-                    color: 'ירוק',
-                    size: 'קטן',
-                    isCollected: false,
-                },
-                {
-                    id: utilService.generateId(),
-                    dateReceived: Date.now(),
-                    dateCollected: Date.now(),
-                    lobbyPackReceivedBy: 'אלון',
-                    lobbyPackGivenBy: 'אלון',
-                    apartmentReceiver: '1112',
-                    apartmentCollected: '3333',
-                    notesOnArrival: '',
-                    notesOnCollection: 'נמסר',
-                    amount: 3,
-                    type: 'חבילה',
-                    color: 'כתום',
-                    size: 'בינוני',
-                    isCollected: true,
-                }
-            ];
+// function _createPackages() {
+//     if (typeof window !== 'undefined') {
+//         let packages = storageService.loadFromStorage(STORAGE_KEY);
+//         if (!packages || !packages.length) {
+//             packages = [
+//                 {
+//                     id: utilService.generateId(),
+//                     dateReceived: Date.now(),
+//                     dateCollected: null,
+//                     lobbyPackReceivedBy: 'אלון',
+//                     lobbyPackGivenBy: '',
+//                     notesOnArrival: '',
+//                     notesOnCollection: '',
+//                     amount: 1,
+//                     type: 'שקית',
+//                     color: 'אדום',
+//                     size: 'גדול',
+//                     isCollected: false,
+//                 },
+//                 {
+//                     id: utilService.generateId(),
+//                     dateReceived: Date.now(),
+//                     dateCollected: null,
+//                     lobbyPackReceivedBy: 'אלון',
+//                     lobbyPackGivenBy: '',
+//                     apartmentReceiver: '1112',
+//                     apartmentCollected: '',
+//                     notesOnArrival: '',
+//                     notesOnCollection: '',
+//                     amount: 1,
+//                     type: 'קרטון',
+//                     color: 'ירוק',
+//                     size: 'קטן',
+//                     isCollected: false,
+//                 },
+//                 {
+//                     id: utilService.generateId(),
+//                     dateReceived: Date.now(),
+//                     dateCollected: Date.now(),
+//                     lobbyPackReceivedBy: 'אלון',
+//                     lobbyPackGivenBy: 'אלון',
+//                     apartmentReceiver: '1112',
+//                     apartmentCollected: '3333',
+//                     notesOnArrival: '',
+//                     notesOnCollection: 'נמסר',
+//                     amount: 3,
+//                     type: 'חבילה',
+//                     color: 'כתום',
+//                     size: 'בינוני',
+//                     isCollected: true,
+//                 }
+//             ];
 
-            for (const packageObject of packages) {
-                packageObject.fullPackageDescription = getFullPackageDescription(packageObject.amount, packageObject.type, packageObject.color, packageObject.size);
-            }
-        }
-        storageService.saveToStorage(STORAGE_KEY, packages);
-    }
-}
+//             for (const packageObject of packages) {
+//                 packageObject.fullPackageDescription = getFullPackageDescription(packageObject.amount, packageObject.type, packageObject.color, packageObject.size);
+//             }
+//         }
+//         storageService.saveToStorage(STORAGE_KEY, packages);
+//     }
+// }

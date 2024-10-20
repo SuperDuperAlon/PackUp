@@ -32,14 +32,11 @@ const PackageArchive = () => {
         try {
             const users = await userService.getUsers();
             setUsers(users)
-            // return users
         } catch (err) {
             console.log("Had issues in users", err);
         }
     }
 
-    console.log(packages);
-    
     async function onUndoRemovePackage(id) {
         const packageToUndo = packages.find(p => p.id === id)
         console.log(packageToUndo);
@@ -55,15 +52,11 @@ const PackageArchive = () => {
         catch (err) { console.error(err) }
     }
 
-    // console.log(users);
-
-    // if (!packages && !users) console.log('no packages')
-    // else 
-    return (
+    if (!packages && !users) console.log('no packages')
+    else return (
         <section className='archive-section'>
             <div className='flex-row justify-between'>
                 <div>ארכיון חבילות ודואר</div>
-                {/* TODO: spacing */}
                 <button type='button' onClick={() => router.push('/packages')}>חזור</button>
             </div>
             <table>

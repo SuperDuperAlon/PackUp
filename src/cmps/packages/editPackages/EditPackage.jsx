@@ -44,7 +44,6 @@ const EditPackage = () => {
         }
     }
 
-    // console.log(packageToEdit)
     function handleChange({ target }) {
         let { value, type, name: field } = target
         value = type === 'number' ? +value : value
@@ -59,15 +58,13 @@ const EditPackage = () => {
     const handleUserChange = (e) => {
         const selectedValue = e.target.value;
 
-        // Find the user object based on the selected value
         const user = users.find(user =>
             selectedValue.includes(user.apartmentNumber) &&
             selectedValue.includes(user.firstName) &&
             selectedValue.includes(user.lastName)
         );
 
-        // Set the selectedUser to the full user object
-        setSelectedUser(user || null); // Set to null if no match is found
+        setSelectedUser(user || null); 
     };
 
     async function onSavePackage(ev) {
@@ -91,7 +88,7 @@ const EditPackage = () => {
     }
 
     function closeForm() {
-        router.push('/')
+        router.push('/packages')
     }
 
     if (!packageToEdit && !users) return console.log('no package to edit')

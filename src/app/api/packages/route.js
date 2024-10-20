@@ -9,14 +9,8 @@ const db = client.db(DB_NAME);
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
-    // const query = searchParams.get('receivingTenantFullTenantDesc');
-
     const query = { receivingTenantFullTenantDesc: { $regex: searchParams.get('receivingTenantFullTenantDesc') } }
-    // console.log(query);
-
     const packages = await db.collection(COLLECTION_NAME).find(query).toArray();
-    // console.log(packages);
-
 
     return new Response(JSON.stringify(packages), {
       status: 200,

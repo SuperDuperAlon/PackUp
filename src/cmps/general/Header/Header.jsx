@@ -6,8 +6,8 @@ import { useUser } from '@/context/UserContext';
 const Header = () => {
     const { user } = useUser();
     const router = useRouter()
-    if (!user) return null
-    else return (
+
+    return (
         <header className='index-layout full'>
             <section className='header'>
                 <div className='header__right'>

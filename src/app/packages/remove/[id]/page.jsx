@@ -49,15 +49,13 @@ const RemovePackage = () => {
     const handleUserChange = (e) => {
         const selectedValue = e.target.value;
 
-        // Find the user object based on the selected value
         const user = users.find(user => 
             selectedValue.includes(user.apartmentNumber) && 
             selectedValue.includes(user.firstName) && 
             selectedValue.includes(user.lastName)
         );
 
-        // Set the selectedUser to the full user object
-        setSelectedUser(user || null); // Set to null if no match is found
+        setSelectedUser(user || null);
     };
 
     async function onSavePackage(ev) {
@@ -71,7 +69,7 @@ const RemovePackage = () => {
             packageToEdit.collectingTenantLname = selectedUser.lastName
             packageToEdit.collectingTenantId = selectedUser.id
             await packageService.save(packageToEdit)
-            router.push('/')
+            router.push('/packages')
         } catch (err) {
             console.error(err)
         }

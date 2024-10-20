@@ -1,4 +1,5 @@
-import page from '@/app/packages/edit/page'
+// TODO: decide on pagination
+
 import React, { useEffect, useState } from 'react'
 import { MdFirstPage, MdLastPage, MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 

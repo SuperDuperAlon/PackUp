@@ -1,7 +1,8 @@
+// TODO: logout button
+
 'use client';
 
 import React, { useEffect } from 'react';
-import { userService } from '@/services/user.service';
 import { adminService } from '@/services/admin.service';
 
 const Logout = () => {

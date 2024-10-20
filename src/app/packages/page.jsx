@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
 import { userService } from '@/services/user.service';
-import { adminService } from '@/services/admin.service';
 import EmailReminder from '@/cmps/packages/EmailReminder';
 import { useRouter } from 'next/navigation'
 import { utilService } from '@/services/util.service';
@@ -91,8 +90,6 @@ export default function PackageView() {
 
     function filterPackages(e) {
         setCurrPage(1)
-        console.log(e);
-
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, receivingTenantFullTenantDesc: e.target.value }));
     }
 
@@ -112,7 +109,7 @@ export default function PackageView() {
         setShowRemovePackages(!showRemovePackages)
     }
 
-    // if (!user) return router.push('/users/signup')
+    if (!user) return router.push('/auth/signup')
     if (!packages && !users) console.log('no packages')
     else return (
         <>

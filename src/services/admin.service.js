@@ -37,11 +37,7 @@ async function login(adminCred) {
             throw new Error(`Error during login: ${response.status} ${response.statusText}`);
         }
 
-        console.log(response);
-        
         const data = await response.json();
-        console.log('data', data);
-
         return data.token;
     } catch (error) {
         console.error('Error during login:', error);
@@ -65,7 +61,6 @@ async function signup(adminCred) {
             throw new Error(data.error || 'Something went wrong');
         }
 
-        // Return the token or other success response
         return data.token;
     } catch (error) {
         console.error('Error during sign-up:', error);
@@ -84,24 +79,24 @@ async function logout() {
     } catch (error) {
         console.error('Error during logout:', error)
     }
-    // sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_ADMIN)
 }
 
-function saveLocalAdmin(admin) {
-    admin = { id: admin.id, admin_name: admin.admin_name }
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_ADMIN, JSON.stringify(admin))
-    return admin
-}
+// function saveLocalAdmin(admin) {
+//     admin = { id: admin.id, admin_name: admin.admin_name }
+//     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_ADMIN, JSON.stringify(admin))
+//     return admin
+// }
 
+// TODO: add to middleware
 function getloggedInAdmin() {
     if (typeof sessionStorage !== 'undefined') {
-
         return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_ADMIN))
     } else {
         return null;
     }
 }
 
+// TODO: add to ustil file
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }

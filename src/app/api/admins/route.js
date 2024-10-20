@@ -6,9 +6,9 @@ const COLLECTION_NAME = 'admins';
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db('towerone_db');
+    const db = client.db(DB_NAME);
     const admins = await db.collection(COLLECTION_NAME).find({}).toArray();
-    
+
     return new Response(JSON.stringify(admins), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }

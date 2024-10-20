@@ -5,17 +5,15 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null); // Initial user state is null
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        // Fetch user data from an API or get it from a cookie
         const fetchUser = async () => {
-            const res = await fetch('/api/auth/getcurrentuser'); // Adjust the endpoint as needed
+            // TODO: replace with actual API call
+            const res = await fetch('/api/auth/getcurrentuser'); 
             if (res.ok) {
                 const data = await res.json();
-                console.log(data);
-
-                setUser(data.user); // Assuming the response contains user data
+                setUser(data.user);
             }
         };
 

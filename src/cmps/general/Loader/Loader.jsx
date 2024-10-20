@@ -1,3 +1,5 @@
+// TODO: loader
+
 import React from 'react'
 
 const Loader = () => {
