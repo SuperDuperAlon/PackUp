@@ -1,17 +1,20 @@
 'use client'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { useUser } from '@/context/UserContext';
+import { useAuth } from '@/context/AuthContext';
 
 const Header = () => {
-    const { user } = useUser();
+    const { admin } = useAuth();
     const router = useRouter()
+
+    // console.log(user);
+    
 
     return (
         <header className='index-layout full'>
             <section className='header'>
                 <div className='header__right'>
-                    {user ? <h1>שלום, {user.username}</h1> : <p>התחבר</p>}
+                    {admin ? <h1>שלום, {admin.username}</h1> : <p>התחבר</p>}
                     <button type='button' onClick={() => router.push('/auth/login')}>התנתק</button>
                 </div>
                 <div className='header__left'>

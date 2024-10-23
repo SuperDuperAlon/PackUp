@@ -109,7 +109,7 @@ export default function PackageView() {
         setShowRemovePackages(!showRemovePackages)
     }
 
-    if (!user) return router.push('/auth/signup')
+    // if (!user) return router.push('/auth/login')
     if (!packages && !users) console.log('no packages')
     else return (
         <>

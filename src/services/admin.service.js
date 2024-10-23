@@ -9,7 +9,7 @@ export const adminService = {
     logout,
     signup,
     getloggedInAdmin,
-    saveLocalAdmin,
+    // saveLocalAdmin,
     getAdmins,
     getById
 }
