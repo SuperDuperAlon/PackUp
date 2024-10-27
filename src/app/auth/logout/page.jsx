@@ -9,6 +9,7 @@ const Logout = () => {
     useEffect(() => {
         async function logout() {
             await adminService.logout();
+            window.location.href = '/';
         }
         logout();
     }, []);

@@ -8,7 +8,7 @@ export const adminService = {
     login,
     logout,
     signup,
-    getloggedInAdmin,
+    getCurrentAdmin,
     // saveLocalAdmin,
     getAdmins,
     getById
@@ -80,6 +80,20 @@ async function logout() {
         console.error('Error during logout:', error)
     }
 }
+async function getCurrentAdmin() {
+
+    try {
+        // const loggedinAdmin = storageService.get(STORAGE_KEY_LOGGEDIN_ADMIN);
+        // if (loggedinAdmin) return loggedinAdmin;
+        const response = await fetch('/api/auth/getcurrentadmin');
+        const data = await response.json();
+        // localStorage.setItem(STORAGE_KEY_LOGGEDIN_ADMIN, JSON.stringify(data.admin))
+        return data.admin;
+    } catch (error) {
+        console.error('Error fetching current admin:', error);
+        return null;
+    }
+}
 
 // function saveLocalAdmin(admin) {
 //     admin = { id: admin.id, admin_name: admin.admin_name }
@@ -87,14 +101,6 @@ async function logout() {
 //     return admin
 // }
 
-// TODO: add to middleware
-function getloggedInAdmin() {
-    if (typeof sessionStorage !== 'undefined') {
-        return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_ADMIN))
-    } else {
-        return null;
-    }
-}
 
 // TODO: add to ustil file
 function getRandomInt(min, max) {

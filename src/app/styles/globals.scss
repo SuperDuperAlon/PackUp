@@ -24,3 +24,13 @@ body {
     font-family: 'Assistant', sans-serif;
     font-size: 1rem;
 }
+
+.loader {
+    z-index: 9999;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+}

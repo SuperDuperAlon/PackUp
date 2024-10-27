@@ -2,9 +2,13 @@ import { packageService } from "@/services/package.service";
 import { utilService } from "@/services/util.service";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from 'next/navigation'
-import { userService } from "@/services/user.service";
+import { userService } from "@/services/user.service"
+import { useAuth } from '@/context/AuthContext';;
 
 const EditPackage = () => {
+
+    const { admin } = useAuth()
+
     const [users, setUsers] = useState([])
     const [selectedUser, setSelectedUser] = useState(null)
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
@@ -27,7 +31,8 @@ const EditPackage = () => {
         }
     }
 
-
+    console.log(users);
+    
 
     useEffect(() => {
         if (!idFromPath) return;
@@ -37,6 +42,8 @@ const EditPackage = () => {
     async function loadPackage() {
         try {
             const pack = await packageService.get(idFromPath);
+            console.log(pack);
+            
             setPackageToEdit(pack);
             setSelectedUser(users.find(u => pack.receivingTenantId === u.id))
         } catch (err) {
@@ -64,7 +71,7 @@ const EditPackage = () => {
             selectedValue.includes(user.lastName)
         );
 
-        setSelectedUser(user || null); 
+        setSelectedUser(user || null);
     };
 
     async function onSavePackage(ev) {
@@ -72,7 +79,7 @@ const EditPackage = () => {
         if (!selectedUser.id) return
         try {
             packageToEdit.dateReceived = Date.now(),
-            packageToEdit.lobbyPackReceivedBy = 'אלון'
+                packageToEdit.lobbyPackReceivedBy = admin.username
             packageToEdit.fullPackageDescription = utilService.getFullPackageDescription(packageToEdit.amount, packageToEdit.type, packageToEdit.color, packageToEdit.size)
             packageToEdit.isCollected = false
             packageToEdit.receivingTenantApt = selectedUser.apartmentNumber
@@ -81,7 +88,7 @@ const EditPackage = () => {
             packageToEdit.receivingTenantId = selectedUser.id
             packageToEdit.receivingTenantFullTenantDesc = selectedUser.apartmentNumber + ' - ' + selectedUser.firstName + ' ' + selectedUser.lastName
             await packageService.save(packageToEdit)
-            router.push('/')
+            router.push('/packages')
         } catch (err) {
             console.error(err)
         }

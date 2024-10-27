@@ -1,9 +1,27 @@
+'use client'
+
 // TODO: Home page
 
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 export default function Home() {
+
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/auth/signup');
+    } else {
+      router.push('/packages');
+    }
+  }, [user, router]);
+
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      home
+    </>
   )
 }

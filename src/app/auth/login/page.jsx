@@ -3,17 +3,20 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { adminService } from '@/services/admin.service';
+import { useAuth } from '@/context/AuthContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter()
+    const { setAdmin } = useAuth()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const user = await adminService.login({ email, password })
             if (user) {
+                setAdmin(await adminService.getCurrentAdmin())
                 router.push('/packages')
             } else {
                 router.push('/users/signup')
@@ -40,6 +43,7 @@ const Login = () => {
                 </div>
 
                 <button type="submit">התחבר</button>
+                <button onClick={() => router.push('/auth/signup')}>הרשם  </button>
             </form>
         </div>
     );

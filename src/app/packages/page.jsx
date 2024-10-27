@@ -15,7 +15,7 @@ export default function PackageView() {
     const [sortBy, setSortBy] = useState(packageService.getDefaultSort());
     const [packages, setPackages] = useState(null);
     const [selectedItems, setSelectedItems] = useState([]);
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
     const [users, setUsers] = useState(null);
     const [showRemovePackages, setShowRemovePackages] = useState(false);
 

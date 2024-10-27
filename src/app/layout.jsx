@@ -1,8 +1,8 @@
 // import type { Metadata } from "next";
 import Header from "@/cmps/general/Header/Header";
 import "./styles/globals.scss";
-import { Suspense } from "react";
 import Loader from "@/cmps/general/Loader/Loader";
+import { Suspense } from "react";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
@@ -18,17 +18,15 @@ export default function RootLayout({
   // }>
 ) {
 
-  let loggedAdmin = null
-
   return (
     <html lang="en">
       <body className="index-layout">
-        <AuthProvider>
-          <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader isFullScreen={true} />}>
+          <AuthProvider>
             <Header />
             {children}
-          </Suspense >
-        </AuthProvider >
+          </AuthProvider>
+        </Suspense>
       </body>
     </html>
   );

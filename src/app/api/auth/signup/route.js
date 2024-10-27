@@ -26,9 +26,16 @@ export async function POST(req) {
             password,
         });
 
-        const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+        const admin = await db.collection(COLLECTION_NAME).findOne({ email });
+        const token = jwt.sign(admin, process.env.JWT_SECRET_KEY);
 
-        return new Response(JSON.stringify({ token }), { status: 201 });
+        return new Response(JSON.stringify({ token }), {
+            status: 200,
+            headers: {
+                'Set-Cookie': `token=${token}; HttpOnly; Secure; Max-Age=3600; Path=/`,
+                'Content-Type': 'application/json'
+            },
+        })
     } catch (error) {
         return new Response(JSON.stringify({ error: 'Error creating admin' }), { status: 500 });
     }

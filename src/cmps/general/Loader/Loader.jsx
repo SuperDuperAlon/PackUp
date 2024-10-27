@@ -1,10 +1,25 @@
-// TODO: loader
+'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Loader = () => {
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  console.log('loading');
+
+
   return (
-    <div>Loader</div>
+    <>
+      {
+        !isLoading &&
+        <div className='loader'>Loader</div>
+      }
+    </>
   )
 }
 
