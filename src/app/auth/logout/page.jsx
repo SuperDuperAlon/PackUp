@@ -2,14 +2,17 @@
 
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { adminService } from '@/services/admin.service';
+import { useRouter } from 'next/navigation';
+
 
 const Logout = () => {
+    const router = useRouter();
     useEffect(() => {
         async function logout() {
             await adminService.logout();
-            window.location.href = '/';
+            router.push('/');
         }
         logout();
     }, []);

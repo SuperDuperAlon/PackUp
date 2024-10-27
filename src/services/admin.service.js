@@ -83,12 +83,9 @@ async function logout() {
 async function getCurrentAdmin() {
 
     try {
-        // const loggedinAdmin = storageService.get(STORAGE_KEY_LOGGEDIN_ADMIN);
-        // if (loggedinAdmin) return loggedinAdmin;
+
         const response = await fetch('/api/auth/getcurrentadmin');
-        const data = await response.json();
-        // localStorage.setItem(STORAGE_KEY_LOGGEDIN_ADMIN, JSON.stringify(data.admin))
-        return data.admin;
+        const data = await response.json(); return data.admin;
     } catch (error) {
         console.error('Error fetching current admin:', error);
         return null;

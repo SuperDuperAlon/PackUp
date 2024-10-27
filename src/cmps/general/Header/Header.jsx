@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 const Header = () => {
     const { admin } = useAuth();
     const pathname = usePathname()
+    const router = useRouter()
 
     if (pathname === '/' || pathname.includes('/auth')) {
         return null
