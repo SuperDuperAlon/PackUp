@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="index-layout">
-        <Suspense fallback={<Loader isFullScreen={true} />}>
+        <Suspense fallback={<Loader />}>
           <AuthProvider>
             <Header />
             {children}
