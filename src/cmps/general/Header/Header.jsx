@@ -2,6 +2,7 @@
 import React from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext';
+import { adminService } from '@/services/admin.service';
 
 const Header = () => {
     const { admin } = useAuth();
@@ -12,6 +13,11 @@ const Header = () => {
         return null
     }
 
+    async function onLogout() {
+        await adminService.logout();
+        router.push('/auth/signup');
+    }
+
     return (
         <header className='index-layout full'>
             <section className='header'>
@@ -20,10 +26,10 @@ const Header = () => {
                         <>
                             { /* TODO: put them in one line */}
                             <p className='capitalize'>שלום, {admin.username}</p>
-                            <button type='button' onClick={() => router.push('/auth/logout')}>התנתק</button>
+                            <button type='button' onClick={() => onLogout()}>התנתק</button>
                         </>
                         :
-                        <button type='button' onClick={() => router.push('/auth/login')}>התחבר</button>
+                        <p>אנא המתן</p>
                     }
                 </div>
                 <div className='header__left'>

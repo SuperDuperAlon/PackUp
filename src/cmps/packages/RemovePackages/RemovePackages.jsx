@@ -4,7 +4,8 @@ import { packageService } from '@/services/package.service'
 import { utilService } from '@/services/util.service'
 import { userService } from "@/services/user.service";
 import { useRouter } from 'next/navigation'
-const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems, setPackages, packages }) => {
+import { showToast } from '@/lib/reactToastify/index.js'
+const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, packages }) => {
 
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const [users, setUsers] = useState([])
@@ -78,6 +79,7 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setSelectedItems
                 };
                 try {
                     await packageService.save(packageToSave);
+                    await showToast('success', 'החבילה נמחקה בהצלחה');
                 } catch (saveError) {
                     console.error('Error saving package:', saveError);
                 }

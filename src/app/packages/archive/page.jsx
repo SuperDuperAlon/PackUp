@@ -38,7 +38,7 @@ const PackageArchive = () => {
     }
 
     async function onUndoRemovePackage(id) {
-        const packageToUndo = packages.find(p => p.id === id)
+        const packageToUndo = packages.find(p => p._id === id)
         console.log(packageToUndo);
 
         try {
@@ -46,8 +46,8 @@ const PackageArchive = () => {
                 ...packageToUndo, dateCollected: null, lobbyPackGivenBy: null, isCollected: false,
                 collectingTenantApt: null, collectingTenantFname: null, collectingTenantFullTenantDesc: null, collectingTenantId: null, collectingTenantLname: null
             }
-            setPackages(prev => prev.filter(p => p.id !== id))
             await packageService.save(p)
+            setPackages(prev => prev.filter(p => p._id !== id))
         }
         catch (err) { console.error(err) }
     }
@@ -79,7 +79,7 @@ const PackageArchive = () => {
                         .filter(p => p.isCollected)
                         .map((p) => (
                             <tr key={p._id}>
-                                <td><button onClick={() => onUndoRemovePackage(p.id)}>החזר</button></td>
+                                <td><button onClick={() => onUndoRemovePackage(p._id)}>החזר</button></td>
                                 <td>{utilService.parseDate(p.dateReceived)}</td>
                                 <td className='capitalize'>{p.lobbyPackReceivedBy}</td>
                                 <td>{p.receivingTenantFullTenantDesc}</td>

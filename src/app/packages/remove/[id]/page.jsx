@@ -3,6 +3,7 @@ import { packageService } from '@/services/package.service'
 import { utilService } from '@/services/util.service'
 import { userService } from '@/services/user.service'
 import { usePathname, useRouter } from 'next/navigation'
+import { showToast } from '@/lib/reactToastify/index.js'
 import React, { useEffect, useState } from 'react'
 
 const RemovePackage = () => {
@@ -49,9 +50,9 @@ const RemovePackage = () => {
     const handleUserChange = (e) => {
         const selectedValue = e.target.value;
 
-        const user = users.find(user => 
-            selectedValue.includes(user.apartmentNumber) && 
-            selectedValue.includes(user.firstName) && 
+        const user = users.find(user =>
+            selectedValue.includes(user.apartmentNumber) &&
+            selectedValue.includes(user.firstName) &&
             selectedValue.includes(user.lastName)
         );
 
@@ -69,12 +70,13 @@ const RemovePackage = () => {
             packageToEdit.collectingTenantLname = selectedUser.lastName
             packageToEdit.collectingTenantId = selectedUser.id
             await packageService.save(packageToEdit)
+            await showToast('success', 'החבילה נמחקה בהצלחה')
             router.push('/packages')
         } catch (err) {
             console.error(err)
         }
     }
-    
+
     return (
         <>
             <form onSubmit={onSavePackage}>

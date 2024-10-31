@@ -41,9 +41,10 @@ const Login = () => {
                     </label>
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
-
-                <button type="submit">התחבר</button>
-                <button onClick={() => router.push('/auth/signup')}>הרשם  </button>
+                <div className='edit_class__form_submit_row'>
+                    <button type="submit">התחבר</button>
+                    <button onClick={() => router.push('/auth/signup')}>הרשם  </button>
+                </div>
             </form>
         </div>
     );

@@ -9,6 +9,8 @@ import { utilService } from '@/services/util.service';
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
 import { CiEdit } from "react-icons/ci";
+
+
 export default function PackageView() {
 
     const [filterBy, setFilterBy] = useState(packageService.getDefaultFilter());
@@ -98,7 +100,7 @@ export default function PackageView() {
         setSortBy(updatedSort)
     }
 
-    function onSingleRemoval(id) {
+    async function onSingleRemoval(id) {
         setSelectedItems([id])
         setPackages(packages)
         setShowRemovePackages(!showRemovePackages)
@@ -109,7 +111,6 @@ export default function PackageView() {
         setShowRemovePackages(!showRemovePackages)
     }
 
-    // if (!user) return router.push('/auth/login')
     if (!packages && !users) console.log('no packages')
     else return (
         <>
