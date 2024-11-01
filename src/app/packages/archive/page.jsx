@@ -3,6 +3,8 @@ import { packageService } from '@/services/package.service';
 import { userService } from '@/services/user.service';
 import { utilService } from '@/services/util.service';
 import { useRouter } from 'next/navigation';
+import { showToast } from '@/lib/reactToastify';
+
 import React, { useEffect, useState } from 'react'
 
 const PackageArchive = () => {
@@ -47,9 +49,13 @@ const PackageArchive = () => {
                 collectingTenantApt: null, collectingTenantFname: null, collectingTenantFullTenantDesc: null, collectingTenantId: null, collectingTenantLname: null
             }
             await packageService.save(p)
+            await showToast('success', 'פעולה בוצעה בהצלחה')
             setPackages(prev => prev.filter(p => p._id !== id))
         }
-        catch (err) { console.error(err) }
+        catch (err) {
+            console.error(err)
+            await showToast('error', 'פעולה נכשלה')
+        }
     }
 
     if (!packages && !users) console.log('no packages')

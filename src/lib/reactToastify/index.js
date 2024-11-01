@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 
 export const showToast = (type, message, options = {}) => {
     return new Promise((resolve, reject) => {
-        const defaultOptions = { position: "bottom-right", autoClose: 2000, ...options };
+        const defaultOptions = { position: "bottom-right", autoClose: 2000, rtl: true, ...options };
 
         // Display the toast based on type
         switch (type) {

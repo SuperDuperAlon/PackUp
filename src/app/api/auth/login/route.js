@@ -14,7 +14,7 @@ export async function POST(req) {
 
         const client = await clientPromise;
         const db = client.db(DB_NAME);
-        const admin = await db.collection(COLLECTION_NAME).findOne({ email });
+        const admin = await db.collection(COLLECTION_NAME).findOne({ email, password });
 
         if (!admin) {
             return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });

@@ -79,9 +79,11 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
                 };
                 try {
                     await packageService.save(packageToSave);
-                    await showToast('success', 'החבילה נמחקה בהצלחה');
+                    await showToast('success', 'פעולה בוצעה בהצלחה')
                 } catch (saveError) {
                     console.error('Error saving package:', saveError);
+                    await showToast('error', 'פעולה נכשלה')
+
                 }
             }
 

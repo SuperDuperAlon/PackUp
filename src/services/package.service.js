@@ -17,9 +17,11 @@ export const packageService = {
 }
 
 // TODO: add sorting
-async function query(filterBy) {
+async function query(filterBy, sortBy) {
+    console.log(sortBy);
+    
     try {
-        const response = await fetch(API_URL + '?receivingTenantFullTenantDesc=' + filterBy.receivingTenantFullTenantDesc, {
+        const response = await fetch(API_URL + '?receivingTenantFullTenantDesc=' + filterBy.receivingTenantFullTenantDesc + '&sortBy=' + sortBy.sortBy + '&sortOrder=' + sortBy.sortOrder, {
             method: 'GET',
         });
 
@@ -35,72 +37,6 @@ async function query(filterBy) {
     }
 }
 
-// async function query(filterBy, sortBy) {
-//     if (typeof window === 'undefined' || !window.localStorage) return
-//     var packages = await storageService.query(STORAGE_KEY)
-//     if (filterBy.receivingTenantFullTenantDesc) {
-//         packages = packages.filter(p => p.receivingTenantFullTenantDesc && p.receivingTenantFullTenantDesc.includes(filterBy.receivingTenantFullTenantDesc))
-//     }
-
-//     if (filterBy.idArray) {
-//         packages = packages.filter(obj => ids.includes(obj.id))
-//     }
-//     if (sortBy.by === 'dateReceived') {
-//         packages = packages.sort((a, b) => {
-//             if (sortBy.asc) {
-//                 return a.dateReceived - b.dateReceived
-//             } else {
-//                 return b.dateReceived - a.dateReceived
-//             }
-//         })
-//     }
-
-//     if (sortBy.by === 'apartmentReceiver') {
-//         packages = packages.sort((a, b) => {
-//             if (sortBy.asc) {
-//                 return a.apartmentReceiver.localeCompare(b.apartmentReceiver)
-//             } else {
-//                 return b.apartmentReceiver.localeCompare(a.apartmentReceiver)
-//             }
-//         })
-//     }
-//     if (sortBy.by === 'notesOnArrival') {
-//         packages = packages.sort((a, b) => {
-//             if (sortBy.asc) {
-//                 return a.notesOnArrival.localeCompare(b.notesOnArrival)
-//             } else {
-//                 return b.notesOnArrival.localeCompare(a.notesOnArrival)
-//             }
-//         })
-//     }
-
-//     if (sortBy.by === 'lobbyPackReceivedBy') {
-//         packages = packages.sort((a, b) => {
-//             if (sortBy.asc) {
-//                 return a.lobbyPackReceivedBy.localeCompare(b.lobbyPackReceivedBy)
-//             } else {
-//                 return b.lobbyPackReceivedBy.localeCompare(a.lobbyPackReceivedBy)
-//             }
-//         })
-//     }
-
-//     if (sortBy.by === 'fullPackageDescription') {
-//         packages = packages.sort((a, b) => {
-//             if (sortBy.asc) {
-//                 return a.fullPackageDescription.localeCompare(b.fullPackageDescription)
-//             } else {
-//                 return b.fullPackageDescription.localeCompare(a.fullPackageDescription)
-//             }
-//         })
-//     }
-//     return packages
-// }
-
-// async function get(packageId) {
-//     if (typeof window !== 'undefined') {
-//         return storageService.get(STORAGE_KEY, packageId)
-//     }
-// }
 async function get(packageId) {
     try {
         const response = await fetch(API_URL + '/' + packageId, {
@@ -187,7 +123,7 @@ function getDefaultFilter() {
 }
 
 function getDefaultSort() {
-    return { by: '', asc: true }
+    return { sortBy: '', sortOrder: 1 }
 }
 
 // function _createPackages() {

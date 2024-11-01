@@ -31,7 +31,7 @@ export default function PackageView() {
     useEffect(() => {
         async function loadPackages() {
             try {
-                const data = await packageService.query(filterBy)
+                const data = await packageService.query(filterBy, sortBy)
                 if (data) {
                     setPackages(data.filter(p => !p.isCollected))
                     setNumOfPages(Math.ceil(data.filter(p => !p.isCollected).length / packagesPerPage))
@@ -96,7 +96,7 @@ export default function PackageView() {
     }
 
     function handleSortChange(by) {
-        const updatedSort = { ...sortBy, by, asc: !sortBy.asc }
+        const updatedSort = { ...sortBy, sortBy: by, ...sortBy.sortOrder === 1 ? { sortOrder: -1 } : { sortOrder: 1 } };
         setSortBy(updatedSort)
     }
 

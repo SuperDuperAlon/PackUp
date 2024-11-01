@@ -10,7 +10,14 @@ export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
     const query = { receivingTenantFullTenantDesc: { $regex: searchParams.get('receivingTenantFullTenantDesc') } }
-    const packages = await db.collection(COLLECTION_NAME).find(query).toArray();
+    const sortBy = searchParams.get('sortBy') || 'dateReceived'; // Default sort field
+    const sortOrder = parseInt(searchParams.get('sortOrder')) || 1;
+
+    const validSortFields = ['fullPackageDescription', 'apartmentReceiver', 'dateReceived', 'lobbyPackReceivedBy', 'notesOnArrival'];
+    const sortCriteria = validSortFields.includes(sortBy) ? { [sortBy]: sortOrder } : { createdAt: 1 };
+
+
+    const packages = await db.collection(COLLECTION_NAME).find(query).sort(sortCriteria).toArray();
 
     return new Response(JSON.stringify(packages), {
       status: 200,

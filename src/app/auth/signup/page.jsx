@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { adminService } from '@/services/admin.service';
+import { showToast } from '@/lib/reactToastify';
 import FormValidation from '@/cmps/general/FormValidation/FormValidation';
 
 const SignupForm = () => {
@@ -17,9 +18,12 @@ const SignupForm = () => {
         e.preventDefault();
         try {
             await adminService.signup({ username, email, password })
+            await showToast('success', 'פעולה בוצעה בהצלחה')
             router.push('/packages')
         } catch (err) {
             console.error(err);
+            await showToast('error', 'פעולה נכשלה')
+
         }
     };
 
@@ -29,6 +33,7 @@ const SignupForm = () => {
         <>
             <div className='edit_class__section'>
                 <form onSubmit={handleSubmit} className='edit_class__form'>
+                    <div className='header__logo'>towerOne</div>
                     <div className='edit_class__form_container'>
                         <label htmlFor="username">שם משתמש</label>
                         <input
@@ -54,7 +59,7 @@ const SignupForm = () => {
                             id="email"
                             name="email"
                             value={email}
-                            pattern=".+@example\.com"
+                            // pattern=".+@example\.com"
                             required
                             onChange={(e) => setEmail(e.target.value)}
                         />

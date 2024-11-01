@@ -3,7 +3,8 @@ import { utilService } from "@/services/util.service";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from 'next/navigation'
 import { userService } from "@/services/user.service"
-import { useAuth } from '@/context/AuthContext';;
+import { useAuth } from '@/context/AuthContext';
+import { showToast } from '@/lib/reactToastify';
 
 const EditPackage = () => {
 
@@ -88,9 +89,12 @@ const EditPackage = () => {
             packageToEdit.receivingTenantId = selectedUser.id
             packageToEdit.receivingTenantFullTenantDesc = selectedUser.apartmentNumber + ' - ' + selectedUser.firstName + ' ' + selectedUser.lastName
             await packageService.save(packageToEdit)
+            await showToast('success', 'פעולה בוצעה בהצלחה')
             router.push('/packages')
         } catch (err) {
             console.error(err)
+            await showToast('error', 'פעולה נכשלה')
+
         }
     }
 
