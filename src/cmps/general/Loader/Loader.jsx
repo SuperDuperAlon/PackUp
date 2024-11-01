@@ -10,9 +10,6 @@ const Loader = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  console.log('loading');
-
-
   return (
     <>
       {

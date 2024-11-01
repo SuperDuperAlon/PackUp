@@ -18,8 +18,6 @@ export const packageService = {
 
 // TODO: add sorting
 async function query(filterBy, sortBy) {
-    console.log(sortBy);
-    
     try {
         const response = await fetch(API_URL + '?receivingTenantFullTenantDesc=' + filterBy.receivingTenantFullTenantDesc + '&sortBy=' + sortBy.sortBy + '&sortOrder=' + sortBy.sortOrder, {
             method: 'GET',

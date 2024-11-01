@@ -32,9 +32,6 @@ const EditPackage = () => {
         }
     }
 
-    console.log(users);
-    
-
     useEffect(() => {
         if (!idFromPath) return;
         loadPackage();
@@ -43,8 +40,6 @@ const EditPackage = () => {
     async function loadPackage() {
         try {
             const pack = await packageService.get(idFromPath);
-            console.log(pack);
-            
             setPackageToEdit(pack);
             setSelectedUser(users.find(u => pack.receivingTenantId === u.id))
         } catch (err) {

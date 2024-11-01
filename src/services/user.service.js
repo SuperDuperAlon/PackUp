@@ -134,9 +134,7 @@ function generateRandomTenants() {
 }
 
 const tenants = generateRandomTenants();
-// console.log(tenants)/
 const jsonTenants = JSON.stringify(tenants);
-// console.log(jsonTenants)
 
 _createPackages()
 

@@ -41,7 +41,6 @@ const PackageArchive = () => {
 
     async function onUndoRemovePackage(id) {
         const packageToUndo = packages.find(p => p._id === id)
-        console.log(packageToUndo);
 
         try {
             const p = {

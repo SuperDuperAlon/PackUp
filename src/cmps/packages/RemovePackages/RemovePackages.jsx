@@ -60,10 +60,6 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
     function handleChange({ target }) {
         let { value, type, name: field } = target
         value = type === 'number' ? +value : value
-        console.log(value);
-        console.log(type);
-        console.log(field);
-
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     }
 

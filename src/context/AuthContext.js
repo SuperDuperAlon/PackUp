@@ -20,9 +20,6 @@ export const AuthProvider = ({ children }) => {
         fetchAdmin();
     }, []);
 
-    console.log(admin);
-
-
     return (
         <AuthContext.Provider value={{ admin, setAdmin }}>
             {children}
