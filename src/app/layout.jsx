@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
-  title: "Package Management App",
+  title: "TowerOne",
   description: "",
 };
 
