@@ -17,7 +17,7 @@ const PackageArchive = () => {
     useEffect(() => {
         async function loadPackages() {
             try {
-                const data = await packageService.query(filterBy)
+                const data = await packageService.query(filterBy, sortBy)
                 if (data) setPackages(data.filter(p => p.isCollected))
             } catch (error) {
                 console.error('Error loading flowers:', error)
