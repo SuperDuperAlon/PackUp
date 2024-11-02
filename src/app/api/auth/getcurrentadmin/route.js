@@ -11,9 +11,7 @@ export async function GET(req) {
             const admin = null;
             return NextResponse.json({ admin }, { status: 200 });
         }
-
         const admin = jwt.verify(token, SECRET_KEY);
-
         return NextResponse.json({ admin }, { status: 200 });
     } catch (error) {
         console.error('Error verifying token:', error);

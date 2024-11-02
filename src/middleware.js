@@ -12,17 +12,12 @@ export async function middleware(req) {
 
     try {
         const { payload } = await jwtVerify(token, SECRET_KEY);
-
         const userName = payload.username;
-
         const response = NextResponse.next();
-        response.headers.set('X-User-Name', userName);
-
+        response.headers.set('X-User-Name', encodeURIComponent(userName));
         return response;
-
     } catch (error) {
         console.error('Invalid token:', error);
-
         return NextResponse.redirect('http://localhost:3000/auth/login');
     }
 }

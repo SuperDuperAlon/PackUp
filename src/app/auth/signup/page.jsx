@@ -5,12 +5,14 @@ import { useRouter } from 'next/navigation';
 import { adminService } from '@/services/admin.service';
 import { showToast } from '@/lib/reactToastify';
 import FormValidation from '@/cmps/general/FormValidation/FormValidation';
+import { useAuth } from '@/context/AuthContext';
 
 const SignupForm = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [buttonDisabled, setButtonDisabled] = useState(true);
+    const { setAdmin } = useAuth()
 
     const router = useRouter()
 
@@ -18,12 +20,15 @@ const SignupForm = () => {
         e.preventDefault();
         try {
             await adminService.signup({ username, email, password })
-            await showToast('success', 'פעולה בוצעה בהצלחה')
-            router.push('/packages')
+            const user = await adminService.getCurrentAdmin()
+            if (user) {
+                setAdmin(user)
+                await showToast('success', 'פעולה בוצעה בהצלחה')
+                router.push('/packages')
+            }
         } catch (err) {
             console.error(err);
             await showToast('error', 'פעולה נכשלה')
-
         }
     };
 
@@ -42,18 +47,18 @@ const SignupForm = () => {
                             name="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            pattern="\w{2,10}" required
+                            // pattern="^[A-Za-z\u0590-\u05FF ]{2,}$" 
+                            required
                         />
                         <FormValidation
                             input={username}
-                            regex="^[A-Za-z]{2,}[A-Za-z ]*$"
+                            regex="^[A-Za-z\u0590-\u05FF ]{2,}$"
                             successMessage="שם משתמש תקין"
                             errorMessage="הזן לפחות 2 אותיות"
                         />
                     </div>
                     <div className='edit_class__form_container'>
                         <label htmlFor="email">כתובת מייל</label>
-
                         <input
                             type="email"
                             id="email"
@@ -78,7 +83,7 @@ const SignupForm = () => {
                             id="password"
                             name="password"
                             value={password}
-                            minlength="4" required
+                            minLength="4" required
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <FormValidation

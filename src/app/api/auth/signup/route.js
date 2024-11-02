@@ -27,7 +27,7 @@ export async function POST(req) {
         });
 
         const admin = await db.collection(COLLECTION_NAME).findOne({ email });
-        const token = jwt.sign(admin, process.env.JWT_SECRET_KEY);
+        const token = jwt.sign(admin, process.env.JWT_SECRET_KEY, { algorithm: "HS256" });
 
         return new Response(JSON.stringify({ token }), {
             status: 200,
