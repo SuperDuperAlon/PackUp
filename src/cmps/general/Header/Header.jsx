@@ -33,7 +33,7 @@ const Header = () => {
                     }
                 </div>
                 <div className='header__left'>
-                    <div className='header__logo' onClick={() => router.push('/')}>towerOne</div>
+                    <div className='header__logo' onClick={() => router.push('/')}>PackUp</div>
                 </div>
             </section>
         </header>

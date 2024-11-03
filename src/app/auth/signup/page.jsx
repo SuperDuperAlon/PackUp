@@ -38,7 +38,7 @@ const SignupForm = () => {
         <>
             <div className='edit_class__section'>
                 <form onSubmit={handleSubmit} className='edit_class__form'>
-                    <div className='header__logo'>towerOne</div>
+                    <div className='header__logo'>PackUp</div>
                     <div className='edit_class__form_container'>
                         <label htmlFor="username">שם משתמש</label>
                         <input
