@@ -1,0 +1,53 @@
+.general_info_container {
+    position: absolute;
+    background-color: pink;
+    padding: 1.5rem;
+    max-width: 320px;
+    border-radius: 24px;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    &.close {
+        cursor: pointer;
+        padding: 1rem;
+        font-size: 1.5rem;
+    }
+
+    &.close:hover {
+        scale: 1.02;
+    }
+
+    >button {
+        background-color: white;
+    }
+}
+
+.general_info__guest_login {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    >*span {
+        font-weight: bold;
+        font-style: italic;
+    }
+}
+
+.general_info__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    >:last-child {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        >*a:hover {
+            color: blue;
+        }
+    }
+}

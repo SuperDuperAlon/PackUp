@@ -1,6 +1,7 @@
 // import type { Metadata } from "next";
-import Header from "@/cmps/general/Header/Header";
 import "./styles/globals.scss";
+import Header from "@/cmps/general/Header/Header";
+import GeneralInfo from "@/cmps/general/GeneralInfo/GeneralInfo";
 import Loader from "@/cmps/general/Loader/Loader";
 import { Suspense } from "react";
 import { AuthProvider } from "@/context/AuthContext";
@@ -29,6 +30,7 @@ export default function RootLayout({
             {children}
           </AuthProvider>
         </Suspense>
+        <GeneralInfo />
         <ToastContainer />
       </body>
     </html>
