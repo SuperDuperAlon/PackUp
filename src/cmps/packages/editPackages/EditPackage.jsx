@@ -151,16 +151,16 @@ const EditPackage = () => {
                         <label htmlFor="color"> צבע</label>
                         <select id="color" name="color" value={packageToEdit.color} onChange={handleSelectChange} required>
                             <option value="" hidden> צבע</option>
-                            <option value="אדום">אדום</option>
-                            <option value="כחול">כחול</option>
-                            <option value="ירוק">ירוק</option>
-                            <option value="צהוב">צהוב</option>
-                            <option value="כתום">כתום</option>
-                            <option value="סגול">סגול</option>
-                            <option value="ורוד">ורוד</option>
-                            <option value="חום">חום</option>
-                            <option value="שחור">שחור</option>
-                            <option value="לבן">לבן</option>
+                            <option value="אדום">🔴 אדום</option>
+                            <option value="כחול">🔵 כחול</option>
+                            <option value="ירוק">🟢 ירוק</option>
+                            <option value="צהוב">🟡 צהוב</option>
+                            <option value="כתום">🟠 כתום</option>
+                            <option value="סגול">🟣 סגול</option>
+                            <option value="חום">🟤 חום</option>
+                            <option value="שחור">⚫ שחור</option>
+                            <option value="לבן">⚪ לבן</option>
+                            <option value="מנומר">🐯 מנומר</option>
                         </select>
                     </div>
                 </div>
