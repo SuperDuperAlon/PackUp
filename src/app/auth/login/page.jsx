@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { adminService } from '@/services/admin.service';
 import { useAuth } from '@/context/AuthContext';
 import { showToast } from '@/lib/reactToastify';
+import Link from 'next/link';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -32,7 +33,7 @@ const Login = () => {
     return (
         <div className='edit_class__section'>
             <form onSubmit={handleSubmit} className='edit_class__form'>
-            <div className='header__logo'>PackUp</div>
+                <div className='header__logo'>PackUp</div>
                 <div className='edit_class__form_container'>
                     <label>
                         כתובת מייל
@@ -47,7 +48,7 @@ const Login = () => {
                 </div>
                 <div className='edit_class__form_submit_row'>
                     <button type="submit">התחבר</button>
-                    <button onClick={() => router.push('/auth/signup')}>הרשם  </button>
+                    <Link href={'/auth/signup'}>הרשם</Link>
                 </div>
             </form>
         </div>

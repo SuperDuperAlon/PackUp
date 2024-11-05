@@ -6,6 +6,7 @@ import { adminService } from '@/services/admin.service';
 import { showToast } from '@/lib/reactToastify';
 import FormValidation from '@/cmps/general/FormValidation/FormValidation';
 import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
 
 const SignupForm = () => {
     const [username, setUsername] = useState('');
@@ -95,7 +96,7 @@ const SignupForm = () => {
                     </div>
                     <div className='edit_class__form_submit_row'>
                         <button type="submit"  > הרשם </button>
-                        <button onClick={() => router.push('/auth/login')}>חשבון קיים?</button>
+                        <Link href={'/auth/login'}>חשבון קיים?</Link>
                     </div>
                 </form>
             </div>
