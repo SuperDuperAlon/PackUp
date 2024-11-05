@@ -11,7 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!user) {
-      router.push('/auth/signup');
+      router.push('/auth/login');
     } else {
       router.push('/packages');
     }
