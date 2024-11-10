@@ -11,7 +11,7 @@ const GeneralInfo = () => {
   if (!showGeneralInfo) {
     return (
       <div className='general_info_container close' onClick={() => setShowGeneralInfo(!showGeneralInfo)}>
-        <FaInfoCircle />
+        <FaInfoCircle /> על הפרויקט
       </div>
     )
   }
