@@ -19,7 +19,11 @@ export default function Home() {
 
   return (
     <>
-      אנא המתן
+      <div className='homepage_view'>
+        <div className="homepage_content">
+          PackUp
+        </div>
+      </div>
     </>
   )
 }

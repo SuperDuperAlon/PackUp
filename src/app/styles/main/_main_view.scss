@@ -14,3 +14,13 @@
 .full {
     grid-column: -1/1;
 }
+
+.homepage_view {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4963fd;
+}
