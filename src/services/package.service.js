@@ -121,7 +121,7 @@ function getDefaultFilter() {
 }
 
 function getDefaultSort() {
-    return { sortBy: '', sortOrder: 1 }
+    return { sortBy: '', sortOrder: -1 }
 }
 
 // function _createPackages() {
