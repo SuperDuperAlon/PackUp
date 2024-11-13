@@ -120,7 +120,7 @@ export default function PackageView() {
                     <div>
                         <button onClick={() => router.push('packages/edit')}>הוסף</button>
                         <button onClick={() => onMultipleRemoval()}>מחק</button>
-                        <button onClick={() => handleSelectAllChange()}>בחר בכל</button>
+                        <button onClick={() => handleSelectAllChange()}>בחר הכל</button>
                         <input type="text" onChange={(e) => filterPackages(e)} />
                         <div className='baseline'>יש {packages ? packages.length : 0} חבילות</div>
                     </div>
