@@ -16,7 +16,7 @@
 ### Step 1: Clone the Repository:
 
 ```bash
-git clone https://github.com/your-username/PackUp.git
+git clone https://github.com/SuperDuperAlon/PackUp.git
 cd PackUp
 ```
 
@@ -45,11 +45,6 @@ Start the application server:
 npm start
 ```
 
-
-This will render correctly on GitHub. Let me know if you need anything else!
-
-
 ### Step 5: Access the App
 
 Open your browser and go to `http://localhost:3000` to access the PackUp application.
-````
