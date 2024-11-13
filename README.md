@@ -13,8 +13,6 @@
 
 ## Installation
 
-### Steps
-
 ### Step 1: Clone the Repository:
 
 ```bash
@@ -30,8 +28,6 @@ Install the necessary dependencies for the project:
 npm install
 ```
 
-This will correctly render on GitHub. Let me know if you need further adjustments!
-
 ### Step 3: Set Up Environment Variables
 
 Create a `.env` file in the root directory. Add the following environment variables, ensuring your MongoDB URI and sensitive keys remain private:
@@ -39,9 +35,7 @@ Create a `.env` file in the root directory. Add the following environment variab
 ````plaintext
 MONGODB_URI=<Your MongoDB connection string>
 SECRET_KEY=<Your secret key for data protection>
-
-This should now render properly as well. Let me know if you need any further changes!
-
+````
 
 ### Step 4: Run the Application
 
@@ -49,6 +43,7 @@ Start the application server:
 
 ```bash
 npm start
+```
 
 
 This will render correctly on GitHub. Let me know if you need anything else!
