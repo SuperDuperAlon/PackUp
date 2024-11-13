@@ -22,7 +22,6 @@
    cd PackUp
 
    ### Step 2: Install Dependencies
-   ```
 
 Install the necessary dependencies for the project:
 
