@@ -15,13 +15,14 @@
 
 ### Steps
 
-1. **Clone the Repository**:
+### Step 1: Clone the Repository:
 
-   ```bash
-   git clone https://github.com/your-username/PackUp.git
-   cd PackUp
+```bash
+git clone https://github.com/your-username/PackUp.git
+cd PackUp
+```
 
-   ### Step 2: Install Dependencies
+### Step 2: Install Dependencies
 
 Install the necessary dependencies for the project:
 
@@ -35,7 +36,7 @@ This will correctly render on GitHub. Let me know if you need further adjustment
 
 Create a `.env` file in the root directory. Add the following environment variables, ensuring your MongoDB URI and sensitive keys remain private:
 
-```plaintext
+````plaintext
 MONGODB_URI=<Your MongoDB connection string>
 SECRET_KEY=<Your secret key for data protection>
 
@@ -56,3 +57,4 @@ This will render correctly on GitHub. Let me know if you need anything else!
 ### Step 5: Access the App
 
 Open your browser and go to `http://localhost:3000` to access the PackUp application.
+````
