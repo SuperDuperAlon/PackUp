@@ -23,16 +23,31 @@ function getFullPackageDescription(amount,
     return `${amount} - ${type} בגודל ${size} בצבע ${color}`;
 }
 
-function parseDate(time) {
-    const currentDateTime = new Date(time);
-    const options = {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
+function parseDate(timestamp) {
+    const date = new Date(timestamp);
+
+    // Extract day name, time, and date separately
+    const dayName = new Intl.DateTimeFormat('he-IL', { weekday: 'long' }).format(date);
+    const time = new Intl.DateTimeFormat('he-IL', {
         hour: '2-digit',
         minute: '2-digit',
-    };
-    return currentDateTime.toLocaleString('en-UK', options);
+        hour12: false
+    }).format(date);
+    const fullDate = new Intl.DateTimeFormat('he-IL', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    }).format(date);
+
+    // Combine into desired format
+    return (
+        <>
+            <div style={{ fontWeight: '500' }}>
+                {dayName}, {time}
+            </div>
+            <div style={{ fontStyle: 'italic', fontSize: '12px' }}>{fullDate}</div>
+        </>
+    );
 }
 
 function getRandomTimestampFromLast3Days() {
