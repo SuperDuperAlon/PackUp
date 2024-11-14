@@ -137,6 +137,8 @@ const EditPackage = () => {
                             <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
                         </select>
                     </div>
                     <div className='edit_class__form_container'>
@@ -157,6 +159,7 @@ const EditPackage = () => {
                             <option value="בינוני">בינוני</option>
                             <option value="גדול">גדול</option>
                             <option value="ענק">ענק</option>
+                            <option value="אחר">אחר</option>
                         </select>
                     </div>
                     <div className='edit_class__form_container'>
@@ -173,6 +176,7 @@ const EditPackage = () => {
                             <option value="שחור">⚫ שחור</option>
                             <option value="לבן">⚪ לבן</option>
                             <option value="מנומר">🐯 מנומר</option>
+                            <option value="אחר">אחר</option>
                         </select>
                     </div>
                 </div>
