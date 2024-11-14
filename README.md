@@ -53,22 +53,20 @@ Open your browser and go to `http://localhost:3000` to access the PackUp applica
 
 ## Usage
 
-### Step 1: Login or Register
+### Step 1: Login or Signup
 
 Before accessing the system, users need to log in or register.
 
-#### Register:
-To register, visit the **Registration Page** and provide the required information (e.g., name, email, password). Once submitted, your account will be created and you’ll be automatically logged in.
+#### Signup:
+To register, visit the **Signup Page** and provide the required information (e.g., name, email, password). Once submitted, your account will be created and you’ll be automatically logged in.
 
 #### Login:
 To log in, visit the **Login Page**, then enter your registered email and password. After successful authentication, you will be redirected to the packages dashboard.
 
 ##### Sample Login for Guests:
-For visitors or guest access, you can use the following sample credentials:
+
 - **Email**: guest@pack.up
 - **Password**: guest
-
-This will allow limited access to the system for demo purposes.
 
 ### Step 2: Managing Packages
 
