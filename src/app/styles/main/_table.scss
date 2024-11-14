@@ -1,6 +1,13 @@
 td {
-    padding: 0.5rem 0.25rem;
+    padding: 0.5rem;
     width: fit-content;
+    height: inherit;
+    &.table-actions {
+        >*{
+            display: inline-block;
+            margin: 0 0.35rem; 
+        }
+    }
 }
 
 tr {

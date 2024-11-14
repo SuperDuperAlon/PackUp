@@ -16,6 +16,12 @@ button {
         cursor: pointer;
         /* background-color: saturate(#ff8a6c, 0.8); */
     }
+
+    &:disabled {
+        cursor: not-allowed;
+        background-color: #ff8a6c;
+        opacity: 0.8;
+    }
 }
 
 .round-btn {

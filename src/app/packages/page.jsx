@@ -17,7 +17,6 @@ export default function PackageView() {
     const [sortBy, setSortBy] = useState(packageService.getDefaultSort());
     const [packages, setPackages] = useState(null);
     const [selectedItems, setSelectedItems] = useState([]);
-    // const [user, setUser] = useState(null);
     const [users, setUsers] = useState(null);
     const [showRemovePackages, setShowRemovePackages] = useState(false);
 
@@ -43,16 +42,16 @@ export default function PackageView() {
         loadPackages()
     }, [filterBy, sortBy, currPage])
 
-    useEffect(() => {
-        const loadUser = () => {
-            const storedUser = userService.getloggedInUser();
-            if (storedUser) {
-                setUser(storedUser);
-                router.push('/')
-            }
-        };
-        loadUser();
-    }, []);
+    // useEffect(() => {
+    //     const loadUser = () => {
+    //         const storedUser = userService.getloggedInUser();
+    //         if (storedUser) {
+    //             setUser(storedUser);
+    //             router.push('/')
+    //         }
+    //     };
+    //     loadUser();
+    // }, []);
 
     useEffect(() => {
         loadUsers()
@@ -107,7 +106,7 @@ export default function PackageView() {
     }
 
     function onMultipleRemoval() {
-        if (selectedItems.length === 0) return
+        // if (selectedItems.length === 0) return
         setShowRemovePackages(!showRemovePackages)
     }
 
@@ -119,8 +118,8 @@ export default function PackageView() {
                 <div className='table-section'>
                     <div>
                         <button onClick={() => router.push('packages/edit')}>הוסף</button>
-                        <button onClick={() => onMultipleRemoval()}>מחק</button>
-                        <button onClick={() => handleSelectAllChange()}>בחר הכל</button>
+                        {/* <button onClick={() => handleSelectAllChange()}>בחר הכל</button> */}
+                        <button disabled={selectedItems.length === 0} onClick={() => onMultipleRemoval()}>מחק</button>
                         <input type="text" onChange={(e) => filterPackages(e)} />
                         <div className='baseline'>יש {packages ? packages.length : 0} חבילות</div>
                     </div>
@@ -135,8 +134,13 @@ export default function PackageView() {
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
+                            <th>
+                                <input type="checkbox"
+                                    onChange={handleSelectAllChange}
+                                    checked={packages && selectedItems.length === packages.length}
+                                />
+                            </th>
+
                             <th></th>
                             <th onClick={() => handleSortChange('apartmentReceiver')}>
                                 עבור</th>
@@ -161,11 +165,9 @@ export default function PackageView() {
                                         onChange={handleCheckboxChange}
                                         checked={selectedItems.includes(p._id)}
                                     /></td>
-                                    <td>
+                                    <td className='table-actions'>
                                         <button onClick={() => onSingleRemoval(p._id)}>מסירה</button>
-                                    </td>
-                                    <td>
-                                        <button className='round-btn' onClick={() => router.push(`/packages/edit/${p._id}`)}><CiEdit /></button>
+                                        <button onClick={() => router.push(`/packages/edit/${p._id}`)}>ערוך</button>
                                     </td>
                                     <td>{p.receivingTenantFullTenantDesc}</td>
                                     <td>{p.fullPackageDescription}</td>
