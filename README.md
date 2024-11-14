@@ -89,7 +89,7 @@ To log out of the system, click on the "Logout" button located in the user menu 
 
 ## Tech Stack
 
-- **Frontend**: Next.js, Javascript (ES6+), Sass, Toastify
+- **Frontend**: Next.js, React.js, Javascript (ES6+), Sass, Toastify
 - **Backend**: Jose
 - **Database**: MongoDB
 - **Authentication**: JWT (JSON Web Tokens)
