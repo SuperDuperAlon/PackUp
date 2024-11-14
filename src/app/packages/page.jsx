@@ -42,17 +42,6 @@ export default function PackageView() {
         loadPackages()
     }, [filterBy, sortBy, currPage])
 
-    // useEffect(() => {
-    //     const loadUser = () => {
-    //         const storedUser = userService.getloggedInUser();
-    //         if (storedUser) {
-    //             setUser(storedUser);
-    //             router.push('/')
-    //         }
-    //     };
-    //     loadUser();
-    // }, []);
-
     useEffect(() => {
         loadUsers()
     }, [])
@@ -106,7 +95,6 @@ export default function PackageView() {
     }
 
     function onMultipleRemoval() {
-        // if (selectedItems.length === 0) return
         setShowRemovePackages(!showRemovePackages)
     }
 
@@ -118,7 +106,6 @@ export default function PackageView() {
                 <div className='table-section'>
                     <div>
                         <button onClick={() => router.push('packages/edit')}>הוסף</button>
-                        {/* <button onClick={() => handleSelectAllChange()}>בחר הכל</button> */}
                         <button disabled={selectedItems.length === 0} onClick={() => onMultipleRemoval()}>מחק</button>
                         <input type="text" onChange={(e) => filterPackages(e)} />
                         <div className='baseline'>יש {packages ? packages.length : 0} חבילות</div>
@@ -137,7 +124,7 @@ export default function PackageView() {
                             <th>
                                 <input type="checkbox"
                                     onChange={handleSelectAllChange}
-                                    checked={packages && selectedItems.length === packages.length}
+                                    checked={packages && selectedItems.length === packages.length && packages.length > 0}
                                 />
                             </th>
 
