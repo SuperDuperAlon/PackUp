@@ -12,12 +12,17 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
     const [selectedUser, setSelectedUser] = useState(null)
     const router = useRouter()
 
+    console.log(selectedUser);
+    console.log(users);
+
     async function loadPackagesToRemove() {
         const packagesById = []
         for (const item of selectedItems) {
             const pack = await packages.find(pack => pack._id === item && pack.isCollected === false)
             packagesById.push(pack)
         }
+        console.log(packagesById);
+
         return packagesById
     }
 
@@ -55,13 +60,28 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
         }
     }
 
-
-
     function handleChange({ target }) {
         let { value, type, name: field } = target
         value = type === 'number' ? +value : value
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     }
+
+
+    // useEffect(() => {
+    //     const handleEscape = (e) => {
+    //         if (e.key === 'Escape') {
+    //             closeForm();
+    //         }
+    //     };
+    //     window.addEventListener('keydown', handleEscape);
+    //     return () => {
+    //         window.removeEventListener('keydown', handleEscape);
+    //     };
+    // }, []);
+
+    // function closeForm() {
+    //     router.push('/packages')
+    // }
 
 
     async function onSavePackage(ev) {
@@ -92,6 +112,7 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
     return (
         <>
             <div className={styles.remove_packages} onClick={(ev) => closeForm(ev)}>
+                <button onClick={closeForm} className="close-btn-x">X</button>
                 <div className={styles.remove_packages__form_container}>
                     <form onSubmit={onSavePackage}>
                         <div>
@@ -117,7 +138,10 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
                                 onChange={handleChange}
                             />
                         </div>
-                        <button type="submit">הסר</button>
+                        <div className="flex-row">
+                            <button type="submit">בצע מסירה</button>
+                            <button type='button' onClick={() => closeForm()}>סגור</button>
+                        </div>
                     </form>
                 </div>
 
