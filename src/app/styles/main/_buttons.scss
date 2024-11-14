@@ -40,3 +40,15 @@ button {
 .reminder-btn {
     text-align: end;
 }
+
+.close-btn-x {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    border-radius: 45px;
+    cursor: pointer;
+    padding: 8px;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: lightgrey;
+}

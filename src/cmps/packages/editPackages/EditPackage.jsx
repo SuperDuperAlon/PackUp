@@ -93,6 +93,18 @@ const EditPackage = () => {
         }
     }
 
+    useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeForm();
+            }
+        };
+        window.addEventListener('keydown', handleEscape);
+        return () => {
+            window.removeEventListener('keydown', handleEscape);
+        };
+    }, []);
+
     function closeForm() {
         router.push('/packages')
     }
@@ -101,6 +113,7 @@ const EditPackage = () => {
     else return (
         <section className='edit_class__section'>
             <form className='edit_class__form' onSubmit={onSavePackage}>
+                <button onClick={closeForm} className="close-btn-x">X</button>
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">דירה</label>
                     <input list="tenants"
@@ -115,7 +128,6 @@ const EditPackage = () => {
                     </datalist>
                 </div>
                 <div className="edit_class__form_to_row">
-
                     <div className='edit_class__form_container'>
                         <label htmlFor="amount">כמות</label>
                         <select id="amount" name="amount" value={packageToEdit.amount} required onChange={handleSelectChange} >
