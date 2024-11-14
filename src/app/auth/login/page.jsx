@@ -8,8 +8,8 @@ import { showToast } from '@/lib/reactToastify';
 import Link from 'next/link';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('guest@pack.up');
+    const [password, setPassword] = useState('guest');
     const router = useRouter()
     const { setAdmin } = useAuth()
 
