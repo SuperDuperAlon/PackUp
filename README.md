@@ -30,12 +30,13 @@ npm install
 
 ### Step 3: Set Up Environment Variables
 
-Create a `.env` file in the root directory. Add the following environment variables, ensuring your MongoDB URI and sensitive keys remain private:
 
-````plaintext
+Create a `.env` file in the root directory and add your own environment variables. Since sensitive keys are private, use your own credentials for secure access:
+
+```plaintext
 MONGODB_URI=<Your MongoDB connection string>
 SECRET_KEY=<Your secret key for data protection>
-````
+```
 
 ### Step 4: Run the Application
 
@@ -48,3 +49,41 @@ npm start
 ### Step 5: Access the App
 
 Open your browser and go to `http://localhost:3000` to access the PackUp application.
+
+
+## Usage
+
+### Step 1: Login or Register
+
+Before accessing the system, users need to log in or register.
+
+#### Register:
+To register, visit the **Registration Page** and provide the required information (e.g., name, email, password). Once submitted, your account will be created and you’ll be automatically logged in.
+
+#### Login:
+To log in, visit the **Login Page**, then enter your registered email and password. After successful authentication, you will be redirected to the packages dashboard.
+
+##### Sample Login for Guests:
+For visitors or guest access, you can use the following sample credentials:
+- **Email**: guest@pack.up
+- **Password**: guest
+
+This will allow limited access to the system for demo purposes.
+
+### Step 2: Managing Packages
+
+Once logged in, you can manage packages:
+
+- **Add a Package**: Use the "Add Package" button to log new packages.
+- **Edit a Package**: After adding a package, you can edit its details (e.g., recipient, package type, color, etc.) by selecting the package from the list and clicking the "Edit" button. Make any necessary changes and save.
+- **Remove a Package**: Select a package from the list and click the "Remove" button to mark it as picked up or archived.
+- **Access Archive**: Visit the **Archive Page** to view removed or archived packages.
+- **Undo Package Removal**: If you removed a package, you can restore it:
+  - Go to the **Archive Page**, find the removed package, and click the "Undo" or button to bring it back to the active package list.
+- **Remove Multiple Packages**: 
+  - Use the **Apartment Filter** to view packages for a specific apartment number.
+  - Once the packages are filtered, select multiple packages and click the "Remove Selected" button to remove them at once.
+
+### Step 3: Logging Out
+
+To log out of the system, click on the "Logout" button located in the user menu (typically in the top right corner). User will logout automatically after an hour.
