@@ -149,7 +149,7 @@ export default function PackageView() {
                                 מקבל החבילה</th>
                             <th onClick={() => handleSortChange('notesOnArrival')}>
                                 הערות</th>
-                            <th></th>
+                            {/* <th></th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -172,7 +172,7 @@ export default function PackageView() {
                                     <td>{utilService.parseDate(p.dateReceived)}</td>
                                     <td className='capitalize'>{p.lobbyPackReceivedBy}</td>
                                     <td>{p.notesOnArrival}</td>
-                                    <td ><EmailReminder /></td>
+                                    {/* <td ><EmailReminder /></td> */}
                                 </tr>
                             ))
                         }
