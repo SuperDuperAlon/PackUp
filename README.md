@@ -94,6 +94,17 @@ To log out of the system, click on the "Logout" button located in the user menu 
 - **Database**: MongoDB
 - **Authentication**: JWT (JSON Web Tokens)
 
+## Screenshots
+
+### Dashboard
+![Dashboard Screenshot](screenshots/Dashboard.jpg)
+
+### Archive Page
+![Archive Page Screenshot](screenshots/Archive.jpg)
+
+### Form
+![Form Screenshot](screenshots/Form.jpg)
+
 ## Contact
 
 For any questions, feel free to contact [Alon Mlievski](mailto:alonmlievski@gmail.com).
