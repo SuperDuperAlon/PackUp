@@ -85,3 +85,15 @@ Once logged in, you can manage packages:
 ### Step 3: Logging Out
 
 To log out of the system, click on the "Logout" button located in the user menu (typically in the top right corner). User will logout automatically after an hour.
+
+
+## Tech Stack
+
+- **Frontend**: Next.js, Javascript (ES6+), Sass, Toastify
+- **Backend**: Jose
+- **Database**: MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
+
+## Contact
+
+For any questions, feel free to contact [Alon Mlievski](mailto:alonmlievski@gmail.com).
