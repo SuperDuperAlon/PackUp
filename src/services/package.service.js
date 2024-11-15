@@ -35,6 +35,24 @@ async function query(filterBy, sortBy) {
     }
 }
 
+async function exportToCSV() {
+    try {
+        const response = await fetch(API_URL, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch packages');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching packages:', error);
+        throw error;
+    }
+}
+
 async function get(packageId) {
     try {
         const response = await fetch(API_URL + '/' + packageId, {
