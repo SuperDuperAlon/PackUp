@@ -5,15 +5,12 @@ import { utilService } from '@/services/util.service'
 import { userService } from "@/services/user.service";
 import { useRouter } from 'next/navigation'
 import { showToast } from '@/lib/reactToastify/index.js'
-const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, packages }) => {
+const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems, setPackages, packages }) => {
 
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const [users, setUsers] = useState([])
     const [selectedUser, setSelectedUser] = useState(null)
     const router = useRouter()
-
-    console.log(selectedUser);
-    console.log(users);
 
     async function loadPackagesToRemove() {
         const packagesById = []
@@ -21,29 +18,12 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
             const pack = await packages.find(pack => pack._id === item && pack.isCollected === false)
             packagesById.push(pack)
         }
-        console.log(packagesById);
-
         return packagesById
     }
 
-    const handleUserChange = (e) => {
-        const selectedValue = e.target.value;
-
-        // Find the user object based on the selected value
-        const user = users.find(user =>
-            selectedValue.includes(user.apartmentNumber) &&
-            selectedValue.includes(user.firstName) &&
-            selectedValue.includes(user.lastName)
-        );
-
-        // Set the selectedUser to the full user object
-        setSelectedUser(user || null); // Set to null if no match is found
-    };
-
-
     function closeForm(ev) {
-        if (!ev.target.closest(`.${styles.remove_packages__form_container}`)) setShowRemovePackages(false)
-        // setSelectedItems([])
+        setShowRemovePackages(false)
+        setSelectedItems([])
     }
 
     useEffect(() => {
@@ -67,22 +47,17 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
     }
 
 
-    // useEffect(() => {
-    //     const handleEscape = (e) => {
-    //         if (e.key === 'Escape') {
-    //             closeForm();
-    //         }
-    //     };
-    //     window.addEventListener('keydown', handleEscape);
-    //     return () => {
-    //         window.removeEventListener('keydown', handleEscape);
-    //     };
-    // }, []);
-
-    // function closeForm() {
-    //     router.push('/packages')
-    // }
-
+    useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeForm();
+            }
+        };
+        window.addEventListener('keydown', handleEscape);
+        return () => {
+            window.removeEventListener('keydown', handleEscape);
+        };
+    }, []);
 
     async function onSavePackage(ev) {
         ev.preventDefault()
@@ -111,7 +86,39 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
     }
     return (
         <>
-            <div className={styles.remove_packages} onClick={(ev) => closeForm(ev)}>
+            <section className='edit_class__section'>
+                <form className='edit_class__form' onSubmit={onSavePackage}>
+                    <button onClick={closeForm} className="close-btn-x">X</button>
+                    <div className='edit_class__form_container'>
+                        <label htmlFor="name">דירה</label>
+                        <input type="text" list="tenants"
+                            id="name"
+                            name="collectingTenantFullTenantDesc"
+                            value={packageToEdit.receivingTenantFullTenantDesc}
+                            onChange={handleChange} />
+                        <datalist id="tenants">
+                            {
+                                users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
+                            }
+                        </datalist>
+                    </div>
+                    <div className='edit_class__form_container'>
+                        <label htmlFor="name">הערות</label>
+                        <input type="text"
+                            name="notesOnCollection"
+                            id="notes"
+                            placeholder="הערות"
+                            value={packageToEdit.notesOnCollection}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex-row">
+                        <button type="submit">בצע מסירה</button>
+                        <button type='button' onClick={() => closeForm()}>סגור</button>
+                    </div>
+                </form>
+            </section>
+            {/* <div className={styles.remove_packages} onClick={(ev) => closeForm(ev)}>
                 <button onClick={closeForm} className="close-btn-x">X</button>
                 <div className={styles.remove_packages__form_container}>
                     <form onSubmit={onSavePackage}>
@@ -144,8 +151,7 @@ const RemovePackages = ({ setShowRemovePackages, selectedItems, setPackages, pac
                         </div>
                     </form>
                 </div>
-
-            </div>
+            </div> */}
         </>
     )
 }
