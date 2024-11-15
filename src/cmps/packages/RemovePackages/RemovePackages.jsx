@@ -118,40 +118,6 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                     </div>
                 </form>
             </section>
-            {/* <div className={styles.remove_packages} onClick={(ev) => closeForm(ev)}>
-                <button onClick={closeForm} className="close-btn-x">X</button>
-                <div className={styles.remove_packages__form_container}>
-                    <form onSubmit={onSavePackage}>
-                        <div>
-                            <label htmlFor="name">דירה</label>
-                            <input type="text" list="tenants"
-                                id="name"
-                                name="collectingTenantFullTenantDesc"
-                                value={packageToEdit.receivingTenantFullTenantDesc}
-                                onChange={handleChange} />
-                            <datalist id="tenants">
-                                {
-                                    users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
-                                }
-                            </datalist>
-                        </div>
-                        <div>
-                            <label htmlFor="name">הערות</label>
-                            <input type="text"
-                                name="notesOnCollection"
-                                id="notes"
-                                placeholder="הערות"
-                                value={packageToEdit.notesOnCollection}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="flex-row">
-                            <button type="submit">בצע מסירה</button>
-                            <button type='button' onClick={() => closeForm()}>סגור</button>
-                        </div>
-                    </form>
-                </div>
-            </div> */}
         </>
     )
 }
