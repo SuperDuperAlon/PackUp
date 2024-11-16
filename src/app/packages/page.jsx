@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
 import { userService } from '@/services/user.service';
 import EmailReminder from '@/cmps/packages/EmailReminder';
+import PackagesTableBody from '@/cmps/packages/PackagesMainTable/PackagesTableBody.jsx'
+import PackagesTableHead from '@/cmps/packages/PackagesMainTable/PackagesTableHead.jsx'
 import { useRouter } from 'next/navigation'
 import { utilService } from '@/services/util.service';
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
@@ -100,7 +102,7 @@ export default function PackageView() {
     }
 
     console.log(packages);
-    
+
 
     if (!packages && !users) console.log('no packages')
     else return (
@@ -124,53 +126,8 @@ export default function PackageView() {
                     </div>
                 </div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox"
-                                    onChange={handleSelectAllChange}
-                                    checked={packages && selectedItems.length === packages.length && packages.length > 0}
-                                />
-                            </th>
-
-                            <th></th>
-                            <th onClick={() => handleSortChange('apartmentReceiver')}>
-                                עבור</th>
-                            <th onClick={() => handleSortChange('fullPackageDescription')}>
-                                תיאור החבילה</th>
-                            <th onClick={() => handleSortChange('dateReceived')}>
-                                תאריך קבלה
-                            </th>
-                            <th onClick={() => handleSortChange('lobbyPackReceivedBy')}>
-                                מקבל החבילה</th>
-                            <th onClick={() => handleSortChange('notesOnArrival')}>
-                                הערות</th>
-                            {/* <th></th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {packages &&
-                            packages.slice((currPage - 1) * packagesPerPage, currPage * packagesPerPage).map((p) => (
-                                <tr key={p._id}>
-                                    <td><input type="checkbox"
-                                        value={p._id}
-                                        onChange={handleCheckboxChange}
-                                        checked={selectedItems.includes(p._id)}
-                                    /></td>
-                                    <td className='table-actions'>
-                                        <button onClick={() => onSingleRemoval(p._id)}>מסירה</button>
-                                        <button onClick={() => router.push(`/packages/edit/${p._id}`)}>ערוך</button>
-                                    </td>
-                                    <td>{p.receivingTenantFullTenantDesc}</td>
-                                    <td>{p.fullPackageDescription}</td>
-                                    <td>{utilService.parseDate(p.dateReceived)}</td>
-                                    <td className='capitalize'>{p.lobbyPackReceivedBy}</td>
-                                    <td>{p.notesOnArrival}</td>
-                                    {/* <td ><EmailReminder /></td> */}
-                                </tr>
-                            ))
-                        }
-                    </tbody>
+                    <PackagesTableHead handleSortChange={handleSortChange} handleSelectAllChange={handleSelectAllChange} />
+                    < PackagesTableBody packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} router={router}/>
                 </table>
             </section >
         </>
