@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
 import { userService } from '@/services/user.service';
-import PackagesTableBody from '@/cmps/packages/PackagesMainTable/PackagesTableBody.jsx'
-import PackagesTableHead from '@/cmps/packages/PackagesMainTable/PackagesTableHead.jsx'
+import PackagesTable from '@/cmps/packages/PackagesMainTable/PackagesTable.jsx'
+// import PackagesTableHead from '@/cmps/packages/PackagesMainTable/PackagesTableHead.jsx'
 import { useRouter } from 'next/navigation'
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
@@ -123,10 +123,7 @@ export default function PackageView() {
                         <RouteButton content={'ארכיון'} linkedRoute={'packages/archive'} />
                     </div>
                 </div>
-                <table>
-                    <PackagesTableHead handleSortChange={handleSortChange} handleSelectAllChange={handleSelectAllChange} />
-                    < PackagesTableBody packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} router={router} />
-                </table>
+                < PackagesTable packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} />
             </section >
         </>
     )

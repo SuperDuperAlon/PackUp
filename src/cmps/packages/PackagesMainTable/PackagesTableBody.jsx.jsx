@@ -1,7 +1,9 @@
-import { utilService } from '@/services/util.service'
 import React from 'react'
+import { useRouter } from 'next/navigation'
+import { utilService } from '@/services/util.service'
+import RouteButton from '@/cmps/general/Buttons/RouteButton/RouteButton'
 
-const PackagesTableBody = ({packages, currPage, packagesPerPage, selectedItems, handleCheckboxChange, onSingleRemoval, router}) => {
+const PackagesTableBody = ({packages, currPage, packagesPerPage, selectedItems, handleCheckboxChange, onSingleRemoval}) => {
   return (
     <>
       <tbody>
@@ -15,7 +17,7 @@ const PackagesTableBody = ({packages, currPage, packagesPerPage, selectedItems, 
               /></td>
               <td className='table-actions'>
                 <button onClick={() => onSingleRemoval(p._id)}>מסירה</button>
-                <button onClick={() => router.push(`/packages/edit/${p._id}`)}>ערוך</button>
+                <RouteButton content={'ערוך'} linkedRoute={`/packages/edit/${p._id}`} />
               </td>
               <td>{p.receivingTenantFullTenantDesc}</td>
               <td>{p.fullPackageDescription}</td>
