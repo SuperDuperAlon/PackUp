@@ -3,15 +3,13 @@
 import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
 import { userService } from '@/services/user.service';
-import EmailReminder from '@/cmps/packages/EmailReminder';
 import PackagesTableBody from '@/cmps/packages/PackagesMainTable/PackagesTableBody.jsx'
 import PackagesTableHead from '@/cmps/packages/PackagesMainTable/PackagesTableHead.jsx'
 import { useRouter } from 'next/navigation'
-import { utilService } from '@/services/util.service';
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
 import ExportButton from '@/cmps/general/Buttons/ExportButton/ExportButton';
-import { CiEdit } from "react-icons/ci";
+import RouteButton from '@/cmps/general/Buttons/RouteButton/RouteButton';
 
 
 export default function PackageView() {
@@ -111,8 +109,8 @@ export default function PackageView() {
                 {showRemovePackages && <RemovePackage setShowRemovePackages={setShowRemovePackages} selectedItems={selectedItems} setSelectedItems={setSelectedItems} setPackages={setPackages} packages={packages} />}
                 <div className='table-section'>
                     <div>
-                        <button onClick={() => router.push('packages/edit')}>הוסף</button>
-                        <button disabled={selectedItems.length === 0} onClick={() => onMultipleRemoval()}>מחק</button>
+                        <RouteButton content={'הוסף'} linkedRoute={'/packages/edit'} />
+                        <button disabled={selectedItems.length === 0} onClick={() => onMultipleRemoval()}>מסירה</button>
                         <input type="text" onChange={(e) => filterPackages(e)} />
                         <div className='baseline'>יש {packages ? packages.length : 0} חבילות</div>
                     </div>
@@ -122,12 +120,12 @@ export default function PackageView() {
                     }
                     <div>
                         <ExportButton />
-                        <button onClick={() => router.push('packages/archive')}>ארכיון</button>
+                        <RouteButton content={'ארכיון'} linkedRoute={'packages/archive'} />
                     </div>
                 </div>
                 <table>
                     <PackagesTableHead handleSortChange={handleSortChange} handleSelectAllChange={handleSelectAllChange} />
-                    < PackagesTableBody packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} router={router}/>
+                    < PackagesTableBody packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} router={router} />
                 </table>
             </section >
         </>
