@@ -2,7 +2,9 @@ import React from 'react'
 import PackagesTableHead from './PackagesTableHead.jsx'
 import PackagesTableBody from './PackagesTableBody.jsx'
 
-const PackagesTable = ({packages, handleSortChange, handleSelectAllChange, handleCheckboxChange, onSingleRemoval, currPage, packagesPerPage, selectedItems}) => {
+const PackagesTable = ({ packages, handleSortChange, handleCheckboxChange, onSingleRemoval, currPage, packagesPerPage, selectedItems, handleSelectAllChange }) => {
+
+
     return (
         <>
             <table>

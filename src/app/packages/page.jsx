@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
 import { userService } from '@/services/user.service';
 import PackagesTable from '@/cmps/packages/PackagesMainTable/PackagesTable.jsx'
-// import PackagesTableHead from '@/cmps/packages/PackagesMainTable/PackagesTableHead.jsx'
-import { useRouter } from 'next/navigation'
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
 import ExportButton from '@/cmps/general/Buttons/ExportButton/ExportButton';
@@ -26,7 +24,6 @@ export default function PackageView() {
     const [currPage, setCurrPage] = useState(1)
 
     const packagesPerPage = 25
-    const router = useRouter()
 
     useEffect(() => {
         async function loadPackages() {
@@ -70,14 +67,7 @@ export default function PackageView() {
         );
     };
 
-    const handleSelectAllChange = () => {
-        const filteredPackages = packages.filter(p => p.isCollected === false);
-        if (selectedItems.length === filteredPackages.length) {
-            setSelectedItems([]);
-        } else {
-            setSelectedItems(filteredPackages.map(p => p._id));
-        }
-    };
+
 
     function filterPackages(e) {
         setCurrPage(1)
@@ -98,6 +88,15 @@ export default function PackageView() {
     function onMultipleRemoval() {
         setShowRemovePackages(!showRemovePackages)
     }
+
+    const handleSelectAllChange = () => {
+        const filteredPackages = packages.filter(p => p.isCollected === false);
+        if (selectedItems.length === filteredPackages.length) {
+            setSelectedItems([]);
+        } else {
+            setSelectedItems(filteredPackages.map(p => p._id));
+        }
+    };
 
     console.log(packages);
 
@@ -123,7 +122,7 @@ export default function PackageView() {
                         <RouteButton content={'ארכיון'} linkedRoute={'packages/archive'} />
                     </div>
                 </div>
-                < PackagesTable packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} />
+                < PackagesTable packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} handleSelectAllChange={handleSelectAllChange} handleSortChange={handleSortChange} />
             </section >
         </>
     )
