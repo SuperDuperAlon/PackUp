@@ -23,10 +23,10 @@ export async function GET(req) {
                 // item.receivingTenantFullTenantDesc.toString() || "",
                 // item.isCollected.toString() || "false",
             ];
-            csvRows.push(row.join(",")); // Add the row to the CSV
+            csvRows.push(row.join(","));
         });
 
-        const csvContent = csvRows.join("\n"); // Join rows with newline characters
+        const csvContent = csvRows.join("\n");
 
         return new NextResponse(csvContent, {
             headers: {
