@@ -14,6 +14,7 @@ export const packageService = {
     getDefaultFilter,
     getDefaultSort,
     getEmptyPackage,
+    exportToCSV
 }
 
 // TODO: add sorting
@@ -37,19 +38,14 @@ async function query(filterBy, sortBy) {
 
 async function exportToCSV() {
     try {
-        const response = await fetch(API_URL, {
-            method: 'GET',
-        });
-
+        const response = await fetch(API_URL + `/exportToCSV`);
         if (!response.ok) {
-            throw new Error('Failed to fetch packages');
+            throw new Error("Failed to fetch CSV");
         }
-
-        const data = await response.json();
-        return data;
+        return await response.blob(); // Return the Blob for further processing
     } catch (error) {
-        console.error('Error fetching packages:', error);
-        throw error;
+        console.error("Error fetching CSV:", error);
+        throw error; // Re-throw to handle in the component
     }
 }
 
@@ -70,9 +66,6 @@ async function get(packageId) {
         throw error;
     }
 }
-
-
-// TODO: remove
 
 async function remove(packageId) {
     return storageService.remove(STORAGE_KEY, packageId)

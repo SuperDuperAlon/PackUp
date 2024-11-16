@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { utilService } from '@/services/util.service';
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
+import ExportButton from '@/cmps/general/Buttons/ExportButton/ExportButton';
 import { CiEdit } from "react-icons/ci";
 
 
@@ -98,6 +99,9 @@ export default function PackageView() {
         setShowRemovePackages(!showRemovePackages)
     }
 
+    console.log(packages);
+    
+
     if (!packages && !users) console.log('no packages')
     else return (
         <>
@@ -115,6 +119,7 @@ export default function PackageView() {
                         <Pagination handlePageNumberChange={handlePageNumberChange} numOfPages={numOfPages} currPage={currPage} />
                     }
                     <div>
+                        <ExportButton />
                         <button onClick={() => router.push('packages/archive')}>ארכיון</button>
                     </div>
                 </div>
