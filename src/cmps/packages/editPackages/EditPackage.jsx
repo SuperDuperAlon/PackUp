@@ -16,8 +16,6 @@ const EditPackage = () => {
     const pathname = usePathname()
     const router = useRouter()
     const idFromPath = pathname.split('/').pop()
-    // const currUser = userService.getloggedInUser().username
-
 
     useEffect(() => {
         loadUsers()
