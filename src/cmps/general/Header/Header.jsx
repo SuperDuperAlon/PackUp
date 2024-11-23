@@ -14,7 +14,7 @@ const Header = () => {
     }
 
     async function onLogout() {
-        await adminService.logout();
+        await authService.logout();
         router.push('/auth/signup');
     }
 
