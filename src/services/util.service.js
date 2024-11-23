@@ -2,7 +2,8 @@ export const utilService = {
     parseDate,
     generateId,
     getFullPackageDescription,
-    getRandomTimestampFromLast3Days
+    getRandomTimestampFromLast3Days,
+    getRandomInt
 }
 
 function generateId() {

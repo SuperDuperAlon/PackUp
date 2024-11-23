@@ -7,11 +7,17 @@ const STORAGE_KEY = 'admin_db'
 export const adminService = {
     // saveLocalAdmin,
     getAdmins,
-    getById
+    removeAdmin,
+    getById,
+    save
 }
 
-function getAdmins() {
+async function getAdmins() {
     return storageService.query(STORAGE_KEY)
+}
+
+async function removeAdmin(adminId) {
+    return storageService.remove(STORAGE_KEY, adminId)
 }
 
 async function getById(adminId) {
@@ -19,15 +25,40 @@ async function getById(adminId) {
     return admin
 }
 
+async function save(adminId) {
+    if (adminId) {
+        const admin = await storageService.get(STORAGE_KEY, adminId)
+        return admin
+    } else {
+        const admin = await storageService.post(STORAGE_KEY, {
+            id: utilService.generateId(),
+            username: 'admin' + utilService.getRandomInt(2, 80),
+            password: 'admin'
+        })
+    }
+}
 
-_createPackages()
+function getEmptyAdmin() {
+    return {
+        username: '',
+        password: ''
+    }
+}
 
-function _createPackages() {
+const adminsData = [
+    { id: 'admin1', username: 'admin', password: 'admin' },
+    { id: 'admin2', username: 'admin2', password: 'admin2' },
+    { id: 'admin3', username: 'admin3', password: 'admin3' },
+]
+
+_createAdmins()
+
+function _createAdmins() {
     if (typeof window !== 'undefined') {
-        let packages = storageService.loadFromStorage(STORAGE_KEY);
-        if (!packages || !packages.length) {
-            packages = tenants
+        let admins = storageService.loadFromStorage(STORAGE_KEY);
+        if (!admins || !admins.length) {
+            admins = adminsData
         }
-        storageService.saveToStorage(STORAGE_KEY, packages);
+        storageService.saveToStorage(STORAGE_KEY, admins);
     }
 }
