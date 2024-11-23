@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { adminService } from '@/services/admin.service';
+import { authService } from '@/services/auth.service';
 import { showToast } from '@/lib/reactToastify';
 import FormValidation from '@/cmps/general/FormValidation/FormValidation';
 import { useAuth } from '@/context/AuthContext';
@@ -20,8 +20,8 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await adminService.signup({ username, email, password })
-            const user = await adminService.getCurrentAdmin()
+            await authService.signup({ username, email, password })
+            const user = await authService.getCurrentAdmin()
             if (user) {
                 setAdmin(user)
                 await showToast('success', 'פעולה בוצעה בהצלחה')

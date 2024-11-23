@@ -1,6 +1,6 @@
 'use client'
 
-import { adminService } from '@/services/admin.service';
+import { authService } from '@/services/auth.service';
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const fetchAdmin = async () => {
             // TODO: replace with actual API call
-            const currAdmin = await adminService.getCurrentAdmin();
+            const currAdmin = await authService.getCurrentAdmin();
             setAdmin(currAdmin);
         };
         fetchAdmin();

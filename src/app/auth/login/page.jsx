@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { adminService } from '@/services/admin.service';
+import { authService } from '@/services/auth.service';
 import { useAuth } from '@/context/AuthContext';
 import { showToast } from '@/lib/reactToastify';
 import Link from 'next/link';
@@ -16,9 +16,9 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const user = await adminService.login({ email, password })
+            const user = await authService.login({ email, password })
             if (user) {
-                setAdmin(await adminService.getCurrentAdmin())
+                setAdmin(await authService.getCurrentAdmin())
                 await showToast('success', 'פעולה בוצעה בהצלחה')
                 router.push('/packages')
             } else {
