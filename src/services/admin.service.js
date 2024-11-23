@@ -7,33 +7,42 @@ const STORAGE_KEY = 'admin_db'
 export const adminService = {
     // saveLocalAdmin,
     getAdmins,
+    getAdminById,
     removeAdmin,
-    getById,
-    save
+    getAdminById,
+    save,
+    getEmptyAdmin,
+    getDefaultFilter
 }
 
-async function getAdmins() {
-    return storageService.query(STORAGE_KEY)
+async function getAdmins(filterBy) {
+    const admins = await storageService.query(STORAGE_KEY)
+    console.log(admins);
+    
+    if (filterBy.username) {
+        const regex = new RegExp(filterBy.username, 'i')
+        return admins.filter(admin => regex.test(admin.username))
+    } else {
+        return admins
+    }
 }
 
 async function removeAdmin(adminId) {
     return storageService.remove(STORAGE_KEY, adminId)
 }
 
-async function getById(adminId) {
-    const admin = await storageService.get('admin', adminId)
+async function getAdminById(adminId) {
+    const admin = await storageService.get(STORAGE_KEY, adminId)
     return admin
 }
 
-async function save(adminId) {
-    if (adminId) {
-        const admin = await storageService.get(STORAGE_KEY, adminId)
+async function save(adminToSave) {
+    if (adminToSave.id) {
+        const admin = await storageService.put(STORAGE_KEY, adminToSave)
         return admin
     } else {
         const admin = await storageService.post(STORAGE_KEY, {
-            id: utilService.generateId(),
-            username: 'admin' + utilService.getRandomInt(2, 80),
-            password: 'admin'
+            ...adminToSave, id: utilService.generateId()
         })
     }
 }
@@ -45,10 +54,16 @@ function getEmptyAdmin() {
     }
 }
 
+function getDefaultFilter() {
+    return {
+        username: '',
+    }
+}
+
 const adminsData = [
-    { id: 'admin1', username: 'admin', password: 'admin' },
-    { id: 'admin2', username: 'admin2', password: 'admin2' },
-    { id: 'admin3', username: 'admin3', password: 'admin3' },
+    { id: utilService.generateId(), username: 'alef', password: 'admin', isManager: true, dateCreated: Date.now() },
+    { id: utilService.generateId(), username: 'bet', password: 'admin', isManager: false, dateCreated: Date.now() },
+    { id: utilService.generateId(), username: 'gimel', password: 'admin', isManager: true, dateCreated: Date.now() }
 ]
 
 _createAdmins()

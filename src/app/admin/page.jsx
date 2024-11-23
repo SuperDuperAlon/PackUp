@@ -2,47 +2,54 @@
 
 import React, { useEffect, useState } from 'react'
 import { adminService } from '@/services/admin.service'
+import EditAdmin from '@/cmps/admins/EditAdmin'
+import AdminFilter from '@/cmps/admins/AdminFilter'
 
-const AdminPage = () => {
-
+const AdminView = () => {
+  const [admins, setAdmins] = useState([]);
+  const [filterBy, setFilterBy] = useState(adminService.getDefaultFilter());
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [adminIdToEdit, setAdminIdToEdit] = useState(null);
 
   useEffect(() => {
     const fetchAdmins = async () => {
-      const admins = await adminService.getAdmins();
+      const admins = await adminService.getAdmins(filterBy);
       setAdmins(admins);
     };
     fetchAdmins();
-  })
-  const [admins, setAdmins] = useState([]);
+  }, [filterBy])
 
   async function onRemoveAdmin(adminId) {
     return adminService.removeAdmin(adminId)
   }
 
-  async function onAddAdmin() {
-    return adminService.save()
+  async function onEditAdmin(adminId) {
+    setAdminIdToEdit(adminId)
+    setShowEditForm(true)
   }
 
-  // TODO: map all users
-  // TODO: Add new user
-  // TODO: Edit new user
-  // TODO: Remove user
-  // TODO: Filter user
+  function onSetFilter(filterBy) {
+    setFilterBy(filterBy)
+  }
 
+  function closeEditForm() {
+    setShowEditForm(false)
+    setAdmins(admins)
+  }
   return (
-
     <>
-    <button onClick={() => onAddAdmin()}>Add</button>
-      <div>
-        {admins.map((admin) => (
-          <>
-            <div key={admin.id}>{admin.username}</div>
-            <button onClick={() => onRemoveAdmin(admin.id)}>Remove</button>
-          </>
-        ))}
-      </div>
+      <AdminFilter onSetFilter={onSetFilter} />
+      {showEditForm && <EditAdmin adminIdToEdit={adminIdToEdit} onCloseEditForm={closeEditForm} />}
+      <button onClick={() => onEditAdmin('')}>Add</button>
+      {admins.map((admin) => (
+        <div key={admin.id}>
+          <div>{admin.username}</div>
+          <button onClick={() => onRemoveAdmin(admin.id)}>Remove</button>
+          <button onClick={() => onEditAdmin(admin.id)}>Edit</button>
+        </div>
+      ))}
     </>
   )
 }
 
-export default AdminPage
+export default AdminView

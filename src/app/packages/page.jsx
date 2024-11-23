@@ -98,9 +98,6 @@ export default function PackageView() {
         }
     };
 
-    console.log(packages);
-
-
     if (!packages && !users) console.log('no packages')
     else return (
         <>
