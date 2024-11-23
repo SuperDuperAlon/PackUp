@@ -56,18 +56,6 @@ const EditPackage = () => {
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     };
 
-    const handleUserChange = (e) => {
-        const selectedValue = e.target.value;
-
-        const user = users.find(user =>
-            selectedValue.includes(user.apartmentNumber) &&
-            selectedValue.includes(user.firstName) &&
-            selectedValue.includes(user.lastName)
-        );
-
-        setSelectedUser(user || null);
-    };
-
     async function onSavePackage(ev) {
         ev.preventDefault()
         if (!selectedUser.id) return
@@ -118,7 +106,7 @@ const EditPackage = () => {
                         id="name"
                         name="receivingTenantFullTenantDesc"
                         value={packageToEdit.receivingTenantFullTenantDesc}
-                        onChange={handleUserChange} />
+                        onChange={handleChange} />
                     <datalist id="tenants">
                         {
                             users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
