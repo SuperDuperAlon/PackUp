@@ -2,7 +2,7 @@
 import React from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext';
-import { adminService } from '@/services/admin.service';
+import { authService } from '@/services/auth.service';
 
 const Header = () => {
     const { admin } = useAuth();
