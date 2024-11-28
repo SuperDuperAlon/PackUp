@@ -95,7 +95,8 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                             id="name"
                             name="collectingTenantFullTenantDesc"
                             value={packageToEdit.receivingTenantFullTenantDesc}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                            placeholder='להזין פרטי דייר' />
                         <datalist id="tenants">
                             {
                                 users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
