@@ -90,13 +90,13 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                 <form className='edit_class__form' onSubmit={onSavePackage}>
                     <button onClick={closeForm} className="close-btn-x">X</button>
                     <div className='edit_class__form_container'>
-                        <label htmlFor="name">דירה</label>
+                        <label htmlFor="name">הזן פרטי דייר</label>
                         <input type="text" list="tenants"
                             id="name"
                             name="collectingTenantFullTenantDesc"
                             value={packageToEdit.receivingTenantFullTenantDesc}
                             onChange={handleChange}
-                            placeholder='להזין פרטי דייר' />
+                           />
                         <datalist id="tenants">
                             {
                                 users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
@@ -108,7 +108,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                         <input type="text"
                             name="notesOnCollection"
                             id="notes"
-                            placeholder="הערות"
+                            // placeholder="הערות"
                             value={packageToEdit.notesOnCollection}
                             onChange={handleChange}
                         />
