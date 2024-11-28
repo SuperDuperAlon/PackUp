@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { userService } from "@/services/user.service"
 import { useAuth } from '@/context/AuthContext';
 import { showToast } from '@/lib/reactToastify';
+import FormToValidate from "../../general/FormValidation/FormToValidate";
 
 const EditPackage = () => {
 
@@ -29,6 +30,9 @@ const EditPackage = () => {
             console.log("Had issues in users", err);
         }
     }
+
+    console.log(users);
+
 
     useEffect(() => {
         if (!idFromPath) return;
@@ -99,7 +103,7 @@ const EditPackage = () => {
     else return (
         <section className='edit_class__section'>
             <form className='edit_class__form' onSubmit={onSavePackage}>
-                <button onClick={closeForm} className="close-btn-x">X</button>
+            <button type="button" onClick={closeForm} className="close-btn-x">X</button>
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">דירה</label>
                     <input list="tenants"
@@ -112,59 +116,73 @@ const EditPackage = () => {
                             users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
                         }
                     </datalist>
+                    {/* < FormToValidate
+                        input={packageToEdit.receivingTenantFullTenantDesc}
+                        condition={(users.map(user => user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName)).includes(packageToEdit.receivingTenantFullTenantDesc)}
+                        successMessage='משתמש קיים במערכת'
+                        errorMessage='משתמש לא קיים'
+                    /> */}
                 </div>
                 <div className="edit_class__form_to_row">
-                    <div className='edit_class__form_container'>
-                        <label htmlFor="amount">כמות</label>
-                        <select id="amount" name="amount" value={packageToEdit.amount} required onChange={handleSelectChange} >
-                            <option value="" hidden>כמות </option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                        </select>
+                    <div className="flex-row">
+                        <div className='edit_class__form_container'>
+                            <label htmlFor="amount">כמות</label>
+                            <select id="amount" name="amount" value={packageToEdit.amount} required onChange={handleSelectChange} >
+                                <option value="" hidden>כמות </option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                        </div>
+                        <div className='edit_class__form_container'>
+                            <label htmlFor="name"> סוג</label>
+                            <select id="type" name="type" value={packageToEdit.type} required onChange={handleSelectChange} >
+                                <option value="" hidden> סוג</option>
+                                <option value="חבילה">חבילה</option>
+                                <option value="שקית">שקית</option>
+                                <option value="קרטון">קרטון</option>
+                                <option value="אחר">אחר</option>
+                            </select>
+                        </div>
+                        <div className='edit_class__form_container'>
+                            <label htmlFor="name"> גודל</label>
+                            <select id="size" name="size" value={packageToEdit.size} required onChange={handleSelectChange} >
+                                <option value="" hidden> גודל</option>
+                                <option value="קטן">קטן</option>
+                                <option value="בינוני">בינוני</option>
+                                <option value="גדול">גדול</option>
+                                <option value="ענק">ענק</option>
+                                <option value="אחר">אחר</option>
+                            </select>
+                        </div>
+                        <div className='edit_class__form_container'>
+                            <label htmlFor="color"> צבע</label>
+                            <select id="color" name="color" value={packageToEdit.color} onChange={handleSelectChange} required>
+                                <option value="" hidden> צבע</option>
+                                <option value="אדום">🔴 אדום</option>
+                                <option value="כחול">🔵 כחול</option>
+                                <option value="ירוק">🟢 ירוק</option>
+                                <option value="צהוב">🟡 צהוב</option>
+                                <option value="כתום">🟠 כתום</option>
+                                <option value="סגול">🟣 סגול</option>
+                                <option value="חום">🟤 חום</option>
+                                <option value="שחור">⚫ שחור</option>
+                                <option value="לבן">⚪ לבן</option>
+                                <option value="מנומר">🐯 מנומר</option>
+                                <option value="אחר">אחר</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className='edit_class__form_container'>
-                        <label htmlFor="name"> סוג</label>
-                        <select id="type" name="type" value={packageToEdit.type} required onChange={handleSelectChange} >
-                            <option value="" hidden> סוג</option>
-                            <option value="חבילה">חבילה</option>
-                            <option value="שקית">שקית</option>
-                            <option value="קרטון">קרטון</option>
-                            <option value="אחר">אחר</option>
-                        </select>
-                    </div>
-                    <div className='edit_class__form_container'>
-                        <label htmlFor="name"> גודל</label>
-                        <select id="size" name="size" value={packageToEdit.size} required onChange={handleSelectChange} >
-                            <option value="" hidden> גודל</option>
-                            <option value="קטן">קטן</option>
-                            <option value="בינוני">בינוני</option>
-                            <option value="גדול">גדול</option>
-                            <option value="ענק">ענק</option>
-                            <option value="אחר">אחר</option>
-                        </select>
-                    </div>
-                    <div className='edit_class__form_container'>
-                        <label htmlFor="color"> צבע</label>
-                        <select id="color" name="color" value={packageToEdit.color} onChange={handleSelectChange} required>
-                            <option value="" hidden> צבע</option>
-                            <option value="אדום">🔴 אדום</option>
-                            <option value="כחול">🔵 כחול</option>
-                            <option value="ירוק">🟢 ירוק</option>
-                            <option value="צהוב">🟡 צהוב</option>
-                            <option value="כתום">🟠 כתום</option>
-                            <option value="סגול">🟣 סגול</option>
-                            <option value="חום">🟤 חום</option>
-                            <option value="שחור">⚫ שחור</option>
-                            <option value="לבן">⚪ לבן</option>
-                            <option value="מנומר">🐯 מנומר</option>
-                            <option value="אחר">אחר</option>
-                        </select>
-                    </div>
+                    {/* < FormToValidate
+                        input={(packageToEdit.color && packageToEdit.size && packageToEdit.type)}
+                        condition={(packageToEdit.color && packageToEdit.size && packageToEdit.type) || (packageToEdit.color !== "" || packageToEdit.size !== "" || packageToEdit.type !== "")}
+                        successMessage='כל השדות תקינים'
+                        errorMessage='יש למלא את כל השדות'
+                    /> */}
                 </div>
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">הערות</label>
@@ -177,8 +195,8 @@ const EditPackage = () => {
                     />
                 </div>
                 <div className="flex-row">
-                    <button>{packageToEdit._id ? "שמור" : "הוסף"}</button>
-                    <button type='button' onClick={() => closeForm()}>סגור</button>
+                    <button type='submit'>{packageToEdit._id ? "שמור" : "הוסף"}</button>
+                    <button type='button' onClick={closeForm}>סגור</button>
                 </div>
             </form>
         </section >
