@@ -1,5 +1,6 @@
 import { storageService } from './storage.service'
 import { utilService } from './util.service'
+import usersDemoData  from '@/users.json'
 
 const STORAGE_KEY = 'user_db'
 
@@ -15,15 +16,15 @@ export const userService = {
 }
 
 async function getUsers() {
-    const users = await storageService.query(STORAGE_KEY)    
+    const users = await storageService.query(STORAGE_KEY)
     // if (filterBy.username) {
     //     const regex = new RegExp(filterBy.username, 'i')
     //     return users.filter(user => regex.test(user.username))
     // } else {
-        console.log(users);
-        return users
+    console.log(users);
+    return users
     // }
-    
+
 }
 
 async function removeUser(userId) {
@@ -72,7 +73,7 @@ function _createUsers() {
     if (typeof window !== 'undefined') {
         let users = storageService.loadFromStorage(STORAGE_KEY);
         if (!users || !users.length) {
-            users = usersData
+            users = usersDemoData
         }
         storageService.saveToStorage(STORAGE_KEY, users);
     }
