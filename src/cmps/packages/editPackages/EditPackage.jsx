@@ -103,7 +103,7 @@ const EditPackage = () => {
     else return (
         <section className='edit_class__section'>
             <form className='edit_class__form' onSubmit={onSavePackage}>
-            <button type="button" onClick={closeForm} className="close-btn-x">X</button>
+                <button type="button" onClick={closeForm} className="close-btn-x">X</button>
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">דירה</label>
                     <input list="tenants"
@@ -195,7 +195,7 @@ const EditPackage = () => {
                     />
                 </div>
                 <div className="flex-row">
-                    <button type='submit'>{packageToEdit._id ? "שמור" : "הוסף"}</button>
+                    <button>{packageToEdit._id ? "שמור" : "הוסף"}</button>
                     <button type='button' onClick={closeForm}>סגור</button>
                 </div>
             </form>
