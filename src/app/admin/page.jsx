@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { adminService } from '@/services/admin.service'
 import EditAdmin from '@/cmps/admins/EditAdmin'
 import AdminFilter from '@/cmps/admins/AdminFilter'
+import AdminList from '@/cmps/admins/AdminList'
 
 const AdminView = () => {
   const [admins, setAdmins] = useState([]);
@@ -38,16 +39,12 @@ const AdminView = () => {
   }
   return (
     <>
-      <AdminFilter onSetFilter={onSetFilter} />
-      {showEditForm && <EditAdmin adminIdToEdit={adminIdToEdit} onCloseEditForm={closeEditForm} />}
-      <button onClick={() => onEditAdmin('')}>Add</button>
-      {admins.map((admin) => (
-        <div key={admin.id}>
-          <div>{admin.username}</div>
-          <button onClick={() => onRemoveAdmin(admin.id)}>Remove</button>
-          <button onClick={() => onEditAdmin(admin.id)}>Edit</button>
-        </div>
-      ))}
+      <div className='admin-view'>
+        <button onClick={() => onEditAdmin('')}>הוסף</button>
+        {showEditForm && <EditAdmin adminIdToEdit={adminIdToEdit} onCloseEditForm={closeEditForm} />}
+        <AdminFilter onSetFilter={onSetFilter} />
+      </div>
+      <AdminList admins={admins} onRemoveAdmin={onRemoveAdmin} onEditAdmin={onEditAdmin} />
     </>
   )
 }

@@ -44,6 +44,7 @@ async function save(adminToSave) {
         const admin = await storageService.post(STORAGE_KEY, {
             ...adminToSave, id: utilService.generateId()
         })
+        return admin
     }
 }
 
