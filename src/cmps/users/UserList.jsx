@@ -11,6 +11,8 @@ const UserList = ({ users, onRemoveUser, onEditUser }) => {
                         <th>שם</th>
                         <th>מספר דירה</th>
                         <th>email</th>
+                        <th>טלפון</th>
+                        <th>חבילות</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,6 +25,8 @@ const UserList = ({ users, onRemoveUser, onEditUser }) => {
                             <td>{user.firstName} {user.lastName}</td>
                             <td>{user.apartmentNumber}</td>
                             <td>{user.email}</td>
+                            <td>{user.phone}</td>
+                            <td>TBD</td>
                         </tr>
                     ))}
                 </tbody>
