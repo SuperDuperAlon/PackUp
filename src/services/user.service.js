@@ -1,6 +1,6 @@
 import { storageService } from './storage.service'
 import { utilService } from './util.service'
-import usersDemoData  from '@/users.json'
+import usersDemoData from '@/users.json'
 
 const STORAGE_KEY = 'user_db'
 
@@ -15,15 +15,21 @@ export const userService = {
     getDefaultFilter
 }
 
-async function getUsers() {
+async function getUsers(filterBy) {
+    console.log(filterBy);
+    
     const users = await storageService.query(STORAGE_KEY)
-    // if (filterBy.username) {
-    //     const regex = new RegExp(filterBy.username, 'i')
-    //     return users.filter(user => regex.test(user.username))
-    // } else {
-    console.log(users);
-    return users
-    // }
+    if (filterBy.text) {
+        const regex = new RegExp(filterBy.text, 'i')
+        return users.filter(user =>
+            regex.test(user.firstName)
+            || regex.test(user.lastName)
+            || regex.test(user.apartmentNumber)
+        )
+    } else {
+        // console.log(users);
+        return users
+    }
 
 }
 
@@ -50,14 +56,19 @@ async function save(userToSave) {
 
 function getEmptyUser() {
     return {
-        username: '',
-        password: ''
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        apartmentNumber: '',
+        // password: '',
+        isActive: false
     }
 }
 
 function getDefaultFilter() {
     return {
-        username: '',
+        text: '',
     }
 }
 
