@@ -6,7 +6,6 @@ import { adminService } from '@/services/admin.service'
 const EditAdmin = ({ adminIdToEdit, onCloseEditForm }) => {
     const [adminToEdit, setAdminToEdit] = useState(adminService.getEmptyAdmin())
 
-
     useEffect(() => {
         if (!adminIdToEdit) return;
         loadAdmin();
@@ -55,9 +54,6 @@ const EditAdmin = ({ adminIdToEdit, onCloseEditForm }) => {
     function closeForm() {
         onCloseEditForm()
     }
-
-
-    
 
     if (!adminToEdit) return console.log('no id')
     return (
