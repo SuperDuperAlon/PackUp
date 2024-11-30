@@ -25,12 +25,12 @@ const EditUser = ({ userIdToEdit, onCloseEditForm }) => {
     }
 
     console.log(userToEdit);
-    
+
 
     async function onSaveUser(ev) {
         ev.preventDefault()
         try {
-            userToEdit.username,
+            userToEdit.dateCreated = Date.now(),
                 await userService.save(userToEdit)
             closeForm()
         } catch (err) {
@@ -53,6 +53,7 @@ const EditUser = ({ userIdToEdit, onCloseEditForm }) => {
     function closeForm() {
         onCloseEditForm()
     }
+    
     if (!userToEdit) return console.log('no id')
     return (
         <>
