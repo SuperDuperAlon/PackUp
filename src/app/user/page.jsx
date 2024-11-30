@@ -20,10 +20,8 @@ const UserView = () => {
         fetchUsers();
     }, [filterBy])
 
-    
-
     async function onRemoveUser(userId) {
-        return userService.removeUser(userId)
+        await userService.removeUser(userId)
     }
 
     async function onEditUser(userId) {
@@ -42,7 +40,7 @@ const UserView = () => {
 
     return (
         <>
-            <div className='user-view'>
+            <div className='admin-view'>
                 <button onClick={() => onEditUser('')}>הוסף</button>
                 {showEditForm && <EditUser userIdToEdit={userIdToEdit} onCloseEditForm={closeEditForm} />}
                 <UserFilter onSetFilter={onSetFilter} />
