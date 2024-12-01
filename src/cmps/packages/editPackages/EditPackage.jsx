@@ -72,7 +72,7 @@ const EditPackage = () => {
         if (!selectedUser.id) return
         try {
             packageToEdit.dateReceived = Date.now(),
-                packageToEdit.lobbyPackReceivedBy =  "אלון"
+                packageToEdit.lobbyPackReceivedBy = admin.username
             packageToEdit.fullPackageDescription = utilService.getFullPackageDescription(packageToEdit.amount, packageToEdit.type, packageToEdit.color, packageToEdit.size)
             packageToEdit.isCollected = false
             packageToEdit.receivingTenantApt = selectedUser.apartmentNumber
@@ -114,6 +114,7 @@ const EditPackage = () => {
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">דירה</label>
                     <input
+                        type="text"
                         list="tenants"
                         id="name"
                         name="receivingTenantFullTenantDesc"
