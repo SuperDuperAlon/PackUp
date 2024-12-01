@@ -14,17 +14,18 @@ const EditPackage = () => {
     const [users, setUsers] = useState([])
     const [selectedUser, setSelectedUser] = useState(null)
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
+    const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
     const pathname = usePathname()
     const router = useRouter()
     const idFromPath = pathname.split('/').pop()
 
     useEffect(() => {
         loadUsers()
-    }, [])
+    }, [filterBy])
 
     async function loadUsers() {
         try {
-            const users = await userService.getUsers();
+            const users = await userService.getUsers(filterBy);
             setUsers(users)
         } catch (err) {
             console.log("Had issues in users", err);
@@ -49,20 +50,21 @@ const EditPackage = () => {
         }
     }
 
+    console.log(filterBy);
+
+
     function handleChange({ target }) {
         let { value, type, name: field } = target
         value = type === 'number' ? +value : value
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, text: value }))
         setSelectedUser(users.find(u =>
             `${u.apartmentNumber} - ${u.firstName} ${u.lastName}` === value));
     }
 
     const handleSelectChange = ({ target }) => {
         let { value, type, name: field } = target
-        console.log(target);
-
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
-
     };
 
     async function onSavePackage(ev) {
@@ -70,14 +72,14 @@ const EditPackage = () => {
         if (!selectedUser.id) return
         try {
             packageToEdit.dateReceived = Date.now(),
-                packageToEdit.lobbyPackReceivedBy = admin.username
+                packageToEdit.lobbyPackReceivedBy =  "אלון"
             packageToEdit.fullPackageDescription = utilService.getFullPackageDescription(packageToEdit.amount, packageToEdit.type, packageToEdit.color, packageToEdit.size)
             packageToEdit.isCollected = false
             packageToEdit.receivingTenantApt = selectedUser.apartmentNumber
             packageToEdit.receivingTenantFname = selectedUser.firstName
             packageToEdit.receivingTenantLname = selectedUser.lastName
             packageToEdit.receivingTenantId = selectedUser.id
-            packageToEdit.receivingTenantFullTenantDesc = selectedUser.apartmentNumber + ' - ' + selectedUser.firstName + ' ' + selectedUser.lastName
+            packageToEdit.receivingTenantFullTenantDesc = selectedUser.fullUserDescription
             await packageService.save(packageToEdit)
             await showToast('success', 'פעולה בוצעה בהצלחה')
             router.push('/packages')
@@ -104,10 +106,6 @@ const EditPackage = () => {
         router.push('/packages')
     }
 
-    console.log(selectedUser);
-    console.log(packageToEdit);
-
-
     if (!packageToEdit && !users) return console.log('no package to edit')
     else return (
         <section className='edit_class__section'>
@@ -115,15 +113,21 @@ const EditPackage = () => {
                 <button type="button" onClick={closeForm} className="close-btn-x">X</button>
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">דירה</label>
-                    <input list="tenants"
+                    <input
+                        list="tenants"
                         id="name"
                         name="receivingTenantFullTenantDesc"
                         value={packageToEdit.receivingTenantFullTenantDesc}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                    />
                     <datalist id="tenants">
-                        {
-                            users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
-                        }
+                        {users.map((user) => (
+                            <option
+                                key={user.id}
+                                value={`${user.fullUserDescription}`}
+                            />
+
+                        ))}
                     </datalist>
                     {/* < FormToValidate
                         input={packageToEdit.receivingTenantFullTenantDesc}

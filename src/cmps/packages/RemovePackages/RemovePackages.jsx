@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from './RemovePackage.module.css'
 import { packageService } from '@/services/package.service'
-import { utilService } from '@/services/util.service'
 import { userService } from "@/services/user.service";
 import { useRouter } from 'next/navigation'
 import { showToast } from '@/lib/reactToastify/index.js'
@@ -9,6 +7,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
 
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const [users, setUsers] = useState([])
+    const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
     const [selectedUser, setSelectedUser] = useState(null)
     const router = useRouter()
 
@@ -32,9 +31,8 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
 
     async function loadUsers() {
         try {
-            const users = await userService.getUsers();
+            const users = await userService.getUsers(filterBy);
             setUsers(users)
-            // return users
         } catch (err) {
             console.log("Had issues in users", err);
         }
@@ -43,6 +41,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
     function handleChange({ target }) {
         let { value, type, name: field } = target
         value = type === 'number' ? +value : value
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, text: value }))
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     }
 
@@ -77,13 +76,13 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
 
                 }
             }
-
             setPackages(packages.filter(p => !selectedItems.includes(p._id)))
             setShowRemovePackages(false)
         } catch (err) {
             console.error(err)
         }
     }
+
     return (
         <>
             <section className='edit_class__section'>
@@ -96,10 +95,10 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                             name="collectingTenantFullTenantDesc"
                             value={packageToEdit.receivingTenantFullTenantDesc}
                             onChange={handleChange}
-                           />
+                        />
                         <datalist id="tenants">
                             {
-                                users.map(user => <option key={user.id} value={user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName}></option>)
+                                users.map(user => <option key={user.id} value={user.fullUserDescription}></option>)
                             }
                         </datalist>
                     </div>
@@ -108,7 +107,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                         <input type="text"
                             name="notesOnCollection"
                             id="notes"
-                            // placeholder="הערות"
+                            placeholder="הוסף הערה"
                             value={packageToEdit.notesOnCollection}
                             onChange={handleChange}
                         />
