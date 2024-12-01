@@ -32,13 +32,10 @@ const EditPackage = () => {
         }
     }
 
-    console.log(users);
-
-
     useEffect(() => {
         if (!idFromPath) return;
         loadPackage();
-    }, [users]);
+    }, []);
 
     async function loadPackage() {
         try {
