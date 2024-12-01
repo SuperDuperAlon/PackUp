@@ -17,6 +17,37 @@ export const packageService = {
     exportToCSV
 }
 
+// async function query(filterBy, sortBy) {
+//     const packages = await storageService.query(STORAGE_KEY)
+//     if (filterBy.receivingTenantFullTenantDesc) {
+//         const regex = new RegExp(filterBy.text, 'i')
+//         return packages.filter(p =>
+//             regex.test(p.firstName)
+//             || regex.test(p.lastName)
+//             || regex.test(p.apartmentNumber)
+//         )
+//     } else {
+//         return packages
+//     }
+// }
+
+// async function get(packageId) {
+//     const p = await storageService.get(STORAGE_KEY, packageId)
+//     return p
+// }
+
+// async function save(packageToSave) {
+//     if (packageToSave.id) {
+//         const p = await storageService.put(STORAGE_KEY, packageToSave)
+//         return p
+//     } else {
+//         const p = await storageService.post(STORAGE_KEY, {
+//             ...packageToSave, id: utilService.generateId()
+//         })
+//         return p
+//     }
+// }
+
 async function query(filterBy, sortBy) {
     try {
         const response = await fetch(API_URL + '?receivingTenantFullTenantDesc=' + filterBy.receivingTenantFullTenantDesc + '&sortBy=' + sortBy.sortBy + '&sortOrder=' + sortBy.sortOrder, {
