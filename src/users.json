@@ -6,7 +6,8 @@
         "apartmentNumber": 1262,
         "email": "רחל.לוי@email.com",
         "password": "password241",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1262 - רחל לוי"
     },
     {
         "id": 2,
@@ -15,7 +16,8 @@
         "apartmentNumber": 1109,
         "email": "איילת.לוי@mail.com",
         "password": "password512",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1109 - איילת לוי"
     },
     {
         "id": 3,
@@ -24,7 +26,8 @@
         "apartmentNumber": 1335,
         "email": "מיכאל.יצחק@email.com",
         "password": "password161",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1335 - מיכאל יצחק"
     },
     {
         "id": 4,
@@ -33,7 +36,8 @@
         "apartmentNumber": 1206,
         "email": "מיכאל.יצחק@mail.com",
         "password": "password227",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1206 - מיכאל יצחק"
     },
     {
         "id": 5,
@@ -42,7 +46,8 @@
         "apartmentNumber": 1149,
         "email": "ליה.עומר@email.com",
         "password": "password210",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1149 - ליה עומר"
     },
     {
         "id": 6,
@@ -51,7 +56,8 @@
         "apartmentNumber": 1349,
         "email": "אורן.יצחק@mail.com",
         "password": "password530",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1349 - אורן יצחק"
     },
     {
         "id": 7,
@@ -60,7 +66,8 @@
         "apartmentNumber": 1317,
         "email": "מיכאל.עומר@mail.com",
         "password": "password634",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1317 - מיכאל עומר"
     },
     {
         "id": 8,
@@ -69,7 +76,8 @@
         "apartmentNumber": 1383,
         "email": "ליה.יצחק@mail.com",
         "password": "password131",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1383 - ליה יצחק"
     },
     {
         "id": 9,
@@ -78,7 +86,8 @@
         "apartmentNumber": 1113,
         "email": "שרה.שמעון@email.com",
         "password": "password905",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1113 - שרה שמעון"
     },
     {
         "id": 10,
@@ -87,7 +96,8 @@
         "apartmentNumber": 1222,
         "email": "שרה.ברוך@example.com",
         "password": "password108",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1222 - שרה ברוך"
     },
     {
         "id": 11,
@@ -96,7 +106,8 @@
         "apartmentNumber": 1332,
         "email": "יוחנן.לוי@example.com",
         "password": "password313",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1332 - יוחנן לוי"
     },
     {
         "id": 12,
@@ -105,7 +116,8 @@
         "apartmentNumber": 1350,
         "email": "נעמי.שמעון@mail.com",
         "password": "password971",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1350 - נעמי שמעון"
     },
     {
         "id": 13,
@@ -114,7 +126,8 @@
         "apartmentNumber": 1148,
         "email": "מיכאל.עומר@mail.com",
         "password": "password352",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1148 - מיכאל עומר"
     },
     {
         "id": 14,
@@ -123,7 +136,8 @@
         "apartmentNumber": 1361,
         "email": "דוד.עומר@mail.com",
         "password": "password271",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1361 - דוד עומר"
     },
     {
         "id": 15,
@@ -132,7 +146,8 @@
         "apartmentNumber": 1291,
         "email": "איילת.ניסים@email.com",
         "password": "password228",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1291 - איילת ניסים"
     },
     {
         "id": 16,
@@ -141,7 +156,8 @@
         "apartmentNumber": 1391,
         "email": "רחל.בנימין@email.com",
         "password": "password514",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1391 - רחל בנימין"
     },
     {
         "id": 17,
@@ -150,7 +166,8 @@
         "apartmentNumber": 1193,
         "email": "איילת.ברוך@mail.com",
         "password": "password222",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1193 - איילת ברוך"
     },
     {
         "id": 18,
@@ -159,7 +176,8 @@
         "apartmentNumber": 1361,
         "email": "דוד.גרשון@example.com",
         "password": "password551",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1361 - דוד גרשון"
     },
     {
         "id": 19,
@@ -168,7 +186,8 @@
         "apartmentNumber": 1242,
         "email": "ליה.ניסים@mail.com",
         "password": "password199",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1242 - ליה ניסים"
     },
     {
         "id": 20,
@@ -177,7 +196,8 @@
         "apartmentNumber": 1262,
         "email": "מרק.ברוך@example.com",
         "password": "password868",
-        "isTenant": true
+        "isTenant": true,
+        "fullUserDescription": "1262 - מרק ברוך"
     },
     {
         "firstName": "אלון",
@@ -186,6 +206,7 @@
         "email": "alon.mlievski@example.com",
         "password": "alon123",
         "isTenant": true,
-        "profileImage": ""
+        "profileImage": "",
+        "fullUserDescription": "1999 - אלון מליאבסקי"
     }
 ]
