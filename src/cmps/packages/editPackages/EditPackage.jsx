@@ -106,7 +106,7 @@ const EditPackage = () => {
     if (!packageToEdit && !users) return console.log('no package to edit')
     else return (
         <section className='edit_class__section'>
-            <form className='edit_class__form' onSubmit={onSavePackage}>
+            <form className='edit_class__form' onSubmit={onSavePackage} autocomplete="off" role="presentation">
                 <button type="button" onClick={closeForm} className="close-btn-x">X</button>
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">דירה</label>
@@ -117,6 +117,7 @@ const EditPackage = () => {
                         name="receivingTenantFullTenantDesc"
                         value={packageToEdit.receivingTenantFullTenantDesc}
                         onChange={handleChange}
+                    // autoComplete="tenants"
                     />
                     <datalist id="tenants">
                         {users.map((user) => (
