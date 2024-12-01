@@ -20,6 +20,7 @@ const AdminView = () => {
     fetchAdmins();
   }, [filterBy])
 
+
   async function onRemoveAdmin(adminId) {
     return adminService.removeAdmin(adminId)
   }
