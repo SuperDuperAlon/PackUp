@@ -16,6 +16,8 @@ export const userService = {
 }
 
 async function getUsers(filterBy) {
+    console.log('filterBy', filterBy);
+    
     const users = await storageService.query(STORAGE_KEY)
     if (filterBy.text) {
         const regex = new RegExp(filterBy.text, 'i')
@@ -23,6 +25,7 @@ async function getUsers(filterBy) {
             regex.test(user.firstName)
             || regex.test(user.lastName)
             || regex.test(user.apartmentNumber)
+            || regex.test(user.fullUserDescription)
         )
     } else {
         return users
@@ -58,7 +61,8 @@ function getEmptyUser() {
         phone: '',
         apartmentNumber: '',
         // password: '',
-        isActive: false
+        isActive: false,
+        fullUserDescription: '',
     }
 }
 
