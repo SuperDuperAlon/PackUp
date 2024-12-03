@@ -8,8 +8,9 @@ const client = await clientPromise;
 const db = client.db(DB_NAME);
 
 export async function GET(req, { params }) {
-    const id = params.id
-
+    const id = params.userId
+    console.log(id);
+    
     try {
         const userData = await db.collection(COLLECTION_NAME).findOne({ _id: new ObjectId(id) });
 
@@ -25,7 +26,7 @@ export async function GET(req, { params }) {
 }
 
 export async function PUT(req, { params }) {
-    const id = params.id
+    const id = params.userId
     const body = await req.json();
 
     try {

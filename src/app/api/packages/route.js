@@ -35,12 +35,13 @@ export async function POST(req) {
   try {
     const packageData = await req.json();
     const packages = await db.collection(COLLECTION_NAME).insertOne(packageData);
+
     return new Response(JSON.stringify(packages), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Failed to fetch packages' }), {
+    return new Response(JSON.stringify({ error: 'Failed to post package' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });

@@ -3,6 +3,9 @@ import clientPromise from '@/lib/mongo/index.js';
 const DB_NAME = 'towerone_db';
 const COLLECTION_NAME = 'admins';
 
+const client = await clientPromise;
+const db = client.db(DB_NAME);
+
 export async function GET() {
   try {
     const client = await clientPromise;
@@ -20,3 +23,24 @@ export async function GET() {
     });
   }
 }
+
+export async function POST(req) {
+  console.log(req, 'req');
+  
+  try {
+    const adminData = await req.json();
+    console.log(adminData, 'adminData');
+    
+    const a = await db.collection(COLLECTION_NAME).insertOne(adminData);
+    
+    return new Response(JSON.stringify(a), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Failed to post new admin' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+} 
