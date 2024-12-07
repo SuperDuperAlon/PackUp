@@ -3,6 +3,7 @@ import { utilService } from './util.service'
 
 const STORAGE_KEY_LOGGEDIN_ADMIN = 'loggedInAdmin'
 const STORAGE_KEY = 'admin_db'
+const API_URL = '/api/admins';
 
 export const adminService = {
     // saveLocalAdmin,
@@ -16,42 +17,97 @@ export const adminService = {
 }
 
 async function getAdmins(filterBy) {
-    const admins = await storageService.query(STORAGE_KEY)
-    console.log(admins);
-    
-    if (filterBy.username) {
-        const regex = new RegExp(filterBy.username, 'i')
-        return admins.filter(admin => regex.test(admin.username))
-    } else {
-        return admins
+    try {
+        const response = await fetch(API_URL + '?username=' + filterBy.username, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch packages');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching packages:', error);
+        throw error;
     }
 }
 
+// async function removeAdmin(adminId) {
+//     return storageService.remove(STORAGE_KEY, adminId)
+// }
+
 async function removeAdmin(adminId) {
-    return storageService.remove(STORAGE_KEY, adminId)
+    try {
+        const response = await fetch(API_URL + '/' + adminId, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete the package');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error deleting the package:', error);
+        throw error;
+    }
 }
 
 async function getAdminById(adminId) {
-    const admin = await storageService.get(STORAGE_KEY, adminId)
-    return admin
+    try {
+        const response = await fetch(API_URL + '/' + adminId, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch the package');
+        }
+
+        const data = await response.json();
+        return data.data;
+    } catch (error) {
+        console.error('Error fetching the package:', error);
+        throw error;
+    }
 }
 
-async function save(adminToSave) {
-    if (adminToSave.id) {
-        const admin = await storageService.put(STORAGE_KEY, adminToSave)
-        return admin
-    } else {
-        const admin = await storageService.post(STORAGE_KEY, {
-            ...adminToSave, id: utilService.generateId()
-        })
-        return admin
+async function save(admin) {
+    try {
+        let response;
+        if (admin._id) {
+            response = await fetch(API_URL + '/' + admin._id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(admin)
+            });
+        } else {
+            response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(admin)
+            });
+        }
+
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error('Error saving data:', error);
     }
 }
 
 function getEmptyAdmin() {
     return {
         username: '',
-        password: ''
+        password: '',
+        isAdmin: false
     }
 }
 

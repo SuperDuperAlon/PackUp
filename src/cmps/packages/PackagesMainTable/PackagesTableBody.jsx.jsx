@@ -1,8 +1,12 @@
 import React from 'react'
 import { utilService } from '@/services/util.service'
 import RouteButton from '@/cmps/general/Buttons/RouteButton/RouteButton'
+import { useAuth } from '@/context/AuthContext'
 
-const PackagesTableBody = ({packages, currPage, packagesPerPage, selectedItems, handleCheckboxChange, onSingleRemoval}) => {
+const PackagesTableBody = ({ packages, currPage, onDeletePackage, packagesPerPage, selectedItems, handleCheckboxChange, onSingleRemoval }) => {
+  const { admin } = useAuth();
+  console.log(admin);
+
   return (
     <>
       <tbody>
@@ -17,6 +21,7 @@ const PackagesTableBody = ({packages, currPage, packagesPerPage, selectedItems, 
               <td className='table-actions'>
                 <button onClick={() => onSingleRemoval(p._id)}>מסירה</button>
                 <RouteButton content={'ערוך'} linkedRoute={`/packages/edit/${p._id}`} />
+                {admin.isAdmin && <button onClick={() => onDeletePackage(p._id)}>מחק</button>}
               </td>
               <td>{p.receivingTenantFullTenantDesc}</td>
               <td>{p.fullPackageDescription}</td>

@@ -98,8 +98,25 @@ async function get(packageId) {
 }
 
 async function remove(packageId) {
-    return storageService.remove(STORAGE_KEY, packageId)
+    // return storageService.remove(STORAGE_KEY, packageId)
+    try {
+        const response = await fetch(API_URL + '/' + packageId, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete the package');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error deleting the package:', error);
+        throw error;
+    }
 }
+
+
 
 async function save(p) {
     try {

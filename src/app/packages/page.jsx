@@ -46,7 +46,7 @@ export default function PackageView() {
 
     async function loadUsers() {
         try {
-            const users = await userService.getUsers();
+            const users = await userService.getUsers(filterBy);
             setUsers(users)
         } catch (err) {
             console.log("Had issues in users", err);
@@ -67,8 +67,6 @@ export default function PackageView() {
         );
     };
 
-
-
     function filterPackages(e) {
         setCurrPage(1)
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, receivingTenantFullTenantDesc: e.target.value }));
@@ -77,6 +75,10 @@ export default function PackageView() {
     function handleSortChange(by) {
         const updatedSort = { ...sortBy, sortBy: by, ...sortBy.sortOrder === 1 ? { sortOrder: -1 } : { sortOrder: 1 } };
         setSortBy(updatedSort)
+    }
+    async function onDeletePackage(packageId) {
+        await packageService.remove(packageId)
+        setPackages(packages.filter(p => p._id !== packageId))
     }
 
     async function onSingleRemoval(id) {
@@ -119,7 +121,7 @@ export default function PackageView() {
                         <RouteButton content={'ארכיון'} linkedRoute={'packages/archive'} />
                     </div>
                 </div>
-                < PackagesTable packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} handleSelectAllChange={handleSelectAllChange} handleSortChange={handleSortChange} />
+                < PackagesTable packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} handleSelectAllChange={handleSelectAllChange} handleSortChange={handleSortChange} onDeletePackage={onDeletePackage} />
             </section >
         </>
     )

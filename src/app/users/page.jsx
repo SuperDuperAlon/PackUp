@@ -13,15 +13,17 @@ const UserView = () => {
     const [filterBy, setFilterBy] = useState(userService.getDefaultFilter());
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const users = await userService.getUsers(filterBy);
-            setUsers(users);
-        };
         fetchUsers();
     }, [filterBy])
 
+    async function fetchUsers() {
+        const users = await userService.getUsers(filterBy);
+        setUsers(users);
+    }
+
     async function onRemoveUser(userId) {
         await userService.removeUser(userId)
+        fetchUsers()
     }
 
     async function onEditUser(userId) {
@@ -36,6 +38,7 @@ const UserView = () => {
     function closeEditForm() {
         setShowEditForm(false)
         setUsers(users)
+        fetchUsers()
     }
 
     return (

@@ -17,6 +17,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const user = await authService.login({ email, password })
+            console.log(user);
             if (user) {
                 setAdmin(await authService.getCurrentAdmin())
                 await showToast('success', 'פעולה בוצעה בהצלחה')
@@ -29,6 +30,8 @@ const Login = () => {
             await showToast('error', 'פעולה נכשלה')
         }
     };
+
+    
 
     return (
         <div className='edit_class__section'>

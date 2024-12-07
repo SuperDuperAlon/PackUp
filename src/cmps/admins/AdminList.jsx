@@ -1,5 +1,7 @@
 import React from 'react'
 
+
+
 const AdminList = ({ admins, onRemoveAdmin, onEditAdmin }) => {
     return (
         <>
@@ -12,14 +14,14 @@ const AdminList = ({ admins, onRemoveAdmin, onEditAdmin }) => {
                 </thead>
                 <tbody>
                     {admins.map((admin) => (
-                        <tr key={admin.id}>
+                        <tr key={admin._id}>
                             <td className='table-actions'>
-                                <button onClick={() => onRemoveAdmin(admin.id)}>מחק</button>
-                                <button onClick={() => onEditAdmin(admin.id)}>ערוך</button>
+                                <button onClick={() => onRemoveAdmin(admin._id)}>מחק</button>
+                                <button onClick={() => onEditAdmin(admin._id)}>ערוך</button>
                             </td>
                             <td>{admin.username}</td>
                             <td>
-                                {admin.isManager ? 'מנהל' : 'משתמש'}
+                                {admin.isAdmin ? 'מנהל' : 'משתמש'}
                             </td>
                         </tr>
                     ))}

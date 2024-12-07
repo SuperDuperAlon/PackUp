@@ -47,3 +47,35 @@ export async function PUT(req, { params }) {
         return new Response(JSON.stringify({ message: 'Failed to update user', error: error.message }), { status: 500 });
     }
 }
+
+export async function DELETE(req, { params }) {
+    console.log(params);
+    
+    const { userId } = params
+    console.log(userId);
+    
+
+    if (!userId || !ObjectId.isValid(userId)) {
+        return new Response(JSON.stringify({ error: "Invalid ID" }), {
+            status: 400,
+        });
+    }
+
+    try {
+        const result = await db.collection(COLLECTION_NAME).deleteOne({ _id: new ObjectId(userId) });
+        if (result.deletedCount === 1) {
+            return new Response(JSON.stringify({ message: "Item deleted successfully" }), {
+                status: 200,
+            });
+        } else {
+            return new Response(JSON.stringify({ error: "Item not found" }), {
+                status: 404,
+            });
+        }
+    } catch (error) {
+        console.error("Error deleting item:", error);
+        return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+            status: 500,
+        });
+    }
+}

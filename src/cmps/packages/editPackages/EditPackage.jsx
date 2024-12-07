@@ -17,7 +17,9 @@ const EditPackage = () => {
     const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
     const pathname = usePathname()
     const router = useRouter()
-    const idFromPath = pathname.split('/').pop()
+
+    const match = pathname.match(/^\/packages\/edit\/([\w-]+)$/);
+    const idFromPath = match ? match[1] : null;
 
     useEffect(() => {
         loadUsers()
@@ -35,20 +37,22 @@ const EditPackage = () => {
     useEffect(() => {
         if (!idFromPath) return;
         loadPackage();
-    }, []);
+    }, [idFromPath]);
 
     async function loadPackage() {
         try {
-            const pack = await packageService.get(idFromPath);
-            setPackageToEdit(pack);
-            setSelectedUser(users.find(u => pack.receivingTenantId === u.id))
+            if (!idFromPath) {
+                return setPackageToEdit(packageService.getEmptyPackage());
+            }
+            else {
+                const pack = await packageService.get(idFromPath);
+                setPackageToEdit(pack);
+                setSelectedUser(users.find(u => pack.receivingTenantId === u._id))
+            }
         } catch (err) {
             console.log("Had issues in package details", err);
         }
     }
-
-    console.log(filterBy);
-
 
     function handleChange({ target }) {
         let { value, type, name: field } = target
@@ -66,7 +70,7 @@ const EditPackage = () => {
 
     async function onSavePackage(ev) {
         ev.preventDefault()
-        if (!selectedUser.id) return
+        if (!selectedUser._id) return
         try {
             packageToEdit.dateReceived = Date.now(),
                 packageToEdit.lobbyPackReceivedBy = admin.username
@@ -75,7 +79,7 @@ const EditPackage = () => {
             packageToEdit.receivingTenantApt = selectedUser.apartmentNumber
             packageToEdit.receivingTenantFname = selectedUser.firstName
             packageToEdit.receivingTenantLname = selectedUser.lastName
-            packageToEdit.receivingTenantId = selectedUser.id
+            packageToEdit.receivingTenantId = selectedUser._id
             packageToEdit.receivingTenantFullTenantDesc = selectedUser.fullUserDescription
             await packageService.save(packageToEdit)
             await showToast('success', 'פעולה בוצעה בהצלחה')
@@ -86,6 +90,9 @@ const EditPackage = () => {
 
         }
     }
+
+    console.log(users);
+
 
     useEffect(() => {
         const handleEscape = (e) => {
@@ -106,7 +113,7 @@ const EditPackage = () => {
     if (!packageToEdit && !users) return console.log('no package to edit')
     else return (
         <section className='edit_class__section'>
-            <form className='edit_class__form' onSubmit={onSavePackage} autocomplete="off" role="presentation">
+            <form className='edit_class__form' onSubmit={onSavePackage} autoComplete="off" role="presentation">
                 <button type="button" onClick={closeForm} className="close-btn-x">X</button>
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">דירה</label>
@@ -122,7 +129,7 @@ const EditPackage = () => {
                     <datalist id="tenants">
                         {users.map((user) => (
                             <option
-                                key={user.id}
+                                key={user._id}
                                 value={`${user.fullUserDescription}`}
                             />
 

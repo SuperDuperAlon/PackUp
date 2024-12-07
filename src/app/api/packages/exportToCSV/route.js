@@ -11,17 +11,17 @@ export async function GET(req) {
     try {
         const packages = await db.collection(COLLECTION_NAME).find({}).toArray();
         const headers = ["id",
-            //  "receivingTenantApt", "receivingTenantFname", "receivingTenantFullTenantDesc", "isCollected"
-            ];
+            "Tenant Apartment", "First Name", "Last Name", "isCollected"
+        ];
         const csvRows = [headers.join(",")]; // Start with the headers
 
         packages.forEach(item => {
             const row = [
                 item._id.toString(),
-                // item.receivingTenantApt.toString() || "",
-                // item.receivingTenantFname.toString() || "",
-                // item.receivingTenantFullTenantDesc.toString() || "",
-                // item.isCollected.toString() || "false",
+                item.receivingTenantApt,
+                item.receivingTenantFname,
+                item.receivingTenantLname,
+                item.isCollected,
             ];
             csvRows.push(row.join(","));
         });

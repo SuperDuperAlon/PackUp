@@ -26,6 +26,11 @@ const EditAdmin = ({ adminIdToEdit, onCloseEditForm }) => {
         setAdminToEdit((prev) => ({ ...prev, [field]: value }))
     }
 
+    function handleRadioChange({ target }) {
+        let { value, name: field } = target
+        setAdminToEdit((prev) => ({ ...prev, [field]: JSON.parse(value) }))
+    }
+
     async function onSaveAdmin(ev) {
         console.log(adminToEdit, 'admin to edit');
         ev.preventDefault()
@@ -33,7 +38,7 @@ const EditAdmin = ({ adminIdToEdit, onCloseEditForm }) => {
             adminToEdit.username,
                 // adminToEdit.password = password,
                 await adminService.save(adminToEdit)
-                closeForm()
+            closeForm()
         } catch (err) {
             console.error(err)
         }
@@ -69,8 +74,31 @@ const EditAdmin = ({ adminIdToEdit, onCloseEditForm }) => {
                             value={adminToEdit.username}
                             onChange={handleChange} />
                     </div>
+                    <div className='edit_class__form_container'>
+                        <label>
+                            <input
+                                type="radio"
+                                name="isAdmin"
+                                value="true"
+                                checked={adminToEdit.isAdmin}
+                                onChange={handleRadioChange}
+                            />
+                            מנהל
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input
+                                type="radio"
+                                name="isAdmin"
+                                value="false"
+                                checked={!adminToEdit.isAdmin}
+                                onChange={handleRadioChange}
+                            />
+                            לא מנהל                        </label>
+                    </div>
                     <div className="flex-row">
-                        <button>{adminToEdit.id ? "שמור" : "הוסף"}</button>
+                        <button>{adminToEdit._id ? "שמור" : "הוסף"}</button>
                         <button type='button' onClick={closeForm}>סגור</button>
                     </div>
                 </form>

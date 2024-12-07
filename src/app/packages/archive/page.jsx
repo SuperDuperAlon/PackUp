@@ -32,7 +32,7 @@ const PackageArchive = () => {
 
     async function loadUsers() {
         try {
-            const users = await userService.getUsers();
+            const users = await userService.getUsers(filterBy);
             setUsers(users)
         } catch (err) {
             console.log("Had issues in users", err);

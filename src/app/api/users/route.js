@@ -6,18 +6,30 @@ const COLLECTION_NAME = 'users';
 const client = await clientPromise;
 const db = client.db(DB_NAME);
 
-export async function GET() {
+export async function GET(req) {
   try {
-    const client = await clientPromise;
-    const db = client.db(DB_NAME);
-    const admins = await db.collection(COLLECTION_NAME).find({}).toArray();
+    const { searchParams } = new URL(req.url);
+    console.log(searchParams.get('text'));
+    const regex = new RegExp(searchParams.get('text'), 'i');
 
-    return new Response(JSON.stringify(admins), {
+    const users = await db
+      .collection(COLLECTION_NAME)
+      .find({
+        $or: [
+          { firstName: regex },
+          { lastName: regex },
+          { apartmentNumber: regex },
+          { fullUserDescription: regex },
+        ],
+      })
+      .toArray();
+
+    return new Response(JSON.stringify(users), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Failed to fetch admins' }), {
+    return new Response(JSON.stringify({ error: 'Failed to fetch users' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
@@ -27,10 +39,8 @@ export async function GET() {
 export async function POST(req) {
   try {
     const userData = await req.json();
-    console.log(userData, 'userData');
-    
     const u = await db.collection(COLLECTION_NAME).insertOne(userData);
-    
+
     return new Response(JSON.stringify(u), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }

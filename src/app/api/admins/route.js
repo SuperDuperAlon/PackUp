@@ -6,12 +6,14 @@ const COLLECTION_NAME = 'admins';
 const client = await clientPromise;
 const db = client.db(DB_NAME);
 
-export async function GET() {
+export async function GET(req) {
   try {
-    const client = await clientPromise;
-    const db = client.db(DB_NAME);
-    const admins = await db.collection(COLLECTION_NAME).find({}).toArray();
+    const { searchParams } = new URL(req.url);
+    const regex = new RegExp(searchParams.get('username'), 'i');
+    console.log(regex, 'regex');
 
+
+    const admins = await db.collection(COLLECTION_NAME).find({ username: regex }).toArray();
     return new Response(JSON.stringify(admins), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
@@ -25,14 +27,11 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  console.log(req, 'req');
-  
+
   try {
     const adminData = await req.json();
-    console.log(adminData, 'adminData');
-    
     const a = await db.collection(COLLECTION_NAME).insertOne(adminData);
-    
+
     return new Response(JSON.stringify(a), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }

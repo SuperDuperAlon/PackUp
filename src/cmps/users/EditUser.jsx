@@ -24,6 +24,11 @@ const EditUser = ({ userIdToEdit, onCloseEditForm }) => {
         setUserToEdit((prev) => ({ ...prev, [field]: value }))
     }
 
+    const handleDateChange = ({ target }) => {
+        let { value, name: field } = target
+        setUserToEdit((prev) => ({ ...prev, [field]: value }))
+    };
+
     console.log(userToEdit);
 
 
@@ -31,7 +36,8 @@ const EditUser = ({ userIdToEdit, onCloseEditForm }) => {
         ev.preventDefault()
         try {
             userToEdit.dateCreated = Date.now(),
-                await userService.save(userToEdit)
+                userToEdit.fullUserDescription = userToEdit.apartmentNumber + ' - ' + userToEdit.firstName + ' ' + userToEdit.lastName
+            await userService.save(userToEdit)
             closeForm()
         } catch (err) {
             console.error(err)
@@ -53,7 +59,7 @@ const EditUser = ({ userIdToEdit, onCloseEditForm }) => {
     function closeForm() {
         onCloseEditForm()
     }
-    
+
     if (!userToEdit) return console.log('no id')
     return (
         <>
@@ -78,7 +84,7 @@ const EditUser = ({ userIdToEdit, onCloseEditForm }) => {
                     </div>
                     <div className='edit_class__form_container'>
                         <label htmlFor="apartmentNumber">מספר דירה</label>
-                        <input type='number'
+                        <input type='text'
                             id="apartmentNumber"
                             name="apartmentNumber"
                             value={userToEdit.apartmentNumber}
@@ -100,8 +106,16 @@ const EditUser = ({ userIdToEdit, onCloseEditForm }) => {
                             value={userToEdit.phone}
                             onChange={handleChange} />
                     </div>
+                    <div className='edit_class__form_container'>
+                        <label htmlFor="dateOfBirth">תאריך לידה</label>
+                        <input type='date'
+                            id="dateOfBirth"
+                            name="dateOfBirth"
+                            value={userToEdit.dateOfBirth}
+                            onChange={handleDateChange} />
+                    </div>
                     <div className="flex-row">
-                        <button>{userToEdit.id ? "שמור" : "הוסף"}</button>
+                        <button>{userToEdit._id ? "שמור" : "הוסף"}</button>
                         <button type='button' onClick={closeForm}>סגור</button>
                     </div>
                 </form>

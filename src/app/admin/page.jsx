@@ -13,16 +13,17 @@ const AdminView = () => {
   const [adminIdToEdit, setAdminIdToEdit] = useState(null);
 
   useEffect(() => {
-    const fetchAdmins = async () => {
-      const admins = await adminService.getAdmins(filterBy);
-      setAdmins(admins);
-    };
     fetchAdmins();
   }, [filterBy])
 
+  const fetchAdmins = async () => {
+    const admins = await adminService.getAdmins(filterBy);
+    setAdmins(admins);
+  }
 
   async function onRemoveAdmin(adminId) {
-    return adminService.removeAdmin(adminId)
+    await adminService.removeAdmin(adminId)
+    fetchAdmins()
   }
 
   async function onEditAdmin(adminId) {
@@ -37,7 +38,12 @@ const AdminView = () => {
   function closeEditForm() {
     setShowEditForm(false)
     setAdmins(admins)
+    fetchAdmins()
   }
+
+  
+console.log(admins);
+
   return (
     <>
       <div className='admin-view'>
