@@ -13,7 +13,7 @@ const Logout = () => {
         async function logout() {
             await authService.logout();
             await showToast('success', 'פעולה בוצעה בהצלחה')
-            router.push('/');
+            router.push('/auth/login');
         }
         logout();
     }, []);
