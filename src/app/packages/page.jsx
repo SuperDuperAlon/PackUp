@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
-import { userService } from '@/services/user.service';
 import PackagesTable from '@/cmps/packages/PackagesMainTable/PackagesTable.jsx'
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
@@ -12,14 +11,11 @@ import { useAuth } from '@/context/AuthContext';
 
 
 export default function PackageView() {
-
     const [filterBy, setFilterBy] = useState(packageService.getDefaultFilter());
     const [sortBy, setSortBy] = useState(packageService.getDefaultSort());
     const [packages, setPackages] = useState(null);
     const [selectedItems, setSelectedItems] = useState([]);
-    const [users, setUsers] = useState(null);
     const [showRemovePackages, setShowRemovePackages] = useState(false);
-
     const { admin } = useAuth();
 
     // Pagination
@@ -43,18 +39,6 @@ export default function PackageView() {
         loadPackages()
     }, [filterBy, sortBy, currPage])
 
-    useEffect(() => {
-        loadUsers()
-    }, [])
-
-    async function loadUsers() {
-        try {
-            const users = await userService.getUsers(filterBy);
-            setUsers(users)
-        } catch (err) {
-            console.log("Had issues in users", err);
-        }
-    }
 
     function handlePageNumberChange(num) {
         if (num < 1 || num > numOfPages) return
@@ -103,7 +87,7 @@ export default function PackageView() {
         }
     };
 
-    if (!packages && !users) console.log('no packages')
+    if (!packages) console.log('no packages')
     else return (
         <>
             <section>
@@ -120,9 +104,7 @@ export default function PackageView() {
                         <Pagination handlePageNumberChange={handlePageNumberChange} numOfPages={numOfPages} currPage={currPage} />
                     }
                     <div>
-                        {admin.isAdmin &&
-                            <ExportButton />
-                        }
+                        {admin.isAdmin && <ExportButton />}
                         <RouteButton content={'ארכיון'} linkedRoute={'packages/archive'} />
                     </div>
                 </div>
