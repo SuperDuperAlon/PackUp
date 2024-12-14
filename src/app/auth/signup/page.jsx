@@ -12,7 +12,6 @@ const SignupForm = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [buttonDisabled, setButtonDisabled] = useState(true);
     const { setAdmin } = useAuth()
 
     const router = useRouter()
@@ -33,8 +32,6 @@ const SignupForm = () => {
         }
     };
 
-
-    // TODO: form css
     return (
         <>
             <div className='edit_class__section'>
@@ -95,7 +92,7 @@ const SignupForm = () => {
                         />
                     </div>
                     <div className='edit_class__form_submit_row'>
-                        <button type="submit"  > הרשם </button>
+                        <button type="submit"> הרשם </button>
                         <Link href={'/auth/login'}>חשבון קיים?</Link>
                     </div>
                 </form>
