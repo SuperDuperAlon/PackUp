@@ -38,7 +38,7 @@
     "src/middleware.js",
     "src/app/layout.jsx",
     "src/app/api/users/[userId]/route.js"
-  ],
+, "src/lib/zod/formSchema.js"  ],
   "exclude": [
     "node_modules"
   ]

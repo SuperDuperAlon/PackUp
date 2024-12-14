@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { userService } from "@/services/user.service"
 import { useAuth } from '@/context/AuthContext';
 import { showToast } from '@/lib/reactToastify';
-import FormToValidate from "../../general/FormValidation/FormToValidate";
+// import formSchema from '@/lib/zod/formSchema';
 
 const EditPackage = () => {
 
@@ -15,6 +15,7 @@ const EditPackage = () => {
     const [selectedUser, setSelectedUser] = useState(null)
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
+    // const [errors, setErrors] = useState({});
     const pathname = usePathname()
     const router = useRouter()
 
@@ -70,6 +71,7 @@ const EditPackage = () => {
 
     async function onSavePackage(ev) {
         ev.preventDefault()
+        if (!validateForm()) return
         if (!selectedUser._id) return
         try {
             packageToEdit.dateReceived = Date.now(),
@@ -91,8 +93,24 @@ const EditPackage = () => {
         }
     }
 
-    console.log(users);
+    // const validateForm = () => {
+    //     try {
+    //         formSchema.parse(packageToEdit);
+    //         setErrors({}); // Clear errors if validation passes
+    //         return true;
+    //     } catch (error) {
+    //         if (error.errors) {
+    //             const fieldErrors = {};
+    //             error.errors.forEach((err) => {
+    //                 fieldErrors[err.path[0]] = err.message;
+    //             });
+    //             setErrors(fieldErrors);
+    //         }
+    //         return false;
+    //     }
+    // };
 
+    // console.log(packageToEdit, 'packageToEdit')
 
     useEffect(() => {
         const handleEscape = (e) => {
@@ -124,6 +142,7 @@ const EditPackage = () => {
                         name="receivingTenantFullTenantDesc"
                         value={packageToEdit.receivingTenantFullTenantDesc}
                         onChange={handleChange}
+                        required
                     // autoComplete="tenants"
                     />
                     <datalist id="tenants">
@@ -135,6 +154,7 @@ const EditPackage = () => {
 
                         ))}
                     </datalist>
+                    {/* {errors.receivingTenantFullTenantDesc && <p>{errors.receivingTenantFullTenantDesc}</p>} */}
                     {/* < FormToValidate
                         input={packageToEdit.receivingTenantFullTenantDesc}
                         condition={(users.map(user => user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName)).includes(packageToEdit.receivingTenantFullTenantDesc)}
@@ -156,6 +176,8 @@ const EditPackage = () => {
                                 <option value="6">6</option>
                                 <option value="7">7</option>
                             </select>
+                            {/* {errors.amount && <p>{errors.amount}</p>} */}
+
                         </div>
                         <div className='edit_class__form_container'>
                             <label htmlFor="name"> סוג</label>
@@ -166,6 +188,8 @@ const EditPackage = () => {
                                 <option value="קרטון">קרטון</option>
                                 <option value="אחר">אחר</option>
                             </select>
+                            {/* {errors.type && <p>{errors.type}</p>} */}
+
                         </div>
                         <div className='edit_class__form_container'>
                             <label htmlFor="name"> גודל</label>
@@ -177,6 +201,8 @@ const EditPackage = () => {
                                 <option value="ענק">ענק</option>
                                 <option value="אחר">אחר</option>
                             </select>
+                            {/* {errors.size && <p>{errors.size}</p>} */}
+
                         </div>
                         <div className='edit_class__form_container'>
                             <label htmlFor="color"> צבע</label>
@@ -194,6 +220,8 @@ const EditPackage = () => {
                                 <option value="מנומר">🐯 מנומר</option>
                                 <option value="אחר">אחר</option>
                             </select>
+                            {/* {errors.color && <p>{errors.color}</p>} */}
+
                         </div>
                     </div>
                     {/* < FormToValidate
