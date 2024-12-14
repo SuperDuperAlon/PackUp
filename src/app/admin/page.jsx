@@ -40,10 +40,6 @@ const AdminView = () => {
     setAdmins(admins)
     fetchAdmins()
   }
-
-  
-console.log(admins);
-
   return (
     <>
       <div className='admin-view'>
