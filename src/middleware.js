@@ -23,5 +23,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-    matcher: ['/packages', '/admin', '/users', '/tenant'],
+    matcher: ['/packages/:path*', '/admin/:path*', '/users/:path*', '/tenant/:path*'],
 };
