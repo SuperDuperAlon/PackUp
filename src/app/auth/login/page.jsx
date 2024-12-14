@@ -17,7 +17,6 @@ const Login = () => {
         e.preventDefault();
         try {
             const user = await authService.login({ email, password })
-            console.log(user);
             if (user) {
                 setAdmin(await authService.getCurrentAdmin())
                 await showToast('success', 'פעולה בוצעה בהצלחה')
