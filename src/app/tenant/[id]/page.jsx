@@ -13,17 +13,25 @@ const TenantView = () => {
 
     const [currUser, setCurrUser] = useState(null)
     const currUserId = usePathname().split('/')[2]
+    console.log(currUserId);
+    console.log(currUser);
+
+
 
     const router = useRouter()
 
     useEffect(() => {
         async function loadUser(currUserId) {
-            const user = await userService.getById(+currUserId)
+            if (!currUserId) return
+            const user = await userService.getUserById(currUserId)
             setCurrUser(user)
         }
         loadUser(currUserId)
-    }, [currUserId])
+    }, [])
 
+    if (!currUser) {
+        return null
+    }
     return (
         <>
             <section className='tenant_view'>

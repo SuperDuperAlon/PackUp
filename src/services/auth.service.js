@@ -63,11 +63,10 @@ async function logout() {
     }
 }
 async function getCurrentAdmin() {
-
     try {
-
         const response = await fetch('/api/auth/getcurrentadmin');
-        const data = await response.json(); return data.admin;
+        const data = await response.json();
+        return data.admin;
     } catch (error) {
         console.error('Error fetching current admin:', error);
         return null;

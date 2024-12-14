@@ -3,21 +3,28 @@ import React from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext';
 import { authService } from '@/services/auth.service';
+import RouteButton from '@/cmps/general/Buttons/RouteButton/RouteButton';
 
 const Header = () => {
     const { admin } = useAuth();
     const pathname = usePathname()
     const router = useRouter()
 
-    if (pathname === '/' || pathname.includes('/auth')) {
+    if (pathname === '/' || pathname.includes('/auth') || pathname.includes('/tenant')) {
         return null
     }
+    console.log(admin);
 
     async function onLogout() {
         await authService.logout();
-        router.push('/auth/signup');
+        router.push('/auth/login');
     }
 
+    if (!admin) {
+        return null
+    }
+
+    
     return (
         <header className='index-layout full'>
             <section className='header'>
@@ -33,7 +40,14 @@ const Header = () => {
                     }
                 </div>
                 <div className='header__left'>
+                    {admin.isAdmin &&
+                        <>
+                            <RouteButton content={'ניהול משתמשים'} linkedRoute={'users'} />
+                            <RouteButton content={'ניהול מנהלים'} linkedRoute={'admin'} />
+                        </>
+                    }
                     <div className='header__logo' onClick={() => router.push('/')}>PackUp</div>
+
                 </div>
             </section>
         </header>

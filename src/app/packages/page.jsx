@@ -8,6 +8,7 @@ import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
 import ExportButton from '@/cmps/general/Buttons/ExportButton/ExportButton';
 import RouteButton from '@/cmps/general/Buttons/RouteButton/RouteButton';
+import { useAuth } from '@/context/AuthContext';
 
 
 export default function PackageView() {
@@ -18,6 +19,8 @@ export default function PackageView() {
     const [selectedItems, setSelectedItems] = useState([]);
     const [users, setUsers] = useState(null);
     const [showRemovePackages, setShowRemovePackages] = useState(false);
+
+    const { admin } = useAuth();
 
     // Pagination
     const [numOfPages, setNumOfPages] = useState(null)
@@ -117,7 +120,9 @@ export default function PackageView() {
                         <Pagination handlePageNumberChange={handlePageNumberChange} numOfPages={numOfPages} currPage={currPage} />
                     }
                     <div>
-                        <ExportButton />
+                        {admin.isAdmin &&
+                            <ExportButton />
+                        }
                         <RouteButton content={'ארכיון'} linkedRoute={'packages/archive'} />
                     </div>
                 </div>

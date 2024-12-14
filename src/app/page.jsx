@@ -6,17 +6,20 @@ import { useEffect } from "react";
 
 export default function Home() {
 
-  const { user } = useAuth();
+  const { admin } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!admin) {
       router.push('/auth/login');
     } else {
       router.push('/packages');
     }
   }, []);
 
+  if (!admin) {
+    return null;
+  }
   return (
     <>
       <div className='homepage_view'>

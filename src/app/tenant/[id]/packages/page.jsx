@@ -16,7 +16,7 @@ const UserPackages = () => {
 
   useEffect(() => {
     async function loadUser(currUserId) {
-      const user = await userService.getById(+currUserId)
+      const user = await userService.getUserById(currUserId)
       setCurrUser(user)
     }
     loadUser(currUserId)
@@ -53,7 +53,7 @@ const UserPackages = () => {
         </div> */}
         <div className='tenant_packages_view__packages'>
           <div className='tenant_packages_view__title'>חבילות חדשות</div>
-          {packages && packages.filter(p => p.isCollected === false && p.receivingTenantId === currUser.id).map(p => <div key={p.id} className='tenant_packages_view__package'>
+          {packages && packages.filter(p => p.isCollected === false && p.receivingTenantId === currUser._id).map(p => <div key={p._id} className='tenant_packages_view__package'>
             <div className='tenant_packages_view__package__info'>
               <div className='tenant_packages__date'>
                 {utilService.parseDate(p.dateReceived)}
@@ -66,7 +66,7 @@ const UserPackages = () => {
         </div>
         <div className='tenant_packages_view__packages'>
           <div className='tenant_packages_view__title'>חבילות שנאספו</div>
-          {packages && packages.filter(p => p.isCollected && p.receivingTenantId === currUser.id).map(p => <div key={p.id} className='tenant_packages_view__package'>
+          {packages && packages.filter(p => p.isCollected && p.receivingTenantId === currUser._id).map(p => <div key={p.id} className='tenant_packages_view__package'>
             <div className='tenant_packages_view__package__info'>
               <div className='tenant_packages__date'>
                 {utilService.parseDate(p.dateReceived)}

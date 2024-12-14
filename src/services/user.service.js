@@ -10,7 +10,6 @@ export const userService = {
     getUsers,
     getUserById,
     removeUser,
-    getUserById,
     save,
     getEmptyUser,
     getDefaultFilter
@@ -56,6 +55,8 @@ async function removeUser(userId) {
 }
 
 async function getUserById(userId) {
+    console.log(userId);
+    
     try {
         const response = await fetch(API_URL + '/' + userId, {
             method: 'GET',
