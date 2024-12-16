@@ -30,9 +30,8 @@
     display: flex;
     flex-direction: column;
     width: fit-content;
-    > input {
-        // margin: 5px;
-        border: 1px solid black;
+
+    >input {
         border-radius: 5px;
         padding: 2px 3px;
     }

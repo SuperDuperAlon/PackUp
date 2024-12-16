@@ -1,11 +1,30 @@
-.validation {
-    font-size: 0.875rem;
-    line-height: 1rem;
-    height: 1rem;
-    &.success {
-        color: green;
-    }
-    &.error {
-        color: red;
-    }
+.form-group {
+    position: relative;
+    // margin-bottom: 20px;
+}
+
+input.error,
+select.error {
+    border: 1px solid red;
+}
+
+.error-message {
+    visibility: hidden;
+    color: red;
+    font-size: 12px;
+    padding: 5px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid red;
+    padding: 5px;
+    z-index: 100;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"].error:hover+.error-message,
+select.error:hover+.error-message {
+    visibility: visible;
 }

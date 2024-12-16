@@ -156,7 +156,7 @@ async function checkPackage(p) {
 
 function getEmptyPackage() {
     return {
-        amount: 1,
+        amount: '1',
         type: '',
         color: '',
         size: '',

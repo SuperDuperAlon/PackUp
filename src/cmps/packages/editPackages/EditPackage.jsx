@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { userService } from "@/services/user.service"
 import { useAuth } from '@/context/AuthContext';
 import { showToast } from '@/lib/reactToastify';
-// import formSchema from '@/lib/zod/formSchema';
+import addPackageFormSchema from '@/lib/zod/addPackageFormSchema';
 
 const EditPackage = () => {
 
@@ -15,7 +15,7 @@ const EditPackage = () => {
     const [selectedUser, setSelectedUser] = useState(null)
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
-    // const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
     const pathname = usePathname()
     const router = useRouter()
 
@@ -27,7 +27,8 @@ const EditPackage = () => {
         loadPackage();
     }, [idFromPath]);
 
-    
+    console.log(errors)
+
     useEffect(() => {
         loadUsers()
     }, [filterBy])
@@ -40,9 +41,6 @@ const EditPackage = () => {
             console.log("Had issues in users", err);
         }
     }
-
-
-    console.log(packageToEdit)
 
     async function loadPackage() {
         try {
@@ -75,7 +73,7 @@ const EditPackage = () => {
 
     async function onSavePackage(ev) {
         ev.preventDefault()
-        // if (!validateForm()) return
+        if (!validateForm()) return
         if (!selectedUser._id) return
         try {
             packageToEdit.dateReceived = Date.now(),
@@ -97,24 +95,25 @@ const EditPackage = () => {
         }
     }
 
-    // const validateForm = () => {
-    //     try {
-    //         formSchema.parse(packageToEdit);
-    //         setErrors({}); // Clear errors if validation passes
-    //         return true;
-    //     } catch (error) {
-    //         if (error.errors) {
-    //             const fieldErrors = {};
-    //             error.errors.forEach((err) => {
-    //                 fieldErrors[err.path[0]] = err.message;
-    //             });
-    //             setErrors(fieldErrors);
-    //         }
-    //         return false;
-    //     }
-    // };
 
-    // console.log(packageToEdit, 'packageToEdit')
+    const validateForm = () => {
+        const formSchema = addPackageFormSchema(users);
+        try {
+            formSchema.parse(packageToEdit);
+            setErrors({}); // Clear errors if validation passes
+            return true;
+        } catch (error) {
+            console.log(error, 'errors')
+            if (error.errors) {
+                const fieldErrors = {};
+                error.errors.forEach((err) => {
+                    fieldErrors[err.path[0]] = err.message;
+                });
+                setErrors(fieldErrors);
+            }
+            return false;
+        }
+    };
 
     useEffect(() => {
         const handleEscape = (e) => {
@@ -132,12 +131,15 @@ const EditPackage = () => {
         router.push('/packages')
     }
 
+    const getErrorClass = (field) => (errors[field] ? 'error' : '');
+
     if (!packageToEdit && !users) return console.log('no package to edit')
     else return (
         <section className='edit_class__section'>
             <form className='edit_class__form' onSubmit={onSavePackage} autoComplete="off" role="presentation">
                 <button type="button" onClick={closeForm} className="close-btn-x">X</button>
-                <div className='edit_class__form_container'>
+
+                <div className='edit_class__form_container form-group'>
                     <label htmlFor="name">דירה</label>
                     <input
                         type="text"
@@ -146,9 +148,11 @@ const EditPackage = () => {
                         name="receivingTenantFullTenantDesc"
                         value={packageToEdit.receivingTenantFullTenantDesc}
                         onChange={handleChange}
-                        required
-                    // autoComplete="tenants"
+                        className={getErrorClass('receivingTenantFullTenantDesc')}
                     />
+                    {errors.receivingTenantFullTenantDesc &&
+                        <span className="error-message">{errors.receivingTenantFullTenantDesc}</span>
+                    }
                     <datalist id="tenants">
                         {users.map((user) => (
                             <option
@@ -158,19 +162,13 @@ const EditPackage = () => {
 
                         ))}
                     </datalist>
-                    {/* {errors.receivingTenantFullTenantDesc && <p>{errors.receivingTenantFullTenantDesc}</p>} */}
-                    {/* < FormToValidate
-                        input={packageToEdit.receivingTenantFullTenantDesc}
-                        condition={(users.map(user => user.apartmentNumber + ' - ' + user.firstName + ' ' + user.lastName)).includes(packageToEdit.receivingTenantFullTenantDesc)}
-                        successMessage='משתמש קיים במערכת'
-                        errorMessage='משתמש לא קיים'
-                    /> */}
+
                 </div>
                 <div className="edit_class__form_to_row">
                     <div className="flex-row">
-                        <div className='edit_class__form_container'>
+                        <div className='edit_class__form_container  form-group'>
                             <label htmlFor="amount">כמות</label>
-                            <select id="amount" name="amount" value={packageToEdit.amount} required onChange={handleSelectChange} >
+                            <select id="amount" name="amount" value={packageToEdit.amount} onChange={handleSelectChange} className={getErrorClass('amount')}>
                                 <option value="" hidden>כמות </option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -180,24 +178,23 @@ const EditPackage = () => {
                                 <option value="6">6</option>
                                 <option value="7">7</option>
                             </select>
-                            {/* {errors.amount && <p>{errors.amount}</p>} */}
-
+                            {errors.amount && <span className="error-message">{errors.amount}</span>}
                         </div>
-                        <div className='edit_class__form_container'>
+                        <div className='edit_class__form_container  form-group'>
                             <label htmlFor="name"> סוג</label>
-                            <select id="type" name="type" value={packageToEdit.type} required onChange={handleSelectChange} >
+                            <select id="type" name="type" value={packageToEdit.type} onChange={handleSelectChange} className={getErrorClass('type')}>
                                 <option value="" hidden> סוג</option>
                                 <option value="חבילה">חבילה</option>
                                 <option value="שקית">שקית</option>
                                 <option value="קרטון">קרטון</option>
                                 <option value="אחר">אחר</option>
                             </select>
-                            {/* {errors.type && <p>{errors.type}</p>} */}
+                            {errors.type && <span className="error-message">{errors.type}</span>}
 
                         </div>
-                        <div className='edit_class__form_container'>
+                        <div className='edit_class__form_container form-group'>
                             <label htmlFor="name"> גודל</label>
-                            <select id="size" name="size" value={packageToEdit.size} required onChange={handleSelectChange} >
+                            <select id="size" name="size" value={packageToEdit.size} onChange={handleSelectChange} className={getErrorClass('size')} >
                                 <option value="" hidden> גודל</option>
                                 <option value="קטן">קטן</option>
                                 <option value="בינוני">בינוני</option>
@@ -205,12 +202,12 @@ const EditPackage = () => {
                                 <option value="ענק">ענק</option>
                                 <option value="אחר">אחר</option>
                             </select>
-                            {/* {errors.size && <p>{errors.size}</p>} */}
+                            {errors.size && <span className="error-message">{errors.size}</span>}
 
                         </div>
-                        <div className='edit_class__form_container'>
+                        <div className='edit_class__form_container form-group'>
                             <label htmlFor="color"> צבע</label>
-                            <select id="color" name="color" value={packageToEdit.color} onChange={handleSelectChange} required>
+                            <select id="color" name="color" value={packageToEdit.color} onChange={handleSelectChange} className={getErrorClass('color')} >
                                 <option value="" hidden> צבע</option>
                                 <option value="אדום">🔴 אדום</option>
                                 <option value="כחול">🔵 כחול</option>
@@ -224,16 +221,10 @@ const EditPackage = () => {
                                 <option value="מנומר">🐯 מנומר</option>
                                 <option value="אחר">אחר</option>
                             </select>
-                            {/* {errors.color && <p>{errors.color}</p>} */}
+                            {errors.color && <span className="error-message">{errors.color}</span>}
 
                         </div>
                     </div>
-                    {/* < FormToValidate
-                        input={(packageToEdit.color && packageToEdit.size && packageToEdit.type)}
-                        condition={(packageToEdit.color && packageToEdit.size && packageToEdit.type) || (packageToEdit.color !== "" || packageToEdit.size !== "" || packageToEdit.type !== "")}
-                        successMessage='כל השדות תקינים'
-                        errorMessage='יש למלא את כל השדות'
-                    /> */}
                 </div>
                 <div className='edit_class__form_container'>
                     <label htmlFor="name">הערות</label>
