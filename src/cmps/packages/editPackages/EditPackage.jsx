@@ -27,8 +27,6 @@ const EditPackage = () => {
         loadPackage();
     }, [idFromPath]);
 
-    console.log(errors)
-
     useEffect(() => {
         loadUsers()
     }, [filterBy])
@@ -42,6 +40,15 @@ const EditPackage = () => {
         }
     }
 
+    async function loadSelectedUser(id) {
+        try {
+            const user = await userService.getUserById(id);
+            setSelectedUser(user);
+        } catch (err) {
+            console.log("Had issues in user details", err);
+        }
+    }
+
     async function loadPackage() {
         try {
             if (!idFromPath) {
@@ -49,8 +56,8 @@ const EditPackage = () => {
             }
             else {
                 const pack = await packageService.get(idFromPath);
+                loadSelectedUser(pack.receivingTenantId)
                 setPackageToEdit(pack);
-                setSelectedUser(users.find(u => pack.receivingTenantId === u._id))
             }
         } catch (err) {
             console.log("Had issues in package details", err);
@@ -91,10 +98,8 @@ const EditPackage = () => {
         } catch (err) {
             console.error(err)
             await showToast('error', 'פעולה נכשלה')
-
         }
     }
-
 
     const validateForm = () => {
         const formSchema = addPackageFormSchema(users);
