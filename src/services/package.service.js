@@ -161,7 +161,8 @@ function getEmptyPackage() {
         color: '',
         size: '',
         notesOnArrival: '',
-        receivingTenantFullTenantDesc: null
+        receivingTenantFullTenantDesc: '',
+        collectingTenantFullTenantDesc: ''
 
     };
 }

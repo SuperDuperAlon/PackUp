@@ -83,22 +83,27 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
         }
     }
 
+    console.log('packageToEdit', packageToEdit)
+
     return (
         <>
             <section className='edit_class__section'>
-                <form className='edit_class__form' onSubmit={onSavePackage}>
+                <form className='edit_class__form' onSubmit={onSavePackage} autoComplete="off" role="presentation">
                     <button onClick={closeForm} className="close-btn-x">X</button>
                     <div className='edit_class__form_container'>
                         <label htmlFor="name">הזן פרטי דייר</label>
-                        <input type="text" list="tenants"
+                        <input
+                            type="text"
+                            list="tenants"
                             id="name"
                             name="collectingTenantFullTenantDesc"
-                            value={packageToEdit.receivingTenantFullTenantDesc}
+                            value={packageToEdit.collectingTenantFullTenantDesc}
                             onChange={handleChange}
+                            required
                         />
                         <datalist id="tenants">
                             {
-                                users.map(user => <option key={user.id} value={user.fullUserDescription}></option>)
+                                users.map(user => <option key={user._id} value={user.fullUserDescription}></option>)
                             }
                         </datalist>
                     </div>

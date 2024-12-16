@@ -1,6 +1,5 @@
 'use client'
 import { packageService } from '@/services/package.service';
-import { userService } from '@/services/user.service';
 import { utilService } from '@/services/util.service';
 import { useRouter } from 'next/navigation';
 import { showToast } from '@/lib/reactToastify';
@@ -11,7 +10,6 @@ const PackageArchive = () => {
     const [filterBy, setFilterBy] = useState(packageService.getDefaultFilter());
     const [sortBy, setSortBy] = useState(packageService.getDefaultSort());
     const [packages, setPackages] = useState(null);
-    const [users, setUsers] = useState(null);
     const router = useRouter()
 
     useEffect(() => {
@@ -25,19 +23,6 @@ const PackageArchive = () => {
         }
         loadPackages()
     }, [filterBy, sortBy])
-
-    useEffect(() => {
-        loadUsers()
-    }, [])
-
-    async function loadUsers() {
-        try {
-            const users = await userService.getUsers(filterBy);
-            setUsers(users)
-        } catch (err) {
-            console.log("Had issues in users", err);
-        }
-    }
 
     async function onUndoRemovePackage(id) {
         const packageToUndo = packages.find(p => p._id === id)
@@ -57,7 +42,7 @@ const PackageArchive = () => {
         }
     }
 
-    if (!packages && !users) console.log('no packages')
+    if (!packages) console.log('no packages')
     else return (
         <section className='archive-section'>
             <div className='flex-row justify-between'>

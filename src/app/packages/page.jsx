@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
+import { userService } from '@/services/user.service';
 import PackagesTable from '@/cmps/packages/PackagesMainTable/PackagesTable.jsx'
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
@@ -16,6 +17,7 @@ export default function PackageView() {
     const [packages, setPackages] = useState(null);
     const [selectedItems, setSelectedItems] = useState([]);
     const [showRemovePackages, setShowRemovePackages] = useState(false);
+    const [users, setUsers] = useState([]);
     const { admin } = useAuth();
 
     // Pagination
@@ -69,6 +71,7 @@ export default function PackageView() {
     }
 
     async function onSingleRemoval(id) {
+        console.log(id)
         setSelectedItems([id])
         setPackages(packages)
         setShowRemovePackages(!showRemovePackages)

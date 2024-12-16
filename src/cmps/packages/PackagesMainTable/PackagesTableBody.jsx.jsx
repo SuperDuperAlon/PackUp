@@ -5,7 +5,6 @@ import { useAuth } from '@/context/AuthContext'
 
 const PackagesTableBody = ({ packages, currPage, onDeletePackage, packagesPerPage, selectedItems, handleCheckboxChange, onSingleRemoval }) => {
   const { admin } = useAuth();
-  console.log(admin);
 
   return (
     <>

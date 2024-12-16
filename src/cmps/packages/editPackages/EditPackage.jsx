@@ -23,6 +23,12 @@ const EditPackage = () => {
     const idFromPath = match ? match[1] : null;
 
     useEffect(() => {
+        if (!idFromPath) return;
+        loadPackage();
+    }, [idFromPath]);
+
+    
+    useEffect(() => {
         loadUsers()
     }, [filterBy])
 
@@ -35,10 +41,8 @@ const EditPackage = () => {
         }
     }
 
-    useEffect(() => {
-        if (!idFromPath) return;
-        loadPackage();
-    }, [idFromPath]);
+
+    console.log(packageToEdit)
 
     async function loadPackage() {
         try {
@@ -71,7 +75,7 @@ const EditPackage = () => {
 
     async function onSavePackage(ev) {
         ev.preventDefault()
-        if (!validateForm()) return
+        // if (!validateForm()) return
         if (!selectedUser._id) return
         try {
             packageToEdit.dateReceived = Date.now(),
