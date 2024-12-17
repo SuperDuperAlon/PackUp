@@ -3,6 +3,7 @@ import { packageService } from '@/services/package.service';
 import { utilService } from '@/services/util.service';
 import { useRouter } from 'next/navigation';
 import { showToast } from '@/lib/reactToastify';
+import { useLoader } from '@/context/LoaderContext'
 
 import React, { useEffect, useState } from 'react'
 
@@ -11,14 +12,18 @@ const PackageArchive = () => {
     const [sortBy, setSortBy] = useState(packageService.getDefaultSort());
     const [packages, setPackages] = useState(null);
     const router = useRouter()
+    const { setLoading } = useLoader()
 
     useEffect(() => {
         async function loadPackages() {
+            setLoading(true)
             try {
                 const data = await packageService.query(filterBy, sortBy)
                 if (data) setPackages(data.filter(p => p.isCollected))
+                setLoading(false)
             } catch (error) {
                 console.error('Error loading flowers:', error)
+                setLoading(false)
             }
         }
         loadPackages()

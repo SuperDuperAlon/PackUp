@@ -6,6 +6,7 @@ import { authService } from '@/services/auth.service';
 import { showToast } from '@/lib/reactToastify';
 import FormValidation from '@/cmps/general/FormValidation/FormValidation';
 import { useAuth } from '@/context/AuthContext';
+import { useLoader } from '@/context/LoaderContext'
 import Link from 'next/link';
 
 const SignupForm = () => {
@@ -13,11 +14,13 @@ const SignupForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { setAdmin } = useAuth()
+    const { setLoading } = useLoader()
 
     const router = useRouter()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         try {
             await authService.signup({ username, email, password })
             const user = await authService.getCurrentAdmin()
@@ -26,8 +29,10 @@ const SignupForm = () => {
                 await showToast('success', 'פעולה בוצעה בהצלחה')
                 router.push('/packages')
             }
+            setLoading(false)
         } catch (err) {
             console.error(err);
+            setLoading(false)
             await showToast('error', 'פעולה נכשלה')
         }
     };

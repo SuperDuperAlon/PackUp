@@ -2,8 +2,7 @@
 import "./styles/globals.scss";
 import Header from "@/cmps/general/Header/Header";
 import GeneralInfo from "@/cmps/general/GeneralInfo/GeneralInfo";
-import Loader from "@/cmps/general/Loader/Loader";
-import { Suspense } from "react";
+import { LoaderProvider } from "@/context/LoaderContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,15 +23,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="index-layout">
-        <Suspense fallback={<Loader />}>
-          <AuthProvider>
+        <AuthProvider>
+          <LoaderProvider>
             <Header />
             {children}
-          </AuthProvider>
-        </Suspense>
+          </LoaderProvider>
+        </AuthProvider>
         <GeneralInfo />
         <ToastContainer />
       </body>
-    </html>
+    </html >
   );
 }

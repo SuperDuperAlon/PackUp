@@ -6,15 +6,18 @@ import React, { useEffect } from 'react'
 import { authService } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import { showToast } from '@/lib/reactToastify';
+import { useLoader } from '@/context/LoaderContext';
 
 const Logout = () => {
     const router = useRouter();
     useEffect(() => {
         async function logout() {
             await authService.logout();
-            await showToast('success', 'פעולה בוצעה בהצלחה')
+            setLoading(true)
             router.push('/auth/login');
+            await showToast('success', 'פעולה בוצעה בהצלחה')
         }
+        setLoading(false)
         logout();
     }, []);
 

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService } from '@/services/auth.service';
 import { useAuth } from '@/context/AuthContext';
+import { useLoader } from '@/context/LoaderContext'
 import { showToast } from '@/lib/reactToastify';
 import Link from 'next/link';
 
@@ -12,9 +13,11 @@ const Login = () => {
     const [password, setPassword] = useState('guest');
     const router = useRouter()
     const { setAdmin } = useAuth()
+    const { setLoading } = useLoader()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         try {
             const user = await authService.login({ email, password })
             if (user) {
@@ -24,13 +27,13 @@ const Login = () => {
             } else {
                 router.push('/users/signup')
             }
+            setLoading(false)
         } catch (err) {
             console.error(err);
+            setLoading(false)
             await showToast('error', 'פעולה נכשלה')
         }
     };
-
-    
 
     return (
         <div className='edit_class__section'>

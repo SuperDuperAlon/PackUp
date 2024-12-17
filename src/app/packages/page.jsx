@@ -9,6 +9,7 @@ import Pagination from '@/cmps/general/Pagination/Pagination';
 import ExportButton from '@/cmps/general/Buttons/ExportButton/ExportButton';
 import RouteButton from '@/cmps/general/Buttons/RouteButton/RouteButton';
 import { useAuth } from '@/context/AuthContext';
+import { useLoader } from '@/context/LoaderContext'
 
 
 export default function PackageView() {
@@ -17,25 +18,27 @@ export default function PackageView() {
     const [packages, setPackages] = useState(null);
     const [selectedItems, setSelectedItems] = useState([]);
     const [showRemovePackages, setShowRemovePackages] = useState(false);
-    const [users, setUsers] = useState([]);
     const { admin } = useAuth();
+    const { setLoading } = useLoader()
 
     // Pagination
     const [numOfPages, setNumOfPages] = useState(null)
     const [currPage, setCurrPage] = useState(1)
-
     const packagesPerPage = 25
 
     useEffect(() => {
         async function loadPackages() {
+            setLoading(true)
             try {
                 const data = await packageService.query(filterBy, sortBy)
                 if (data) {
                     setPackages(data.filter(p => !p.isCollected))
                     setNumOfPages(Math.ceil(data.filter(p => !p.isCollected).length / packagesPerPage))
+                    setLoading(false)
                 }
             } catch (error) {
                 console.error('Error loading packages:', error)
+                setLoading(false)
             }
         }
         loadPackages()
@@ -71,7 +74,6 @@ export default function PackageView() {
     }
 
     async function onSingleRemoval(id) {
-        console.log(id)
         setSelectedItems([id])
         setPackages(packages)
         setShowRemovePackages(!showRemovePackages)
@@ -90,7 +92,7 @@ export default function PackageView() {
         }
     };
 
-    if (!packages) console.log('no packages')
+    if (!packages) return
     else return (
         <>
             <section>
