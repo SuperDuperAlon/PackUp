@@ -7,7 +7,7 @@ const PackagesTable = ({ packages, handleSortChange,onDeletePackage, handleCheck
     return (
         <>
             <table>
-                <PackagesTableHead handleSortChange={handleSortChange} handleSelectAllChange={handleSelectAllChange} />
+                <PackagesTableHead handleSortChange={handleSortChange} handleSelectAllChange={handleSelectAllChange} selectedItems={selectedItems} packages={packages}/>
                 <PackagesTableBody onDeletePackage={onDeletePackage} packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} />
             </table>
         </>

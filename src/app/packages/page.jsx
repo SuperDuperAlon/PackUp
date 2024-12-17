@@ -84,12 +84,16 @@ export default function PackageView() {
 
     const handleSelectAllChange = () => {
         const filteredPackages = packages.filter(p => p.isCollected === false);
-        if (selectedItems.length === filteredPackages.length) {
+        console.log('filteredPackages', filteredPackages)
+        if (selectedItems.length === filteredPackages.length && selectedItems.length > 0) {
             setSelectedItems([]);
         } else {
             setSelectedItems(filteredPackages.map(p => p._id));
         }
     };
+
+    console.log('selectedItems', selectedItems)
+
 
     if (!packages || packages.length === 0) return <div>אין חבילות במלאי</div>
     else return (
