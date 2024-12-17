@@ -116,21 +116,3 @@ function getDefaultFilter() {
         username: '',
     }
 }
-
-const adminsData = [
-    { id: utilService.generateId(), username: 'alef', password: 'admin', isManager: true, dateCreated: Date.now() },
-    { id: utilService.generateId(), username: 'bet', password: 'admin', isManager: false, dateCreated: Date.now() },
-    { id: utilService.generateId(), username: 'gimel', password: 'admin', isManager: true, dateCreated: Date.now() }
-]
-
-_createAdmins()
-
-function _createAdmins() {
-    if (typeof window !== 'undefined') {
-        let admins = storageService.loadFromStorage(STORAGE_KEY);
-        if (!admins || !admins.length) {
-            admins = adminsData
-        }
-        storageService.saveToStorage(STORAGE_KEY, admins);
-    }
-}

@@ -7,7 +7,6 @@ const UserFilter = ({ onSetFilter }) => {
         setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, text: e.target.value }));
     }
 
-
     useEffect(() => {
         onSetFilter(filterByToEdit);
     }, [filterByToEdit]);
@@ -16,7 +15,6 @@ const UserFilter = ({ onSetFilter }) => {
         <>
             <input type="text" onChange={(e) => handleChange(e)} />
         </>
-
     )
 }
 

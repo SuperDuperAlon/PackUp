@@ -147,7 +147,6 @@ const EditPackage = () => {
         <section className='edit_class__section'>
             <form className='edit_class__form' onSubmit={onSavePackage} autoComplete="off" role="presentation">
                 <button type="button" onClick={closeForm} className="close-btn-x">X</button>
-
                 <div className='edit_class__form_container form-group'>
                     <label htmlFor="name">דירה</label>
                     <input
@@ -168,10 +167,8 @@ const EditPackage = () => {
                                 key={user._id}
                                 value={`${user.fullUserDescription}`}
                             />
-
                         ))}
                     </datalist>
-
                 </div>
                 <div className="edit_class__form_to_row">
                     <div className="flex-row">
@@ -199,7 +196,6 @@ const EditPackage = () => {
                                 <option value="אחר">אחר</option>
                             </select>
                             {errors.type && <span className="error-message">{errors.type}</span>}
-
                         </div>
                         <div className='edit_class__form_container form-group'>
                             <label htmlFor="name"> גודל</label>
@@ -212,7 +208,6 @@ const EditPackage = () => {
                                 <option value="אחר">אחר</option>
                             </select>
                             {errors.size && <span className="error-message">{errors.size}</span>}
-
                         </div>
                         <div className='edit_class__form_container form-group'>
                             <label htmlFor="color"> צבע</label>
@@ -231,7 +226,6 @@ const EditPackage = () => {
                                 <option value="אחר">אחר</option>
                             </select>
                             {errors.color && <span className="error-message">{errors.color}</span>}
-
                         </div>
                     </div>
                 </div>
@@ -251,7 +245,6 @@ const EditPackage = () => {
                 </div>
             </form>
         </section >
-
     )
 }
 

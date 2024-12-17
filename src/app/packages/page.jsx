@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
-import { userService } from '@/services/user.service';
 import PackagesTable from '@/cmps/packages/PackagesMainTable/PackagesTable.jsx'
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
 import Pagination from '@/cmps/general/Pagination/Pagination';
@@ -92,7 +91,7 @@ export default function PackageView() {
         }
     };
 
-    if (!packages) return
+    if (!packages || packages.length === 0) return <div>אין חבילות במלאי</div>
     else return (
         <>
             <section>

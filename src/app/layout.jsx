@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: "PackUp",
-  description: "",
+  description: "Package and mail management system for residential complexes",
 };
 
 export default function RootLayout({

@@ -1,7 +1,7 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { userService } from '@/services/user.service'
 import { packageService } from '@/services/package.service'
 import { utilService } from '@/services/util.service'
@@ -40,20 +40,24 @@ const UserPackages = () => {
   else return (
     <>
       <section className='tenant_packages_view'>
-        {/* <div className='tenant_packages_view__title'>
+        <div className='tenant_packages_view__title'>
           <div>
             שלום
           </div>
-          <div>
-            {currUser.firstName} {currUser.lastName}
-          </div>
-          <div>
-            {currUser.apartmentNumber}
-          </div>
-        </div> */}
+          {currUser &&
+            <>
+              <div>
+                {currUser.firstName} {currUser.lastName}
+              </div>
+              <div>
+                {currUser.apartmentNumber}
+              </div>
+            </>
+          }
+        </div>
         <div className='tenant_packages_view__packages'>
           <div className='tenant_packages_view__title'>חבילות חדשות</div>
-          {packages && packages.filter(p => p.isCollected === false && p.receivingTenantId === currUser._id).map(p => <div key={p._id} className='tenant_packages_view__package'>
+          {packages && currUser && packages.filter(p => p.isCollected === false && p.receivingTenantId === currUser._id).map(p => <div key={p._id} className='tenant_packages_view__package'>
             <div className='tenant_packages_view__package__info'>
               <div className='tenant_packages__date'>
                 {utilService.parseDate(p.dateReceived)}
@@ -66,7 +70,7 @@ const UserPackages = () => {
         </div>
         <div className='tenant_packages_view__packages'>
           <div className='tenant_packages_view__title'>חבילות שנאספו</div>
-          {packages && packages.filter(p => p.isCollected && p.receivingTenantId === currUser._id).map(p => <div key={p.id} className='tenant_packages_view__package'>
+          {packages && currUser && packages.filter(p => p.isCollected && p.receivingTenantId === currUser._id).map(p => <div key={p._id} className='tenant_packages_view__package'>
             <div className='tenant_packages_view__package__info'>
               <div className='tenant_packages__date'>
                 {utilService.parseDate(p.dateReceived)}
@@ -86,7 +90,6 @@ const UserPackages = () => {
           </div>)}
         </div>
       </section>
-
     </>
   )
 }

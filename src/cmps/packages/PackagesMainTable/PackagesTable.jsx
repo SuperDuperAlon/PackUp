@@ -4,12 +4,11 @@ import PackagesTableBody from './PackagesTableBody.jsx'
 
 const PackagesTable = ({ packages, handleSortChange,onDeletePackage, handleCheckboxChange, onSingleRemoval, currPage, packagesPerPage, selectedItems, handleSelectAllChange }) => {
 
-
     return (
         <>
             <table>
                 <PackagesTableHead handleSortChange={handleSortChange} handleSelectAllChange={handleSelectAllChange} />
-                < PackagesTableBody onDeletePackage={onDeletePackage} packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} />
+                <PackagesTableBody onDeletePackage={onDeletePackage} packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} />
             </table>
         </>
     )

@@ -1,12 +1,6 @@
-import { storageService } from './storage.service'
-import { utilService } from './util.service'
-// import usersDemoData from '@/users.json'
-
-const STORAGE_KEY = 'user_db'
 const API_URL = '/api/users';
 
 export const userService = {
-    // saveLocalUser,
     getUsers,
     getUserById,
     removeUser,
@@ -33,10 +27,7 @@ async function getUsers(filterBy) {
     }
 }
 
-
 async function removeUser(userId) {
-    console.log(userId);
-    
     try {
         const response = await fetch(API_URL + '/' + userId, {
             method: 'DELETE',
@@ -55,8 +46,6 @@ async function removeUser(userId) {
 }
 
 async function getUserById(userId) {
-    console.log(userId);
-    
     try {
         const response = await fetch(API_URL + '/' + userId, {
             method: 'GET',
@@ -67,6 +56,7 @@ async function getUserById(userId) {
         }
 
         const data = await response.json();
+        console.log(data, 'data');
         return data.data;
     } catch (error) {
         console.error('Error fetching the package:', error);
@@ -127,21 +117,3 @@ function getDefaultFilter() {
         }
     }
 }
-
-// const usersData = [
-//     { id: utilService.generateId(), username: 'alef', password: 'user', isManager: true, dateCreated: Date.now() },
-//     { id: utilService.generateId(), username: 'bet', password: 'user', isManager: false, dateCreated: Date.now() },
-//     { id: utilService.generateId(), username: 'gimel', password: 'user', isManager: true, dateCreated: Date.now() }
-// ]
-
-// _createUsers()
-
-// function _createUsers() {
-//     if (typeof window !== 'undefined') {
-//         let users = storageService.loadFromStorage(STORAGE_KEY);
-//         if (!users || !users.length) {
-//             users = usersDemoData
-//         }
-//         storageService.saveToStorage(STORAGE_KEY, users);
-//     }
-// }

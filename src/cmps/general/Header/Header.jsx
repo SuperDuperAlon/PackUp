@@ -13,7 +13,6 @@ const Header = () => {
     if (pathname === '/' || pathname.includes('/auth') || pathname.includes('/tenant')) {
         return null
     }
-    console.log(admin);
 
     async function onLogout() {
         await authService.logout();

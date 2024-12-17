@@ -7,13 +7,9 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [admin, setAdmin] = useState(null);
-    // const token = req.cookies.get('token')?.value;
-
-
 
     useEffect(() => {
         const fetchAdmin = async () => {
-            // TODO: replace with actual API call
             const currAdmin = await authService.getCurrentAdmin();
             setAdmin(currAdmin);
         };

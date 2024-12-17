@@ -32,7 +32,6 @@ const EditAdmin = ({ adminIdToEdit, onCloseEditForm }) => {
     }
 
     async function onSaveAdmin(ev) {
-        console.log(adminToEdit, 'admin to edit');
         ev.preventDefault()
         try {
             adminToEdit.username,

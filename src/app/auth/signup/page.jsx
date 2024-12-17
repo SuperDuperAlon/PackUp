@@ -9,6 +9,8 @@ import { useAuth } from '@/context/AuthContext';
 import { useLoader } from '@/context/LoaderContext'
 import Link from 'next/link';
 
+// TODO: change form validation to zod
+
 const SignupForm = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');

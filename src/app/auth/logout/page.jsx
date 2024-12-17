@@ -1,5 +1,3 @@
-// TODO: logout button
-
 'use client';
 
 import React, { useEffect } from 'react'
@@ -10,6 +8,7 @@ import { useLoader } from '@/context/LoaderContext';
 
 const Logout = () => {
     const router = useRouter();
+    const { setLoading } = useLoader()
     useEffect(() => {
         async function logout() {
             await authService.logout();

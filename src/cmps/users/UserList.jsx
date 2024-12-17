@@ -2,9 +2,6 @@ import React from 'react'
 
 const UserList = ({ users, onRemoveUser, onEditUser }) => {
 
-console.log(users);
-
-
     return (
         <>
             <table>
@@ -34,7 +31,6 @@ console.log(users);
                     ))}
                 </tbody>
             </table>
-
         </>
     )
 }

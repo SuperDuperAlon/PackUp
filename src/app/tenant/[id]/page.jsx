@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import avatar from '@/app/styles/assets/avataaars.png'
 import Image from 'next/image'
-import { LuPackageCheck } from "react-icons/lu";
 import { useRouter } from 'next/navigation'
 import { boxes } from '@/arrays.js'
 import { usePathname } from 'next/navigation'
@@ -13,11 +12,6 @@ const TenantView = () => {
 
     const [currUser, setCurrUser] = useState(null)
     const currUserId = usePathname().split('/')[2]
-    console.log(currUserId);
-    console.log(currUser);
-
-
-
     const router = useRouter()
 
     useEffect(() => {

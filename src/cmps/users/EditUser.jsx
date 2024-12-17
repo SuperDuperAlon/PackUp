@@ -29,9 +29,6 @@ const EditUser = ({ userIdToEdit, onCloseEditForm }) => {
         setUserToEdit((prev) => ({ ...prev, [field]: value }))
     };
 
-    console.log(userToEdit);
-
-
     async function onSaveUser(ev) {
         ev.preventDefault()
         try {

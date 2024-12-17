@@ -49,7 +49,6 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     }
 
-
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === 'Escape') {
