@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { packageService } from '@/services/package.service'
 import { userService } from "@/services/user.service";
 import { useRouter } from 'next/navigation'
+import { useLoader } from '@/context/LoaderContext';
 import { showToast } from '@/lib/reactToastify/index.js'
 import removePackageFormSchema from '@/lib/zod/removePackageFormSchema';
 const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems, setPackages, packages }) => {
@@ -11,6 +12,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
     const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
     const [selectedUser, setSelectedUser] = useState(null)
     const [errors, setErrors] = useState({});
+    const { setLoading } = useLoader()
     const router = useRouter()
 
     async function loadPackagesToRemove() {
@@ -60,12 +62,11 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
         };
     }, []);
 
-    console.log(errors)
-
     async function onSavePackage(ev) {
         ev.preventDefault()
         if (!validateForm()) return
         const packagesToSave = await loadPackagesToRemove()
+        setLoading(true)
         try {
             for (const p of packagesToSave) {
                 const packageToSave = {
@@ -74,15 +75,14 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                 };
                 try {
                     await packageService.save(packageToSave);
-                    await showToast('success', 'פעולה בוצעה בהצלחה')
                 } catch (saveError) {
                     console.error('Error saving package:', saveError);
                     await showToast('error', 'פעולה נכשלה')
-
                 }
             }
             setPackages(packages.filter(p => !selectedItems.includes(p._id)))
             setShowRemovePackages(false)
+            setLoading(false)
         } catch (err) {
             console.error(err)
         }
@@ -116,15 +116,15 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                     <div className='edit_class__form_container form-group'>
                         <label htmlFor="name">הזן פרטי דייר</label>
                         <input
-                        type="text"
-                        list="tenants"
-                        id="name"
+                            type="text"
+                            list="tenants"
+                            id="name"
                             name="collectingTenantFullTenantDesc"
                             value={packageToEdit.collectingTenantFullTenantDesc}
                             onChange={handleChange}
                             className={getErrorClass('collectingTenantFullTenantDesc')}
                         />
-                            {errors.collectingTenantFullTenantDesc &&
+                        {errors.collectingTenantFullTenantDesc &&
                             <span className="error-message">{errors.collectingTenantFullTenantDesc}</span>
                         }
                         <datalist id="tenants">

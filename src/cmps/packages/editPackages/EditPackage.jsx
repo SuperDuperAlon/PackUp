@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from 'next/navigation'
 import { userService } from "@/services/user.service"
 import { useAuth } from '@/context/AuthContext';
+import { useLoader } from "@/context/LoaderContext";
 import { showToast } from '@/lib/reactToastify';
 import addPackageFormSchema from '@/lib/zod/addPackageFormSchema';
 
 const EditPackage = () => {
 
     const { admin } = useAuth()
+    const { setLoading } = useLoader()
 
     const [users, setUsers] = useState([])
     const [selectedUser, setSelectedUser] = useState(null)
@@ -50,14 +52,17 @@ const EditPackage = () => {
     }
 
     async function loadPackage() {
+        setLoading(true)
         try {
             if (!idFromPath) {
+                setLoading(false)
                 return setPackageToEdit(packageService.getEmptyPackage());
             }
             else {
                 const pack = await packageService.get(idFromPath);
                 loadSelectedUser(pack.receivingTenantId)
                 setPackageToEdit(pack);
+                setLoading(false)
             }
         } catch (err) {
             console.log("Had issues in package details", err);
@@ -93,7 +98,6 @@ const EditPackage = () => {
             packageToEdit.receivingTenantId = selectedUser._id
             packageToEdit.receivingTenantFullTenantDesc = selectedUser.fullUserDescription
             await packageService.save(packageToEdit)
-            await showToast('success', 'פעולה בוצעה בהצלחה')
             router.push('/packages')
         } catch (err) {
             console.error(err)

@@ -31,15 +31,15 @@ const PackageArchive = () => {
 
     async function onUndoRemovePackage(id) {
         const packageToUndo = packages.find(p => p._id === id)
-
         try {
+            setLoading(true)
             const p = {
                 ...packageToUndo, dateCollected: null, lobbyPackGivenBy: null, isCollected: false,
                 collectingTenantApt: null, collectingTenantFname: null, collectingTenantFullTenantDesc: null, collectingTenantId: null, collectingTenantLname: null
             }
             await packageService.save(p)
-            await showToast('success', 'פעולה בוצעה בהצלחה')
             setPackages(prev => prev.filter(p => p._id !== id))
+            setLoading(false)
         }
         catch (err) {
             console.error(err)
