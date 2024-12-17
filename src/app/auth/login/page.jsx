@@ -22,7 +22,6 @@ const Login = () => {
             const user = await authService.login({ email, password })
             if (user) {
                 setAdmin(await authService.getCurrentAdmin())
-                await showToast('success', 'פעולה בוצעה בהצלחה')
                 router.push('/packages')
             } else {
                 router.push('/users/signup')

@@ -26,7 +26,6 @@ const SignupForm = () => {
             const user = await authService.getCurrentAdmin()
             if (user) {
                 setAdmin(user)
-                await showToast('success', 'פעולה בוצעה בהצלחה')
                 router.push('/packages')
             }
             setLoading(false)
