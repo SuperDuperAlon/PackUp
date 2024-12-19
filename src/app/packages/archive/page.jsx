@@ -16,30 +16,29 @@ const PackageArchive = () => {
 
     useEffect(() => {
         async function loadPackages() {
-            setLoading(true)
+            if (!packages || !packages.length) setLoading(true)
             try {
                 const data = await packageService.query(filterBy, sortBy)
                 if (data) setPackages(data.filter(p => p.isCollected))
-                setLoading(false)
             } catch (error) {
                 console.error('Error loading flowers:', error)
-                setLoading(false)
             }
+            setLoading(false)
         }
         loadPackages()
     }, [filterBy, sortBy])
 
+
+
     async function onUndoRemovePackage(id) {
         const packageToUndo = packages.find(p => p._id === id)
         try {
-            setLoading(true)
             const p = {
                 ...packageToUndo, dateCollected: null, lobbyPackGivenBy: null, isCollected: false,
                 collectingTenantApt: null, collectingTenantFname: null, collectingTenantFullTenantDesc: null, collectingTenantId: null, collectingTenantLname: null
             }
             await packageService.save(p)
             setPackages(prev => prev.filter(p => p._id !== id))
-            setLoading(false)
         }
         catch (err) {
             console.error(err)

@@ -27,22 +27,21 @@ export default function PackageView() {
 
     useEffect(() => {
         async function loadPackages() {
-            setLoading(true)
+            if (!packages || !packages.length) setLoading(true)
             try {
                 const data = await packageService.query(filterBy, sortBy)
                 if (data) {
                     setPackages(data.filter(p => !p.isCollected))
                     setNumOfPages(Math.ceil(data.filter(p => !p.isCollected).length / packagesPerPage))
-                    setLoading(false)
                 }
             } catch (error) {
                 console.error('Error loading packages:', error)
-                setLoading(false)
             }
+            setLoading(false)
         }
         loadPackages()
     }, [filterBy, sortBy, currPage])
-
+    console.log('packages', packages)
 
     function handlePageNumberChange(num) {
         if (num < 1 || num > numOfPages) return
