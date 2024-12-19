@@ -9,8 +9,8 @@ const db = client.db(DB_NAME);
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
-    console.log(searchParams.get('text'));
-    const regex = new RegExp(searchParams.get('text'), 'i');
+    console.log(searchParams.get('receivingTenantFullTenantDesc'));
+    const regex = new RegExp(searchParams.get('receivingTenantFullTenantDesc'), 'i');
 
     const users = await db
       .collection(COLLECTION_NAME)

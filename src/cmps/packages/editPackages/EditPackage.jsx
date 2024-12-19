@@ -14,7 +14,7 @@ const EditPackage = () => {
     const { setLoading } = useLoader()
 
     const [users, setUsers] = useState([])
-    const [selectedUser, setSelectedUser] = useState(null)
+    const [selectedUser, setSelectedUser] = useState({ fullUserDescription: '' })
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
     const [errors, setErrors] = useState({});
@@ -73,9 +73,11 @@ const EditPackage = () => {
         let { value, type, name: field } = target
         value = type === 'number' ? +value : value
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
-        setFilterBy(prevFilterBy => ({ ...prevFilterBy, text: value }))
-        setSelectedUser(users.find(u =>
-            `${u.apartmentNumber} - ${u.firstName} ${u.lastName}` === value));
+        if (field === 'receivingTenantFullTenantDesc') {
+            setFilterBy(prevFilterBy => ({ ...prevFilterBy, receivingTenantFullTenantDesc: value }))
+            setSelectedUser(users.find(u =>
+                `${u.apartmentNumber} - ${u.firstName} ${u.lastName}` === value));
+        }
     }
 
     const handleSelectChange = ({ target }) => {
@@ -86,7 +88,6 @@ const EditPackage = () => {
     async function onSavePackage(ev) {
         ev.preventDefault()
         if (!validateForm()) return
-        if (!selectedUser._id) return
         try {
             packageToEdit.dateReceived = Date.now(),
                 packageToEdit.lobbyPackReceivedBy = admin.username
@@ -104,8 +105,7 @@ const EditPackage = () => {
             await showToast('error', 'פעולה נכשלה')
         }
     }
-
-    const validateForm = () => {
+    function validateForm() {
         const formSchema = addPackageFormSchema(users);
         try {
             formSchema.parse(packageToEdit);
@@ -120,8 +120,8 @@ const EditPackage = () => {
                 });
                 setErrors(fieldErrors);
             }
-            return false;
         }
+        return
     };
 
     useEffect(() => {
@@ -148,11 +148,11 @@ const EditPackage = () => {
             <form className='edit_class__form' onSubmit={onSavePackage} autoComplete="off" role="presentation">
                 <button type="button" onClick={closeForm} className="close-btn-x">X</button>
                 <div className='edit_class__form_container form-group'>
-                    <label htmlFor="name">דירה</label>
+                    <label htmlFor="receivingTenantFullTenantDesc">דירה</label>
                     <input
                         type="text"
                         list="tenants"
-                        id="name"
+                        id="receivingTenantFullTenantDesc"
                         name="receivingTenantFullTenantDesc"
                         value={packageToEdit.receivingTenantFullTenantDesc}
                         onChange={handleChange}
@@ -230,10 +230,10 @@ const EditPackage = () => {
                     </div>
                 </div>
                 <div className='edit_class__form_container'>
-                    <label htmlFor="name">הערות</label>
-                    <input type="textarea"
+                    <label htmlFor="notesOnArrival">הערות</label>
+                    <input type="text"
                         name="notesOnArrival"
-                        id="notes"
+                        id="notesOnArrival"
                         placeholder="הערות"
                         value={packageToEdit.notesOnArrival}
                         onChange={handleChange}

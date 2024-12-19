@@ -1,8 +1,6 @@
 import React from 'react'
 
 const PackagesTableHead = ({ packages, handleSortChange, handleSelectAllChange, selectedItems }) => {
-    console.log('selectedItems', selectedItems)
-    console.log('packages', packages)
     return (
         <>
             <thead>
@@ -10,9 +8,8 @@ const PackagesTableHead = ({ packages, handleSortChange, handleSelectAllChange, 
                     <th>
                         <input type="checkbox"
                             onChange={handleSelectAllChange}
-                            checked={packages && selectedItems.length === packages.length}
-
-                                />
+                            checked={packages && packages.length > 0 && selectedItems.length === packages.length}
+                        />
                     </th>
 
                     <th></th>

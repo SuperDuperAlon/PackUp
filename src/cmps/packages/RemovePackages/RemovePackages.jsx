@@ -10,7 +10,6 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const [users, setUsers] = useState([])
     const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
-    const [selectedUser, setSelectedUser] = useState(null)
     const [errors, setErrors] = useState({});
     const { setLoading } = useLoader()
     const router = useRouter()

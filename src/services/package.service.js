@@ -159,19 +159,12 @@ function getEmptyPackage() {
         color: '',
         size: '',
         notesOnArrival: '',
+        notesOnCollection: '',
         receivingTenantFullTenantDesc: '',
         collectingTenantFullTenantDesc: ''
 
     };
 }
-
-function getFullPackageDescription(amount,
-    type,
-    color,
-    size) {
-    return `${amount} - ${type} בגודל ${size} בצבע ${color}`;
-}
-
 
 function getDefaultFilter() {
     return { receivingTenantFullTenantDesc: "", isCollected: null };

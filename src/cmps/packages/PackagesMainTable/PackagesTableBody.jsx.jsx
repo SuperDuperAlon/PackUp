@@ -6,7 +6,8 @@ import { useAuth } from '@/context/AuthContext'
 const PackagesTableBody = ({ packages, currPage, onDeletePackage, packagesPerPage, selectedItems, handleCheckboxChange, onSingleRemoval }) => {
   const { admin } = useAuth();
 
-  return (
+  if (!packages || !packages.length) return <tbody><tr><td>אין חבילות במלאי</td></tr></tbody>
+  else return (
     <>
       <tbody>
         {packages &&
@@ -20,7 +21,7 @@ const PackagesTableBody = ({ packages, currPage, onDeletePackage, packagesPerPag
               <td className='table-actions'>
                 <button onClick={() => onSingleRemoval(p._id)}>מסירה</button>
                 <RouteButton content={'ערוך'} linkedRoute={`/packages/edit/${p._id}`} />
-                {admin.isAdmin && <button onClick={() => onDeletePackage(p._id)}>מחק</button>}
+                {admin && admin.isAdmin && <button onClick={() => onDeletePackage(p._id)}>מחק</button>}
               </td>
               <td>{p.receivingTenantFullTenantDesc}</td>
               <td>{p.fullPackageDescription}</td>

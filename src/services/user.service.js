@@ -11,7 +11,7 @@ export const userService = {
 
 async function getUsers(filterBy) {
     try {
-        const response = await fetch(API_URL + '?text=' + filterBy.text, {
+        const response = await fetch(API_URL + '?receivingTenantFullTenantDesc=' + filterBy.receivingTenantFullTenantDesc, {
             method: 'GET',
         });
 
@@ -56,7 +56,6 @@ async function getUserById(userId) {
         }
 
         const data = await response.json();
-        console.log(data, 'data');
         return data.data;
     } catch (error) {
         console.error('Error fetching the package:', error);
@@ -110,7 +109,7 @@ function getEmptyUser() {
 
 function getDefaultFilter() {
     return {
-        text: '',
+        receivingTenantFullTenantDesc: '',
         date: {
             startDate: '',
             endDate: ''

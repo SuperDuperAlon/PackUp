@@ -14,8 +14,8 @@ import { useLoader } from '@/context/LoaderContext'
 export default function PackageView() {
     const [filterBy, setFilterBy] = useState(packageService.getDefaultFilter());
     const [sortBy, setSortBy] = useState(packageService.getDefaultSort());
-    const [packages, setPackages] = useState(null);
-    const [selectedItems, setSelectedItems] = useState([]);
+    const [packages, setPackages] = useState([] || null);
+    const [selectedItems, setSelectedItems] = useState([] || null);
     const [showRemovePackages, setShowRemovePackages] = useState(false);
     const { admin } = useAuth();
     const { setLoading } = useLoader()
@@ -84,7 +84,6 @@ export default function PackageView() {
 
     const handleSelectAllChange = () => {
         const filteredPackages = packages.filter(p => p.isCollected === false);
-        console.log('filteredPackages', filteredPackages)
         if (selectedItems.length === filteredPackages.length && selectedItems.length > 0) {
             setSelectedItems([]);
         } else {
@@ -92,11 +91,7 @@ export default function PackageView() {
         }
     };
 
-    console.log('selectedItems', selectedItems)
-
-
-    if (!packages || packages.length === 0) return <div>אין חבילות במלאי</div>
-    else return (
+    return (
         <>
             <section>
                 {showRemovePackages && <RemovePackage setShowRemovePackages={setShowRemovePackages} selectedItems={selectedItems} setSelectedItems={setSelectedItems} setPackages={setPackages} packages={packages} />}
@@ -112,11 +107,11 @@ export default function PackageView() {
                         <Pagination handlePageNumberChange={handlePageNumberChange} numOfPages={numOfPages} currPage={currPage} />
                     }
                     <div>
-                        {admin.isAdmin && <ExportButton />}
+                        {admin && admin.isAdmin ? <ExportButton /> : null}
                         <RouteButton content={'ארכיון'} linkedRoute={'packages/archive'} />
                     </div>
                 </div>
-                < PackagesTable packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} handleSelectAllChange={handleSelectAllChange} handleSortChange={handleSortChange} onDeletePackage={onDeletePackage} />
+                <PackagesTable packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} handleSelectAllChange={handleSelectAllChange} handleSortChange={handleSortChange} onDeletePackage={onDeletePackage} />
             </section >
         </>
     )
