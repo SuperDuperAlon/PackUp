@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService } from '@/services/auth.service';
 import { showToast } from '@/lib/reactToastify';
-import FormValidation from '@/cmps/general/FormValidation/FormValidation';
+import FormToValidate from '@/cmps/general/FormValidation/FormToValidate';
 import { useAuth } from '@/context/AuthContext';
 import { useLoader } from '@/context/LoaderContext'
 import Link from 'next/link';
@@ -54,7 +54,7 @@ const SignupForm = () => {
                             // pattern="^[A-Za-z\u0590-\u05FF ]{2,}$" 
                             required
                         />
-                        <FormValidation
+                        <FormToValidate
                             input={username}
                             regex="^[A-Za-z\u0590-\u05FF ]{2,}$"
                             successMessage="שם משתמש תקין"
@@ -72,7 +72,7 @@ const SignupForm = () => {
                             required
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <FormValidation
+                        <FormToValidate
                             input={email}
                             regex="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
                             successMessage="כתובת המייל תקינה"
@@ -90,7 +90,7 @@ const SignupForm = () => {
                             minLength="4" required
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <FormValidation
+                        <FormToValidate
                             input={password}
                             regex="^.{4,}$"
                             successMessage="אורך סיסמא תקין"
