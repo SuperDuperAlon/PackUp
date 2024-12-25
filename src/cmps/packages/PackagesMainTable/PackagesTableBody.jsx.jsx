@@ -21,7 +21,7 @@ const PackagesTableBody = ({ packages, currPage, onDeletePackage, packagesPerPag
               <td className='table-actions'>
                 <button onClick={() => onSingleRemoval(p._id)}>מסירה</button>
                 <RouteButton content={'ערוך'} linkedRoute={`/packages/edit/${p._id}`} />
-                {admin && admin.isAdmin && <button onClick={() => onDeletePackage(p._id)}>מחק</button>}
+                {/* {admin && admin.isAdmin && <button onClick={() => onDeletePackage(p._id)}>מחק</button>} */}
               </td>
               <td>{p.receivingTenantFullTenantDesc}</td>
               <td>{p.fullPackageDescription}</td>
