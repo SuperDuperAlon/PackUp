@@ -29,7 +29,7 @@ export default function RootLayout({
             {children}
           </LoaderProvider>
         </AuthProvider>
-        <GeneralInfo />
+        {/* <GeneralInfo /> */}
         <ToastContainer />
       </body>
     </html >
