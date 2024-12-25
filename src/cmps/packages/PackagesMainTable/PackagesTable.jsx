@@ -2,13 +2,13 @@ import React from 'react'
 import PackagesTableHead from './PackagesTableHead.jsx'
 import PackagesTableBody from './PackagesTableBody.jsx'
 
-const PackagesTable = ({ packages, handleSortChange,onDeletePackage, handleCheckboxChange, onSingleRemoval, currPage, packagesPerPage, selectedItems, handleSelectAllChange }) => {
+const PackagesTable = ({ packages, handleSortChange,onDeletePackage, handleCheckboxChange, onSingleRemoval, currPage, packagesPerPage, selectedItems, handleSelectAllChange, onSetFilter }) => {
 
     return (
         <>
             <table>
                 <PackagesTableHead handleSortChange={handleSortChange} handleSelectAllChange={handleSelectAllChange} selectedItems={selectedItems} packages={packages}/>
-                <PackagesTableBody onDeletePackage={onDeletePackage} packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval} />
+                <PackagesTableBody onDeletePackage={onDeletePackage} packages={packages} currPage={currPage} packagesPerPage={packagesPerPage} selectedItems={selectedItems} handleCheckboxChange={handleCheckboxChange} onSingleRemoval={onSingleRemoval}/>
             </table>
         </>
     )

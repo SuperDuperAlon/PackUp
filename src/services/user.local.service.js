@@ -1,10 +1,11 @@
 import { storageService } from './storage.service'
+import { userService } from './user.service'
 import { utilService } from './util.service'
-// import usersDemoData from '@/users.json'
+
 
 const STORAGE_KEY = 'user_db'
 
-export const userService = {
+export const userServiceLocal = {
     // saveLocalUser,
     getUsers,
     getUserById,
@@ -12,7 +13,8 @@ export const userService = {
     getUserById,
     save,
     getEmptyUser,
-    getDefaultFilter
+    getDefaultFilter,
+    generateTenants
 }
 
 async function getUsers(filterBy) {
@@ -73,6 +75,19 @@ function getDefaultFilter() {
             startDate: '',
             endDate: ''
         }
+    }
+}
+
+generateTenants()
+
+function generateTenants() {
+    if (typeof window !== 'undefined') {
+        let tenants = storageService.loadFromStorage(STORAGE_KEY);
+        if (!tenants || !tenants.length) {
+            tenants = utilService.generateRandomTenants()
+        }
+        // tenants.forEach(tenant => userService.save(tenant))
+        // storageService.saveToStorage(STORAGE_KEY, tenants);
     }
 }
 

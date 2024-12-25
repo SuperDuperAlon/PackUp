@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useLoader } from '@/context/LoaderContext';
 import { showToast } from '@/lib/reactToastify/index.js'
 import removePackageFormSchema from '@/lib/zod/removePackageFormSchema';
-const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems, setPackages, packages }) => {
+const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems, setPackages, packages, onSetFilter }) => {
 
     const [packageToEdit, setPackageToEdit] = useState(packageService.getEmptyPackage())
     const [users, setUsers] = useState([])
@@ -79,6 +79,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                 }
             }
             setPackages(packages.filter(p => !selectedItems.includes(p._id)))
+            onSetFilter(packageService.getDefaultFilter())
             setShowRemovePackages(false)
             setLoading(false)
         } catch (err) {

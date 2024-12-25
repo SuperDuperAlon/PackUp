@@ -1,13 +1,16 @@
 import { z } from 'zod';
 
-const addPackageFormSchema = (users) =>
+const addPackageFormSchema = (data) =>
   z.object({
     receivingTenantFullTenantDesc: z
       .string()
       .refine(
-        (val) =>
-          (users.some((user) => user.fullUserDescription === val)),
-        'הוסף דייר קיים'
+        (value) =>
+          data.some((user) => user.fullUserDescription === value),
+        // console.log(data),
+        {
+          message: 'הוסף דייר קיים',
+        }
       ),
     amount: z
       .enum(['1', '2', '3', '4', '5', '6', '7'], {

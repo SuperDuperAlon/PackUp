@@ -6,7 +6,8 @@ export const userService = {
     removeUser,
     save,
     getEmptyUser,
-    getDefaultFilter
+    getDefaultFilter,
+    deleteAllUsers
 }
 
 async function getUsers(filterBy) {
@@ -27,6 +28,24 @@ async function getUsers(filterBy) {
     }
 }
 
+async function deleteAllUsers() {
+    try {
+        const response = await fetch(API_URL, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete all users');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error deleting all users:', error);
+        throw error;
+    }
+}
+
 async function removeUser(userId) {
     try {
         const response = await fetch(API_URL + '/' + userId, {
@@ -40,7 +59,7 @@ async function removeUser(userId) {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error deleting the package:', error);
+        console.error('Error deleting the user:', error);
         throw error;
     }
 }

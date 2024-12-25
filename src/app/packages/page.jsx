@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import { packageService } from '@/services/package.service';
 import PackagesTable from '@/cmps/packages/PackagesMainTable/PackagesTable.jsx'
 import RemovePackage from '@/cmps/packages/RemovePackages/RemovePackages';
+import PackagesFilter from '@/cmps/packages/PackagesFilter/PackagesFilter';
 import Pagination from '@/cmps/general/Pagination/Pagination';
 import ExportButton from '@/cmps/general/Buttons/ExportButton/ExportButton';
 import RouteButton from '@/cmps/general/Buttons/RouteButton/RouteButton';
 import { useAuth } from '@/context/AuthContext';
 import { useLoader } from '@/context/LoaderContext'
+import Counter from '@/cmps/Counter/Counter';
 
 
 export default function PackageView() {
@@ -42,6 +44,7 @@ export default function PackageView() {
         loadPackages()
     }, [filterBy, sortBy, currPage])
     console.log('packages', packages)
+    console.log('filterBy', filterBy)
 
     function handlePageNumberChange(num) {
         if (num < 1 || num > numOfPages) return
@@ -57,9 +60,10 @@ export default function PackageView() {
         );
     };
 
-    function filterPackages(e) {
+    async function onSetFilter(filterBy) {
+        setFilterBy(filterBy)
         setCurrPage(1)
-        setFilterBy(prevFilterBy => ({ ...prevFilterBy, receivingTenantFullTenantDesc: e.target.value }));
+
     }
 
     function handleSortChange(by) {
@@ -79,6 +83,7 @@ export default function PackageView() {
 
     function onMultipleRemoval() {
         setShowRemovePackages(!showRemovePackages)
+
     }
 
     const handleSelectAllChange = () => {
@@ -93,12 +98,13 @@ export default function PackageView() {
     return (
         <>
             <section>
-                {showRemovePackages && <RemovePackage setShowRemovePackages={setShowRemovePackages} selectedItems={selectedItems} setSelectedItems={setSelectedItems} setPackages={setPackages} packages={packages} />}
+                {/* <Counter /> */}
+                {showRemovePackages && <RemovePackage setShowRemovePackages={setShowRemovePackages} selectedItems={selectedItems} setSelectedItems={setSelectedItems} setPackages={setPackages} packages={packages} onSetFilter={onSetFilter}/>}
                 <div className='table-section'>
                     <div>
                         <RouteButton content={'הוסף'} linkedRoute={'/packages/edit'} />
                         <button disabled={selectedItems.length === 0} onClick={() => onMultipleRemoval()}>מסירה</button>
-                        <input type="text" onChange={(e) => filterPackages(e)} />
+                        <PackagesFilter onSetFilter={onSetFilter} />
                         <div className='baseline'>יש {packages ? packages.length : 0} חבילות</div>
                     </div>
                     {packages &&
@@ -106,7 +112,8 @@ export default function PackageView() {
                         <Pagination handlePageNumberChange={handlePageNumberChange} numOfPages={numOfPages} currPage={currPage} />
                     }
                     <div>
-                        {admin && admin.isAdmin ? <ExportButton /> : null}
+                        {/* {admin && admin.isAdmin ? <ExportButton /> : null} */}
+                        <ExportButton />
                         <RouteButton content={'ארכיון'} linkedRoute={'packages/archive'} />
                     </div>
                 </div>

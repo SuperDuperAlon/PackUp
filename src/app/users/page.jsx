@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { userService } from '@/services/user.service'
+import { userServiceLocal } from '@/services/user.local.service'
 import UserList from '../../cmps/users/UserList'
 import EditUser from '../../cmps/users/EditUser'
 import UserFilter from '../../cmps/users/UserFilter'
@@ -21,6 +22,7 @@ const UserView = () => {
         setUsers(users);
     }
 
+    console.log(users.length)
     async function onRemoveUser(userId) {
         await userService.removeUser(userId)
         fetchUsers()
@@ -29,6 +31,11 @@ const UserView = () => {
     async function onEditUser(userId) {
         setUserIdToEdit(userId)
         setShowEditForm(true)
+    }
+
+    async function deleteAll() {
+        await userService.deleteAllUsers()
+        // fetchUsers()
     }
 
     function onSetFilter(filterBy) {
@@ -45,6 +52,7 @@ const UserView = () => {
         <>
             <div className='admin-view'>
                 <button onClick={() => onEditUser('')}>הוסף</button>
+                <button onClick={() => deleteAll()}>מחק הכל</button>
                 {showEditForm && <EditUser userIdToEdit={userIdToEdit} onCloseEditForm={closeEditForm} />}
                 <UserFilter onSetFilter={onSetFilter} />
             </div>

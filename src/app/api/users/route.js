@@ -52,3 +52,19 @@ export async function POST(req) {
     });
   }
 } 
+
+export async function DELETE() {
+  try {
+    const u = await db.collection(COLLECTION_NAME).deleteMany({});
+
+    return new Response(JSON.stringify(u), {  
+      status: 200,
+      headers: { 'Content-Type': 'application/json' } 
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Failed to delete user' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+}
