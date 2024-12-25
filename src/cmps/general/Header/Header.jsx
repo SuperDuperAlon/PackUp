@@ -39,12 +39,12 @@ const Header = () => {
                     }
                 </div>
                 <div className='header__left'>
-                    {admin.isAdmin &&
+                    {/* {admin.isAdmin &&
                         <>
                             <RouteButton content={'ניהול משתמשים'} linkedRoute={'users'} />
                             <RouteButton content={'ניהול מנהלים'} linkedRoute={'admin'} />
                         </>
-                    }
+                    } */}
                     <div className='header__logo' onClick={() => router.push('/')}>PackUp</div>
 
                 </div>
