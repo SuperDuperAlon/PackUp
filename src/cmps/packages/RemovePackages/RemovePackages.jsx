@@ -25,7 +25,6 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
 
     function closeForm(ev) {
         setShowRemovePackages(false)
-        setSelectedItems([])
     }
 
     useEffect(() => {
@@ -79,6 +78,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                 }
             }
             setPackages(packages.filter(p => !selectedItems.includes(p._id)))
+            setSelectedItems([])
             onSetFilter(packageService.getDefaultFilter())
             setShowRemovePackages(false)
             setLoading(false)

@@ -63,7 +63,6 @@ export default function PackageView() {
     async function onSetFilter(filterBy) {
         setFilterBy(filterBy)
         setCurrPage(1)
-
     }
 
     function handleSortChange(by) {
