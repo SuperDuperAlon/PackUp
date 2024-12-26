@@ -25,6 +25,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
 
     function closeForm(ev) {
         setShowRemovePackages(false)
+        setSelectedItems([])
     }
 
     useEffect(() => {
@@ -45,7 +46,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
         value = type === 'number' ? +value : value
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, text: value }))
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
-
+    }
 
         useEffect(() => {
             const handleEscape = (e) => {
@@ -58,7 +59,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
                 window.removeEventListener('keydown', handleEscape);
             };
         }, []);
-    }
+    
 
         async function onSavePackage(ev) {
             ev.preventDefault()
