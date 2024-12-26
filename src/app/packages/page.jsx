@@ -69,6 +69,7 @@ export default function PackageView() {
         const updatedSort = { ...sortBy, sortBy: by, ...sortBy.sortOrder === 1 ? { sortOrder: -1 } : { sortOrder: 1 } };
         setSortBy(updatedSort)
     }
+
     async function onDeletePackage(packageId) {
         await packageService.remove(packageId)
         setPackages(packages.filter(p => p._id !== packageId))

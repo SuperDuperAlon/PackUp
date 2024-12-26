@@ -2,11 +2,13 @@ import React from 'react'
 import { utilService } from '@/services/util.service'
 import RouteButton from '@/cmps/general/Buttons/RouteButton/RouteButton'
 import { useAuth } from '@/context/AuthContext'
+import { useLoader } from '@/context/LoaderContext'
 
 const PackagesTableBody = ({ packages, currPage, onDeletePackage, packagesPerPage, selectedItems, handleCheckboxChange, onSingleRemoval }) => {
   const { admin } = useAuth();
+  const { loading } = useLoader();
 
-  if (!packages || !packages.length) return <tbody><tr><td>אין חבילות במלאי</td></tr></tbody>
+  if (!packages || !packages.length && loading) return <tbody><tr><td>אנא המתן</td></tr></tbody>
   else return (
     <>
       <tbody>
