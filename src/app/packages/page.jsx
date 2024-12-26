@@ -82,7 +82,6 @@ export default function PackageView() {
 
     function onMultipleRemoval() {
         setShowRemovePackages(!showRemovePackages)
-
     }
 
     const handleSelectAllChange = () => {
@@ -103,7 +102,7 @@ export default function PackageView() {
                     <div>
                         <RouteButton content={'הוסף'} linkedRoute={'/packages/edit'} />
                         <button disabled={selectedItems.length === 0} onClick={() => onMultipleRemoval()}>מסירה</button>
-                        <PackagesFilter onSetFilter={onSetFilter} />
+                        <PackagesFilter onSetFilter={onSetFilter} filterBy={filterBy} />
                         <div className='baseline'>יש {packages ? packages.length : 0} חבילות</div>
                     </div>
                     {packages &&

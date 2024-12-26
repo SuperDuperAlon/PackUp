@@ -45,111 +45,112 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
         value = type === 'number' ? +value : value
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, text: value }))
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
-    }
 
-    useEffect(() => {
-        const handleEscape = (e) => {
-            if (e.key === 'Escape') {
-                closeForm();
-            }
-        };
-        window.addEventListener('keydown', handleEscape);
-        return () => {
-            window.removeEventListener('keydown', handleEscape);
-        };
-    }, []);
 
-    async function onSavePackage(ev) {
-        ev.preventDefault()
-        if (!validateForm()) return
-        const packagesToSave = await loadPackagesToRemove()
-        setLoading(true)
-        try {
-            for (const p of packagesToSave) {
-                const packageToSave = {
-                    ...p, dateCollected: Date.now(), lobbyPackGivenBy: 'אלון', isCollected: true, notesOnCollection: packageToEdit.notesOnCollection,
-                    collectingTenantFullTenantDesc: packageToEdit.collectingTenantFullTenantDesc
-                };
-                try {
-                    await packageService.save(packageToSave);
-                } catch (saveError) {
-                    console.error('Error saving package:', saveError);
-                    await showToast('error', 'פעולה נכשלה')
+        useEffect(() => {
+            const handleEscape = (e) => {
+                if (e.key === 'Escape') {
+                    closeForm();
                 }
-            }
-            setPackages(packages.filter(p => !selectedItems.includes(p._id)))
-            setSelectedItems([])
-            onSetFilter(packageService.getDefaultFilter())
-            setShowRemovePackages(false)
-            setLoading(false)
-        } catch (err) {
-            console.error(err)
-        }
+            };
+            window.addEventListener('keydown', handleEscape);
+            return () => {
+                window.removeEventListener('keydown', handleEscape);
+            };
+        }, []);
     }
 
-    const validateForm = () => {
-        const formSchema = removePackageFormSchema(users);
-        try {
-            formSchema.parse(packageToEdit);
-            setErrors({}); // Clear errors if validation passes
-            return true;
-        } catch (error) {
-            console.log(error, 'errors')
-            if (error.errors) {
-                const fieldErrors = {};
-                error.errors.forEach((err) => {
-                    fieldErrors[err.path[0]] = err.message;
-                });
-                setErrors(fieldErrors);
+        async function onSavePackage(ev) {
+            ev.preventDefault()
+            if (!validateForm()) return
+            const packagesToSave = await loadPackagesToRemove()
+            setLoading(true)
+            try {
+                for (const p of packagesToSave) {
+                    const packageToSave = {
+                        ...p, dateCollected: Date.now(), lobbyPackGivenBy: 'אלון', isCollected: true, notesOnCollection: packageToEdit.notesOnCollection,
+                        collectingTenantFullTenantDesc: packageToEdit.collectingTenantFullTenantDesc
+                    };
+                    try {
+                        await packageService.save(packageToSave);
+                    } catch (saveError) {
+                        console.error('Error saving package:', saveError);
+                        await showToast('error', 'פעולה נכשלה')
+                    }
+                }
+                setPackages(packages.filter(p => !selectedItems.includes(p._id)))
+                setSelectedItems([])
+                onSetFilter(packageService.getDefaultFilter())
+                setShowRemovePackages(false)
+                setLoading(false)
+            } catch (err) {
+                console.error(err)
             }
-            return false;
         }
-    };
-    const getErrorClass = (field) => (errors[field] ? 'error' : '');
 
-    return (
-        <>
-            <section className='edit_class__section'>
-                <form className='edit_class__form' onSubmit={onSavePackage} autoComplete="off" role="presentation">
-                    <button onClick={closeForm} className="close-btn-x">X</button>
-                    <div className='edit_class__form_container form-group'>
-                        <label htmlFor="name">הזן פרטי דייר</label>
-                        <input
-                            type="text"
-                            list="tenants"
-                            id="name"
-                            name="collectingTenantFullTenantDesc"
-                            value={packageToEdit.collectingTenantFullTenantDesc}
-                            onChange={handleChange}
-                            className={getErrorClass('collectingTenantFullTenantDesc')}
-                        />
-                        {errors.collectingTenantFullTenantDesc &&
-                            <span className="error-message">{errors.collectingTenantFullTenantDesc}</span>
-                        }
-                        <datalist id="tenants">
-                            {
-                                users.map(user => <option key={user._id} value={user.fullUserDescription}></option>)
+        const validateForm = () => {
+            const formSchema = removePackageFormSchema(users);
+            try {
+                formSchema.parse(packageToEdit);
+                setErrors({}); // Clear errors if validation passes
+                return true;
+            } catch (error) {
+                console.log(error, 'errors')
+                if (error.errors) {
+                    const fieldErrors = {};
+                    error.errors.forEach((err) => {
+                        fieldErrors[err.path[0]] = err.message;
+                    });
+                    setErrors(fieldErrors);
+                }
+                return false;
+            }
+        };
+        const getErrorClass = (field) => (errors[field] ? 'error' : '');
+
+        return (
+            <>
+                <section className='edit_class__section'>
+                    <form className='edit_class__form' onSubmit={onSavePackage} autoComplete="off" role="presentation">
+                        <button onClick={closeForm} className="close-btn-x">X</button>
+                        <div className='edit_class__form_container form-group'>
+                            <label htmlFor="name">הזן פרטי דייר</label>
+                            <input
+                                type="text"
+                                list="tenants"
+                                id="name"
+                                name="collectingTenantFullTenantDesc"
+                                value={packageToEdit.collectingTenantFullTenantDesc}
+                                onChange={handleChange}
+                                className={getErrorClass('collectingTenantFullTenantDesc')}
+                            />
+                            {errors.collectingTenantFullTenantDesc &&
+                                <span className="error-message">{errors.collectingTenantFullTenantDesc}</span>
                             }
-                        </datalist>
-                    </div>
-                    <div className='edit_class__form_container'>
-                        <label htmlFor="name">הערות</label>
-                        <input type="text"
-                            name="notesOnCollection"
-                            id="notes"
-                            placeholder="הוסף הערה"
-                            value={packageToEdit.notesOnCollection}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="flex-row">
-                        <button type="submit">בצע מסירה</button>
-                        <button type='button' onClick={() => closeForm()}>סגור</button>
-                    </div>
-                </form>
-            </section>
-        </>
-    )
+                            <datalist id="tenants">
+                                {
+                                    users.map(user => <option key={user._id} value={user.fullUserDescription}></option>)
+                                }
+                            </datalist>
+                        </div>
+                        <div className='edit_class__form_container'>
+                            <label htmlFor="name">הערות</label>
+                            <input type="text"
+                                name="notesOnCollection"
+                                id="notes"
+                                placeholder="הוסף הערה"
+                                value={packageToEdit.notesOnCollection}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="flex-row">
+                            <button type="submit">בצע מסירה</button>
+                            <button type='button' onClick={() => closeForm()}>סגור</button>
+                        </div>
+                    </form>
+                </section>
+            </>
+        )
+    
 }
-
 export default RemovePackages

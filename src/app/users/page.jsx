@@ -22,7 +22,6 @@ const UserView = () => {
         setUsers(users);
     }
 
-    console.log(users.length)
     async function onRemoveUser(userId) {
         await userService.removeUser(userId)
         fetchUsers()
