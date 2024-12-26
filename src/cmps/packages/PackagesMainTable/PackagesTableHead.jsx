@@ -13,7 +13,7 @@ const PackagesTableHead = ({ packages, handleSortChange, handleSelectAllChange, 
                     </th>
 
                     <th></th>
-                    <th onClick={() => handleSortChange('apartmentReceiver')}>
+                    <th onClick={() => handleSortChange('receivingTenantFullTenantDesc')}>
                         עבור</th>
                     <th onClick={() => handleSortChange('fullPackageDescription')}>
                         תיאור החבילה</th>
