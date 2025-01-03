@@ -72,10 +72,10 @@ async function exportToCSV() {
         if (!response.ok) {
             throw new Error("Failed to fetch CSV");
         }
-        return await response.blob(); // Return the Blob for further processing
+        return await response.blob();
     } catch (error) {
         console.error("Error fetching CSV:", error);
-        throw error; // Re-throw to handle in the component
+        throw error;
     }
 }
 
@@ -162,7 +162,6 @@ function getEmptyPackage() {
         notesOnCollection: '',
         receivingTenantFullTenantDesc: '',
         collectingTenantFullTenantDesc: ''
-
     };
 }
 
