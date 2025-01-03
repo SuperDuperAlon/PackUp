@@ -80,8 +80,8 @@ const EditPackage = () => {
         }
     }
 
-    const handleSelectChange = ({ target }) => {
-        let { value, type, name: field } = target
+    function handleSelectChange({ target }) {
+        let { value, name: field } = target
         setPackageToEdit((prevPackage) => ({ ...prevPackage, [field]: value }))
     };
 
@@ -109,7 +109,7 @@ const EditPackage = () => {
         const formSchema = addPackageFormSchema(users);
         try {
             formSchema.parse(packageToEdit);
-            setErrors({}); // Clear errors if validation passes
+            setErrors({});
             return true;
         } catch (error) {
             console.log(error, 'errors')
