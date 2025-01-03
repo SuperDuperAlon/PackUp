@@ -43,8 +43,6 @@ export default function PackageView() {
         }
         loadPackages()
     }, [filterBy, sortBy, currPage])
-    console.log('packages', packages)
-    console.log('filterBy', filterBy)
 
     function handlePageNumberChange(num) {
         if (num < 1 || num > numOfPages) return
