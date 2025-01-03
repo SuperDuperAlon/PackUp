@@ -49,8 +49,8 @@ export default function PackageView() {
         setCurrPage(num)
     }
 
-    const handleCheckboxChange = (event) => {
-        const value = event.target.value;
+function handleCheckboxChange(e) {
+        const value = e.target.value;
         setSelectedItems(prevSelectedItems =>
             prevSelectedItems.includes(value)
                 ? prevSelectedItems.filter(item => item !== value)
@@ -75,7 +75,6 @@ export default function PackageView() {
 
     async function onSingleRemoval(id) {
         setSelectedItems([id])
-        setPackages(packages)
         setShowRemovePackages(!showRemovePackages)
     }
 
