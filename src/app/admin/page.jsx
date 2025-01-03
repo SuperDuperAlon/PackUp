@@ -16,7 +16,7 @@ const AdminView = () => {
     fetchAdmins();
   }, [filterBy])
 
-  const fetchAdmins = async () => {
+  async function fetchAdmins() {
     const admins = await adminService.getAdmins(filterBy);
     setAdmins(admins);
   }
@@ -40,6 +40,7 @@ const AdminView = () => {
     setAdmins(admins)
     fetchAdmins()
   }
+  
   return (
     <>
       <div className='admin-view'>
