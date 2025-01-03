@@ -7,7 +7,6 @@ const addPackageFormSchema = (data) =>
       .refine(
         (value) =>
           data.some((user) => user.fullUserDescription === value),
-        // console.log(data),
         {
           message: 'הוסף דייר קיים',
         }
