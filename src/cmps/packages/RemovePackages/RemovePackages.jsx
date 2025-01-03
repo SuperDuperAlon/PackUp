@@ -93,7 +93,7 @@ const RemovePackages = ({ setShowRemovePackages, setSelectedItems, selectedItems
             const formSchema = removePackageFormSchema(users);
             try {
                 formSchema.parse(packageToEdit);
-                setErrors({}); // Clear errors if validation passes
+                setErrors({});
                 return true;
             } catch (error) {
                 console.log(error, 'errors')
