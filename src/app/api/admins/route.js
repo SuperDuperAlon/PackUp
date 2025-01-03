@@ -10,8 +10,6 @@ export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
     const regex = new RegExp(searchParams.get('username'), 'i');
-    console.log(regex, 'regex');
-
 
     const admins = await db.collection(COLLECTION_NAME).find({ username: regex }).toArray();
     return new Response(JSON.stringify(admins), {
